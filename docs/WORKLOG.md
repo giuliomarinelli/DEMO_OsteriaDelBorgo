@@ -214,3 +214,90 @@ Ripetere prima e dopo una combinazione senza risultati. L'iniezione è solo QA e
 Commit della funzionalità con dati, test e documentazione coerenti; signing disattivato solo con `git -c commit.gpgsign=false commit`. Push limitato a `feature/mvp-foundation`. Hash e conferma nel resoconto finale, ricostruibili con `git log --oneline dedb43e..HEAD`. Nessun artefatto, screenshot, dipendenza installata, stato Wrangler o secret nei commit. Preview della sessione fermata al termine.
 
 Residui: audit upstream, limiti delle verifiche di accessibilità/browser sopra descritti e dati alimentari esclusivamente dimostrativi. Nessun blocco della funzionalità richiesta. Prossimo task soltanto su nuova richiesta: eventuali rifiniture della milestone 4; non avviate automaticamente prenotazioni, promozioni fra branch o pubblicazioni.
+
+## 2026-11-15 — Milestone 4A: collaudo visuale e funzionale
+
+### Perimetro e riferimento
+
+Letti integralmente regole, MVP, direzione artistica e worklog. Branch `feature/mvp-foundation`, working tree inizialmente pulito, HEAD `00d76b3f1b2b6a0ad5d0090937e3833513e97c30`. `git fetch origin feature/mvp-foundation` e confronto HEAD/remoto: `0 0`. Nessun nuovo branch, subagente, worktree, merge, rebase o modifica alle specifiche. Nessun login, deploy, servizio Cloudflare, DNS, account, Access, secret, pipeline o fatturazione modificato.
+
+Obiettivo: collaudare l'app esistente, registrare evidenze e audit editoriale, correggendo solo difetti circoscritti confermati. Nessun difetto applicativo riproducibile confermato nelle prove riuscite: codice in `src` e configurazioni SSR/Pages lasciati invariati. Due test aggiunti e documentazione aggiornata; nessuna nuova funzionalità o restyling. Skill Wrangler usata con versione locale e help effettivo; consultata la [documentazione Pages locale](https://developers.cloudflare.com/pages/functions/local-development/).
+
+### Comandi e risultati tecnici
+
+Windows, Node 22.16.0 e npm 10.9.2, dalla radice:
+
+```powershell
+npm ci
+node node_modules/wrangler/bin/wrangler.js pages dev --help
+npm run typecheck
+npm run lint
+npm run build
+node node_modules/wrangler/bin/wrangler.js pages dev dist --ip 127.0.0.1 --port 8798 --inspector-port 0
+# Seconda shell nella stessa radice:
+$env:SSR_BASE_URL = 'http://127.0.0.1:8798'
+npm test
+```
+
+- `npm ci`: exit 0, 447 pacchetti aggiunti, 454 analizzati; lockfile invariato. Avvisi di deprecazione upstream per inflight, glob, tsconfck ed ESLint 9.39.5. Nessun aggiornamento di dipendenze applicato.
+- Typecheck e lint: exit 0; lint senza warning anche dopo i due nuovi test. TypeScript strict e regole Qwik conservati.
+- Build: exit 0; 81 moduli client, 41 SSR, CSS 26,89 kB / 6,44 kB gzip. Artefatti client/server e `_worker.js`/`_routes.json` generati. Solo 404 ausiliaria statica, nessun `index.html` delle pagine pubbliche. Avvisi già noti sulla risoluzione runtime del font nel build server e `NO_COLOR`/`FORCE_COLOR`, senza errore di build. Font realmente servito e validato dal test WOFF2.
+- Wrangler 4.162.0/Workerd locale fresco sulla porta 8798, libera all'inizio, senza login. Nessun binding business o remoto. L'URL Pages stampato è una variabile locale simulata, non un deployment.
+- Prima suite: 29/29 passati sul runtime di produzione. Aggiunti poi due test sul dataset effettivo: sequenza latte → primi → grano → deselezione del latte → stato iniziale; tutte le 12 esclusioni, sia su tutte le portate sia su ognuna. Si verificano ID attesi espliciti e non soltanto il numero prodotto dalla funzione.
+- Suite finale dopo questi nuovi casi: **31/31 passati**, 21 unitari e 10 HTTP SSR, 0 falliti/saltati. Avviso sperimentale del type stripping Node atteso. I test unitari non simulano il browser e non dimostrano aggiornamento DOM, tastiera o reset dei controlli visivi.
+- I dieci test HTTP confermano HTML significativo e metadati sulle cinque richieste dirette, link/asset, 404 reale, catalogo e allergeni presenti nell'HTML iniziale, font e artefatti. Nessun JS client eseguito da questi test. Canonical con origine configurata non esercitato; senza origine confermata l'assenza di dominio inventato.
+- Formattazione eseguita e verificata; i relativi script includono anche CONTENT_AUDIT, QA_MANUAL e documenti/JSON delle evidenze. Nessuna modifica dei file di specifica tramite formatter.
+
+### Browser: evidenza riuscita e blocco
+
+Playwright MCP disponibile inizialmente: aperta una sola scheda QA sulla preview locale e acquisito lo [screenshot home 1440×1000](evidence/milestone-4a/home-1440.png), poi letto il file per l'ispezione visuale. Header, marchio, titoli, CTA, margini e inizio foto risultano coerenti con la direzione artistica e senza tagli nella vista acquisita. Questo non copre il resto della home o l'intera applicazione.
+
+Il primo script preparatorio tentava un import Node nel contesto isolato del tool, rifiutato con `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`: errore del codice di QA, non dell'app. Rimosso quell'import, il primo controllo della matrice (home/storia con attesa font/immagini) è rimasto in esecuzione senza restituire un report, oltre il primo yield di 30 secondi. Interrotta la cella in attesa; causa del blocco non isolata, quindi non attribuita al sito. **Nessun ulteriore tentativo browser**, riavvio del driver, nuova scheda di aggiramento o sostituzione con input di sistema, come richiesto. La scheda QA può restare aperta; non è attestato il completamento della chiamata browser interrotta.
+
+Non si considerano riusciti la matrice 20 combinazioni, la verifica interattiva reale, i nuovi test da tastiera, una nuova scansione axe, gli screenshot mobile o interni. I pass della milestone 3 rimangono storici. La nuova vista desktop è versionata; hash, dimensione e ambito sono nel [manifest delle evidenze](evidence/milestone-4a/README.md). Non sono usate immagini storiche per simulare nuove prove.
+
+Preparato [QA_MANUAL.md](QA_MANUAL.md): avvio riproducibile, matrice cinque pagine × 1440/768/390/320, scorrimento completo, immagini, spaziature, gerarchie, navigazione, tastiera, stato vuoto, entrambe le azioni di reset, deselezione, tutte le esclusioni e ID attesi, controlli senza JS e criteri per documentare difetti. Le celle sono marcate da eseguire, con sola home desktop iniziale parziale. I test di logica verificano i valori attesi di quella checklist, senza trasformarli in esiti UI.
+
+### Contrasto e lettura del sorgente
+
+Ricalcolati in Node i rapporti sRGB dei token: pomodoro/panna 5,81:1, basilico/panna 6,15:1, inchiostro/panna 13,52:1, pomodoro/carta secondaria 5,02:1 e testo reset disabilitato/panna 7,02:1. Sono rapporti fra colori senza trasparenze o sovrapposizioni, non una nuova verifica di tutti i pixel dell'interfaccia. I valori coprono anche i token della freccia decorativa segnalata come incomplete in milestone 3; quella segnalazione non viene dichiarata risolta da un controllo visuale non eseguito.
+
+Nel CSS e markup sono presenti focus, controlli nativi, etichette e dichiarazioni demo; non è equivalente a una prova da tastiera. Le didascalie e le etichette minori arrivano a 9–11 px su mobile: la leggibilità con zoom e dispositivi reali resta da verificare, senza aumentare font o cambiare composizioni sulla base del solo sospetto. Nessun audit WCAG completo, screen reader, Safari, Lighthouse o prestazione in produzione dichiarati.
+
+### Dipendenze: rilevanza effettiva dell'audit
+
+`npm audit --json` conferma **12 pacchetti segnalati: 8 moderate, 4 high, 0 critical**. Sono pacchetti coinvolti anche per propagazione transitiva, non dodici vulnerabilità indipendenti. Analizzati `via`, `nodes` ed `effects`, `npm explain minimatch sharp zod`, import del sorgente e bundle client/SSR; [snapshot JSON](evidence/milestone-4a/dependency-review.json) versionato. Nessun payload di sfruttamento eseguito.
+
+| Catena e versione installata                                              | Rilevanza per questo progetto e limite residuo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| TypeScript ESLint / plugin Qwik → minimatch **10.2.6**, moderate          | L'[advisory sulla crescita dei pattern](https://github.com/advisories/GHSA-g3hv-75wg-m249) riguarda consumo di risorse da pattern controllabili. Qui la catena opera nel lint/configurazione locale, senza pattern ricevuti da HTTP. Non emergono import o marker nel runtime prodotto. Rischio principalmente della toolchain con input/configurazioni non affidabili; non chiuso solo perché devDependency. La copia 3.1.5 di altre catene non è il nodo segnalato da questo advisory.                                                                                                                                                                                       |
+| Qwik City **1.20.4** → vite-imagetools **9.0.3** → Sharp **0.34.5**, high | Advisory su dipendenze native [libvips](https://github.com/advisories/GHSA-f88m-g3jw-g9cj), [libheif](https://github.com/advisories/GHSA-rgj7-g3m4-5g8c) e [librsvg](https://github.com/advisories/GHSA-wq5f-xc86-pv6w). La toolchain immagini rimane installata sul sistema di sviluppo/build. Questa app usa asset locali versionati, senza upload o endpoint di trasformazione; il bundle Pages non importa Sharp o moduli nativi. Rischio da rivalutare se si elaborano file non affidabili o si cambia pipeline. La distinta copia Sharp **0.35.5** dentro Miniflare non è il nodo vulnerabile indicato dall'audit corrente; non basta ad aggiornare quella di Qwik City. |
+| Qwik City **1.20.4** → Zod **3.25.48**, high                              | L'[advisory sul consumo di memoria nella validazione](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5) include questa versione secondo npm audit. Il modulo generale Qwik City importa/riesporta API Zod, quindi la sola categoria devDependency non dimostra l'esclusione. L'app non usa routeAction, routeLoader, zodSchema o validatori business; il bundle effettivo non presenta import esterni Zod o i marker cercati. Nessuna via di validazione di collezioni fornita dall'utente individuata nel perimetro attuale. Rivalutare se si aggiungono action/form/validatori.                                                                                             |
+
+Controllo statico aggiuntivo con esbuild già installato: il worker prodotto si risolve in sette file locali generati, unico import esterno `node:async_hooks`; nessun modulo sotto `node_modules` richiesto dall'output. Cercati nel bundle SSR risultante e nei 47 moduli client i marker `minimatch`, `firstPhasePreProcess`, `globParts`, `sharp`, `vite-imagetools`, `ZodError`, `ZodArray`, `safeParseAsync`, `zod`, senza corrispondenze. L'assenza di stringhe non è una prova formale di assenza di codice minificato: combinata con grafo e sorgente limita la via di esposizione individuata per **questa** build. Audit resta aperto; nessuna garanzia generale di non sfruttabilità.
+
+Per riprodurre l'ispezione dalla radice, a build conclusa:
+
+```powershell
+New-Item -ItemType Directory -Force -Path artifacts/milestone-4a/review | Out-Null
+npm audit --json | Out-File -LiteralPath artifacts/milestone-4a/npm-audit.json -Encoding utf8
+npm explain minimatch sharp zod
+node node_modules/esbuild/bin/esbuild dist/_worker.js --bundle --platform=neutral --format=esm '--external:node:*' '--external:cloudflare:*' --metafile=artifacts/milestone-4a/review/metafile.json --outfile=artifacts/milestone-4a/review/worker.js
+$bundleMeta = Get-Content -Raw artifacts/milestone-4a/review/metafile.json | ConvertFrom-Json
+$bundleMeta.inputs.PSObject.Properties.Name
+$bundleMeta.outputs.PSObject.Properties.Value.imports
+rg -n 'minimatch|firstPhasePreProcess|globParts|sharp|vite-imagetools|ZodError|ZodArray|safeParseAsync|zod' artifacts/milestone-4a/review/worker.js dist/build
+rg -n 'routeAction|globalAction|routeLoader|zod|validator|sharp|imagetools' src adapters vite.config.ts
+```
+
+`npm audit` esce con codice non zero quando trova segnalazioni; `rg` con codice 1 indica nessuna corrispondenza. Il primo tentativo tramite `npm exec` ha inoltrato male i flag nel terminale Windows e non ha prodotto l'analisi: usato poi l'ingresso Node locale sopra, verificato con successo. Nessuna modifica del bundle servito: l'output di ispezione è separato e ignorato da Git. I nomi hash dei chunk possono cambiare in altre build.
+
+Non eseguiti `npm audit fix`, override o aggiornamenti forzati. Le soluzioni automatiche proposte includono downgrade incompatibili di Qwik City a 0.0.128 e altri tool; non sono una procedura di rimedio accettata. Un futuro aggiornamento compatibile richiede decisione e collaudo dedicati. Il problema non è dichiarato irrilevante né risolto per il solo fatto di non avere un backend business.
+
+### Audit editoriale e consegna
+
+Creato [CONTENT_AUDIT.md](CONTENT_AUDIT.md) con valutazione di home, storia, menu, galleria, contatti e 404; rilevati soprattutto ripetizione dei temi conviviali, pochi contenuti esclusivi nella galleria e opportunità di dettaglio nella storia. CTA al menu molto ripetute ma funzionanti; nessuna modifica pubblica per preferenze non misurate. Nessuna pagina placeholder individuata dall'esame dei contenuti. Valutazione distinta dal collaudo visuale non completato.
+
+README, ARCHITECTURE, DEPLOYMENT e CASE_STUDY aggiornati a 21 unitari + 10 SSR e al limite attuale, mantenendo i risultati storici. Screenshot e JSON sono evidenze di QA versionate, non nuovi asset del sito. Configurazioni, dipendenze risolte e codice applicativo preservati. Fermata soltanto la preview Wrangler avviata dalla sessione, verificando percorso e PID del CLI e dei figli.
+
+Commit e push sul solo `feature/mvp-foundation`, signing disattivato per ogni singolo comando di commit. Hash nel resoconto finale e recuperabile con `git log --oneline 00d76b3..HEAD`. Nessuna credenziale o artefatto di build nei commit. **Accettazione visuale/interattiva 4A ancora parziale**: completare la checklist manuale prima di dichiararla superata. Nessuna nuova funzionalità, promozione o milestone successiva avviata.

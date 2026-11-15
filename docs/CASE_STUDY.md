@@ -24,6 +24,12 @@ L'interazione non trasforma i dati inventati in informazioni alimentari affidabi
 
 La verifica sul browser ha rilevato due difetti sfuggiti ai soli test di logica: CSS contenuto in `noscript` che diventava attivo durante l'aggiornamento DOM e un raggruppamento derivato che lasciava righe obsolete mentre aggiornava il contatore. La versione consegnata usa la media query CSS globale per il fallback e ricava le sezioni direttamente dai risultati con props reattive. Le verifiche successive confrontano gli ID realmente renderizzati: 18 iniziali, 9 escludendo latte, uno selezionando anche primi, zero aggiungendo grano, 18 dopo reset.
 
+## Milestone 4A: verifica e limiti di accettazione
+
+Reinstallazione dal lockfile, typecheck, lint e build di produzione confermati. Trentuno test passati: 21 unitari in Node, inclusi due nuovi casi sul catalogo effettivo e tutte le esclusioni, e 10 HTTP SSR su Wrangler locale. L'analisi statica del bundle approfondisce le 12 segnalazioni npm senza aggiornamenti forzati; non trasforma l'assenza dei marker cercati in una garanzia di sicurezza.
+
+Il browser ha prodotto la sola vista iniziale della home desktop, poi è rimasto bloccato durante l'attesa delle risorse. Il collaudo visuale delle altre pagine, i viewport mobile e le interazioni reali non sono dichiarati superati in questa esecuzione. Preparata una [procedura manuale](QA_MANUAL.md) con matrice, casi limite e risultati attesi, distinta dalle evidenze storiche della milestone 3. [CONTENT_AUDIT.md](CONTENT_AUDIT.md) indica opportunità concrete per storia e galleria, senza introdurre nuovi contenuti pubblici o restyling. Nessuna modifica al codice applicativo sulla base di difetti non riprodotti.
+
 ## Scelte progettuali della foundation
 
 - Identità editoriale crema, oliva e terracotta; illustrazioni vettoriali originali al posto di fotografie attribuite a un locale inesistente.

@@ -193,3 +193,57 @@ test("La selezione della homepage rimane quella della milestone 2", () => {
     "tiramisu",
   ]);
 });
+
+test("Catalogo reale: combinazioni della procedura manuale e ripristino", () => {
+  const filters = createDefaultFilters();
+  filters.excludedAllergens = ["latte"];
+  assert.deepEqual(ids(filterDishes(menuDishes, filters)), [
+    "caponata",
+    "crostino-ceci",
+    "spaghetti-vongole",
+    "pollo-limone",
+    "baccala-umido",
+    "polpettone-lenticchie",
+    "patate-rosmarino",
+    "cicoria-ripassata",
+    "finocchi-arance",
+  ]);
+  filters.category = "primi";
+  assert.deepEqual(ids(filterDishes(menuDishes, filters)), [
+    "spaghetti-vongole",
+  ]);
+  filters.excludedAllergens.push("glutine");
+  assert.deepEqual(filterDishes(menuDishes, filters), []);
+  filters.excludedAllergens = filters.excludedAllergens.filter(
+    (id) => id !== "latte",
+  );
+  assert.deepEqual(ids(filterDishes(menuDishes, filters)), ["risotto-funghi"]);
+  assert.deepEqual(
+    ids(filterDishes(menuDishes, createDefaultFilters())),
+    ids(menuDishes),
+  );
+});
+
+test("Limite del catalogo: tutte le esclusioni e ogni portata, senza garanzie alimentari", () => {
+  const expected = ["patate-rosmarino", "cicoria-ripassata"];
+  assert.deepEqual(
+    ids(
+      filterDishes(menuDishes, {
+        category: "all",
+        excludedAllergens: [...allergenIds],
+      }),
+    ),
+    expected,
+  );
+  for (const category of menuCategories) {
+    assert.deepEqual(
+      ids(
+        filterDishes(menuDishes, {
+          category: category.id,
+          excludedAllergens: [...allergenIds],
+        }),
+      ),
+      category.id === "contorni" ? expected : [],
+    );
+  }
+});
