@@ -25,10 +25,19 @@ Sito dimostrativo per una trattoria italiana fittizia, con identita' visiva orig
 - Typecheck, lint, test applicabili e build di produzione completati.
 
 ## Milestone iniziale
-1. Scaffold React/Vite/TypeScript strict/Tailwind e componenti base.
+1. Scaffold Qwik/Qwik City con SSR, adapter Cloudflare Pages, TypeScript strict e Tailwind e componenti base.
 2. Home e struttura pagine con design coerente.
 3. Menu, filtri e test.
 4. Accessibilita', documentazione, istruzioni Cloudflare Pages; nessun deploy remoto senza autorizzazione.
+
+
+## Requisito architetturale vincolante: SSR
+- Framework: Qwik + Qwik City; TypeScript strict, Tailwind CSS.
+- Cloudflare Pages con adapter Qwik City `cloudflare-pages` e SSR tramite Pages Functions; Vite è solo la toolchain interna al progetto Qwik.
+- L'HTML della prima risposta, incluse le rotte interne, deve contenere il contenuto significativo della pagina anche senza eseguire JavaScript nel browser.
+- Impostare metadati SEO per le pagine e verificare la build SSR con richiesta HTTP diretta a una rotta interna in ambiente compatibile con Pages.
+- Dati applicativi dimostrativi locali; nessun database o backend business separato. Le funzioni serverless dell'adapter SSR sono ammesse.
+- Non implementare una SPA React e non abilitare SSG in sostituzione dell'SSR senza autorizzazione.
 
 ## Branch e deployment
 - feature/* da develop per ogni milestone; integrare su develop dopo verifica.
