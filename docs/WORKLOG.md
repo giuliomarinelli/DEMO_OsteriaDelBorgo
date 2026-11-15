@@ -351,3 +351,50 @@ Typecheck e lint exit 0; build exit 0, controlli interni superati: 81 moduli cli
 Il [manifest](evidence/milestone-4a/README.md) collega screenshot rappresentativi delle cinque pagine, coppia prima/dopo e report. `captures-resume.json` registra dimensioni, byte e SHA-256 dei PNG versionati; le catture full-page sono larghe quanto il contenuto senza scrollbar (15 px meno del viewport in questa sessione), quelle viewport prima/dopo sono 320×844. I bordi del solo bitmap non sono usati come prova di overflow. Gli altri screenshot completi restano in `artifacts/milestone-4a-resume`, ignorata da Git. Nessun asset del sito rigenerato o screenshot alterato.
 
 Aggiornati QA_MANUAL, CONTENT_AUDIT, README, ARCHITECTURE, DEPLOYMENT e CASE_STUDY con la nuova copertura, mantenendo il precedente blocco come fatto storico. Preview della sessione fermata identificando i soli processi pertinenti. Commit e push sul solo branch corrente, signing disattivato nel singolo comando; hash nel resoconto finale e in `git log --oneline cad3b09..HEAD`. Nessun merge, rebase, deploy o modifica ai servizi Cloudflare. Collaudo ancora parziale per gli input e le voci aperte della checklist; nessun avvio di nuove funzionalità o milestone.
+
+## 2026-11-15 — Verifica browser esclusiva e sequenziale
+
+### Perimetro e preparazione
+
+Nuova richiesta esplicita del proprietario: completare solo le prove browser mancanti, con Playwright riservato a questa istanza e chiamate sequenziali. Letti AGENTS, MVP, worklog, DEPLOYMENT e checklist. Branch `feature/mvp-foundation`, HEAD `7480a4c`, working tree pulito; fetch del solo branch, confronto con origin `0 0`. Nessun subagente o lavoro su altre repository.
+
+Individuate come mancanti: interazioni native dei filtri (combinazioni, deselezione, limite di tutte le esclusioni, stato vuoto e reset), tastiera/navigazione, FAQ azionate, stati filtrati/vuoti responsive e le celle visuali ancora aperte in QA_MANUAL. Le 20 misure iniziali, gli screenshot riusciti, l'audit e le scansioni axe già documentati non sono stati ripetuti.
+
+Entrambe le porte 8797/8798 libere al controllo iniziale. Usata **8797**, porta standard di `npm run preview` in DEPLOYMENT, con gli artefatti Qwik City SSR già costruiti e verificati sulla medesima applicazione. Nessuna reinstallazione, rebuild o modifica del runtime/configurazione.
+
+```powershell
+npm run preview
+# Seconda shell, prima di qualsiasi chiamata Playwright:
+$baseUri = 'http://127.0.0.1:8797'
+foreach ($route in @('/', '/menu/')) {
+  $response = Invoke-WebRequest -Uri ($baseUri + $route) -TimeoutSec 10
+  if ($response.StatusCode -ne 200 -or $response.Content -notmatch 'Osteria del Borgo') {
+    throw 'Runtime non corrispondente al progetto'
+  }
+  [regex]::Match($response.Content, '<title[^>]*>([^<]+)</title>').Groups[1].Value
+}
+```
+
+Wrangler 4.162.0: worker compilato, ascolto solo loopback, senza login. Preflight **HTTP 200** su entrambe le rotte, titoli corretti, 3 assaggi home e 18 righe menu nell'HTML. È una verifica di disponibilità richiesta per questa esecuzione, non una nuova esecuzione della suite SSR già superata.
+
+### Punto di blocco e distinzione degli errori
+
+Creata una scheda dedicata, indice 1; quella di connessione del servizio, indice 0, lasciata intatta. Impostato viewport 1440×1000 e ricevuto snapshot accessibilità del menu con 18 piatti. Prima della sequenza controllati URL esatto `http://127.0.0.1:8797/menu/`, `innerWidth/innerHeight` e precondizione di 18 righe. Tutte le chiamate attese in sequenza; nessun browser/processo condiviso riavviato, terminato o riconfigurato.
+
+Primo controllo funzionale:
+
+```javascript
+await page.locator('input[value="latte"]').check({ timeout: 5000 });
+```
+
+Esito: **`TimeoutError: locator.check: Timeout 5000ms exceeded`**. Il locator risolve il checkbox effettivo (`value="latte"`, `name="excluded-allergens"`, handler Qwik presente), ma l'azione rimane al passo **`waiting for element to be visible, enabled and stable`**. Il click e la successiva attesa di 9 righe non risultano eseguiti. Nessun tentativo successivo di check, focus, input forzato, evento sintetico o screenshot di aggiramento.
+
+Classificazione rigorosa: disponibilità HTTP/SSR confermata; servizio MCP rispondente con risultato di errore; **timeout dell'azione Playwright sui prerequisiti del click**, non un timeout del trasporto MCP. Causa non isolata. Non è stata raggiunta una condizione che dimostri un bug dei filtri; nessuna correzione applicativa giustificata. Anche in questa esecuzione esclusiva l'input resta non verificabile: non si attribuisce automaticamente il problema alla concorrenza di altre sessioni o all'applicazione.
+
+Come richiesto, collaudo browser interrotto al primo blocco. Nessun nuovo pass su filtri, reset, tastiera, FAQ o viewport mancanti; la checklist mantiene aperti quei controlli. [Report della singola esecuzione](evidence/milestone-4a/exclusive-attempt.json), con preflight, precondizioni, punto di arresto e pulizia. Nessuna ripetizione di test tecnici già superati e documentati sulla stessa applicazione; questa consegna modifica soltanto documentazione/JSON, verificati con Prettier e `git diff --check`.
+
+### Pulizia e consegna
+
+Chiusa con Playwright la sola scheda dedicata indice 1; il servizio ha confermato la permanenza della scheda di connessione indice 0. Poi fermati esclusivamente wrapper Node Wrangler 57580, CLI 74080 e figli esbuild/Workerd identificati per parent PID e percorso sotto `node_modules` di questa repository. Nessun processo browser o runtime di altri progetti toccato; controllo finale: nessun listener 8797. Nessuna ulteriore chiamata Playwright dopo la chiusura della risorsa propria: MCP liberato per la sessione successiva.
+
+Aggiornati WORKLOG, checklist e manifest delle evidenze. Nessuna modifica a codice, dipendenze, infrastruttura, AGENTS o MVP. Commit/push sul solo branch corrente, signing disattivato soltanto nel comando di commit. Nessun deploy, merge, rebase, reset o force push. Il collaudo mancante resta bloccato al punto sopra: occorre una futura verifica con input browser funzionante, senza dichiarare superati i casi non eseguiti.

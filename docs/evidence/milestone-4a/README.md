@@ -27,3 +27,7 @@ Le catture full-page hanno larghezza del contenuto al netto della scrollbar di 1
 La ripresa ha incontrato un timeout sulla cattura galleria 768 e poi input non affidabili sul menu. La cattura fallita non è stata ripetuta e i tentativi input non sono conteggiati come pass. Le letture DOM e, dopo nuova build, le catture mirate e le scansioni axe hanno continuato a rispondere. Procedure ancora aperte e limiti in [QA_MANUAL.md](../../QA_MANUAL.md) e [WORKLOG.md](../../WORKLOG.md). Nessuna immagine ottenuta modificando screenshot storici o simulando un viewport non eseguito.
 
 Queste sono catture della UI originale del progetto e risultati di QA, non nuovi asset destinati al sito. Non includono credenziali o dati di clienti; la scena gastronomica è la stessa immagine generata già dichiarata in [ASSETS.md](../../ASSETS.md).
+
+## Esecuzione esclusiva e sequenziale
+
+Il successivo [report esclusivo](exclusive-attempt.json) registra preflight HTTP sulla porta standard 8797, scheda dedicata e precondizioni 1440×1000. Il primo input sul checkbox Latte è scaduto nell'attesa di visibilità/abilitazione/stabilità. È una risposta di errore dell'azione Playwright, non un timeout del trasporto MCP o un errore applicativo confermato. Nessun retry, nuovo screenshot o pass di interazione attribuito a questa esecuzione. Chiuse solo scheda dedicata e preview create per il test; processi browser condivisi invariati.

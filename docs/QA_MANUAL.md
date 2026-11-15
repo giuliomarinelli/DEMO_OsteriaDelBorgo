@@ -85,6 +85,12 @@ Scansione axe-core 4.14.0 riuscita sulle cinque pagine iniziali a 390×844: **0 
 
 La ripresa ha tentato Space sul checkbox Latte: il DOM è rimasto a 18 righe senza selezione; il successivo controllo con `locator.check` è scaduto nell'attesa di stabilità. Nessuna prova positiva di tastiera o dei filtri attribuita a questi tentativi; restano aperti i casi della tabella. Non sono stati sostituiti gli input nativi con mutazioni DOM/eventi sintetici per simulare un successo.
 
+### Ulteriore verifica esclusiva e sequenziale
+
+Su richiesta del proprietario, nuova esecuzione sulla stessa applicazione `7480a4c`, riservando Playwright a questa sessione. Prima del browser verificati HTTP 200 e titoli di home/menu su `8797`, porta standard di `npm run preview`. Aperta una scheda dedicata, URL `/menu/` e viewport 1440×1000 controllati; snapshot disponibile e precondizione di 18 righe soddisfatta. Il **primo input**, `locator.check` su `input[value="latte"]`, è scaduto dopo 5 secondi aspettando visibilità/abilitazione/stabilità, prima del click. Nessun retry o altro controllo browser dopo quel punto, eccetto chiusura della sola scheda creata.
+
+Il servizio MCP ha restituito il timeout dell'azione: non è un timeout del trasporto MCP, un errore HTTP o una prova di difetto nei filtri. Causa dell'actionability non isolata. Scheda dedicata e runtime della sessione chiusi; nessun processo browser condiviso riavviato, terminato o riconfigurato. [Report esclusivo](evidence/milestone-4a/exclusive-attempt.json). Le verifiche funzionali e responsive mancanti rimangono aperte; nessun risultato precedente è stato ripetuto o promosso a nuovo pass.
+
 ## Registrazione e chiusura
 
 Per ogni difetto conservare rotta, viewport, selezioni, passi esatti, atteso/osservato e screenshot. Ripetere una volta per confermare la riproducibilità prima di correggere. Se il browser di automazione resta bloccato, non riavviare ciclicamente driver, schede o runtime: proseguire con browser manuale e lasciare aperta la voce non verificata. Nessun risultato di un altro sito sulla stessa macchina è valido per questa app.
