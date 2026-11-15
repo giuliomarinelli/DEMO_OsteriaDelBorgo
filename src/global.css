@@ -147,8 +147,8 @@
   .desktop-nav a {
     padding-block: 15px;
   }
-  .desktop-nav a[aria-current],
-  .mobile-menu a[aria-current] {
+  .desktop-nav a[aria-current="page"],
+  .mobile-menu a[aria-current="page"] {
     color: var(--color-tomato);
     text-decoration: underline;
     text-underline-offset: 7px;

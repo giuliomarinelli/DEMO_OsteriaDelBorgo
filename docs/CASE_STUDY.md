@@ -32,6 +32,12 @@ Il browser ha prodotto la sola vista iniziale della home desktop, poi è rimasto
 
 Su successiva richiesta esplicita è ripreso il collaudo: 20 misure DOM sulle cinque pagine e screenshot completi di home, storia e menu a 1440/768/390/320 px. Il controllo visuale ha individuato il pomodoro decorativo sopra il titolo della hero a 320 px, pur senza overflow orizzontale. Una regola limitata a 360 px lo nasconde, preservando testi e marchio nell'header. È un esempio concreto del limite dei soli controlli geometrici di overflow. Ulteriori screenshot e input hanno incontrato timeout: la copertura attuale è nella checklist, senza attribuire nuovi pass ai filtri o alla tastiera.
 
+### Chiusura dei controlli browser principali
+
+La successiva esecuzione esclusiva parte da `44bf7b8`. La diagnosi rileva una scheda Chrome hidden, senza frame; il proprietario rende visibile la finestra e i normali input Playwright tornano operativi. Completati 23 casi dei filtri, nove sequenze da tastiera, quattro FAQ, navigazione e cronologia, stati filtrato/vuoto ai quattro viewport e le sei viste mancanti di galleria/contatti. I precedenti tentativi interrotti restano documentati come tali. Screenshot e report sono nel [manifest](evidence/milestone-4a/README.md).
+
+Il browser rileva un ulteriore difetto reale: dopo home→storia restano due link desktop con `aria-current=page`. Il valore esplicito `false` per i Link inattivi e il selettore CSS limitato al valore `page` correggono stato accessibile e sottolineatura, senza cambiare routing o SSR. Verificati navigazione client, indietro/avanti e stile effettivo. Nuova build e 31 test passati. Axe sul menu vuoto: zero violazioni, controlli incompleti conservati. Screen reader, zoom reale 200%, Safari e prestazioni pubbliche restano non verificati; nessuna dichiarazione di conformità completa.
+
 ## Scelte progettuali della foundation
 
 - Identità editoriale crema, oliva e terracotta; illustrazioni vettoriali originali al posto di fotografie attribuite a un locale inesistente.

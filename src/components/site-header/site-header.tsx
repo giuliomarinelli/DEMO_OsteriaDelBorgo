@@ -20,7 +20,7 @@ export const SiteHeader = component$(() => {
               key={item.href}
               href={item.href}
               aria-current={
-                location.url.pathname === item.href ? "page" : undefined
+                location.url.pathname === item.href ? "page" : "false"
               }
             >
               {item.label}

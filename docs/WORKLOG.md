@@ -398,3 +398,70 @@ Come richiesto, collaudo browser interrotto al primo blocco. Nessun nuovo pass s
 Chiusa con Playwright la sola scheda dedicata indice 1; il servizio ha confermato la permanenza della scheda di connessione indice 0. Poi fermati esclusivamente wrapper Node Wrangler 57580, CLI 74080 e figli esbuild/Workerd identificati per parent PID e percorso sotto `node_modules` di questa repository. Nessun processo browser o runtime di altri progetti toccato; controllo finale: nessun listener 8797. Nessuna ulteriore chiamata Playwright dopo la chiusura della risorsa propria: MCP liberato per la sessione successiva.
 
 Aggiornati WORKLOG, checklist e manifest delle evidenze. Nessuna modifica a codice, dipendenze, infrastruttura, AGENTS o MVP. Commit/push sul solo branch corrente, signing disattivato soltanto nel comando di commit. Nessun deploy, merge, rebase, reset o force push. Il collaudo mancante resta bloccato al punto sopra: occorre una futura verifica con input browser funzionante, senza dichiarare superati i casi non eseguiti.
+
+## 2026-11-15 — Completamento del collaudo browser esclusivo
+
+### Base e autorizzazione
+
+Il proprietario ha richiesto di rieseguire e proseguire il collaudo, poi confermato «Finestra Chrome visibile» e «Chrome resta visibile accanto alla chat». Questa istruzione aggiorna la precedente richiesta di fermarsi al primo blocco. Una sola sessione agente, nessun subagente; Playwright usato esclusivamente e in sequenza. Base `44bf7b8`, `feature/mvp-foundation`, working tree inizialmente pulito e branch allineato a origin. Riletti AGENTS, MVP, direzione artistica, documentazione foundation, worklog, deployment e checklist. AGENTS e MVP invariati.
+
+Riutilizzata l'installazione da lockfile già verificata nella precedente 4A: nessun `npm ci` o audit ripetuto in questa esecuzione, nessuna modifica a dipendenze o lockfile. Avviato solo `npm run preview` sulla porta standard 8797, loopback. Prima del browser verificati HTTP 200 e titoli home/menu; nuova scheda dedicata indice 1, lasciata intatta quella del servizio. Nessun processo di altri progetti toccato.
+
+### Diagnosi dei timeout e confine delle prove
+
+La scheda mostrava `document.visibilityState=hidden`, focus inizialmente false e **zero callback requestAnimationFrame in 250 ms**. `bringToFront` rendeva il focus true ma non la visibilità, senza ripristinare i frame. Il timeout di stabilità di Playwright avveniva prima del clic: non era una prova di difetto dei filtri né un timeout del trasporto MCP, che restituiva regolarmente l'errore dell'azione.
+
+Un tentativo di creare una sessione CDP per la sola pagina è stato negato dal servizio (`Target.attachToBrowserTarget: Not allowed`); nessuna emulazione applicata, nessuna modifica alle impostazioni del browser o aggiramento del rifiuto. Un unico `check({force:true})` diagnostico ha prodotto eventi click/change trusted e nove righe: **escluso dai casi accettati**. Nessuna mutazione di checkbox/stato Qwik o dispatch sintetico per simulare risultati.
+
+Dopo che il proprietario ha reso Chrome visibile sono ripresi i frame e passati gli input ordinari. Una successiva copertura della finestra ha riportato hidden: la precondizione della prova tastiera è fallita, senza attribuirle un pass. Ripristinata la visibilità e confermata dal proprietario, completata la suite. URL, viewport e visibility controllati prima delle sequenze; nessun riavvio o terminazione dei browser condivisi.
+
+Durante la ricattura finale, il locator errato `input[value="grano"]` ha causato un timeout perché il valore effettivo è `glutine`: errore dello script QA corretto dopo lettura del dataset/DOM, non difetto applicativo. Analogamente la prima asserzione CSS cercava un bordo anziché `text-decoration`: sostituita con il controllo della sottolineatura effettivamente usata. I tentativi falliti non sono conteggiati come pass.
+
+### Prove funzionali e accessibilità riuscite
+
+- **23 casi menu con check/uncheck/click normali**, senza force: 18 iniziali; cinque categorie 4/4/4/3/3; Latte 9; Primi + Latte 1; aggiunta glutine 0; deselezione Latte lasciando Primi + glutine 1 risotto; reset 18; Dolci + Latte 0 e reset nello stato vuoto 18; tutte le 12 esclusioni 2 contorni; tutte le esclusioni in ogni categoria 0/0/0/2/0; tre cicli di selezione/deselezione; reload con stato iniziale. Confrontati ID reali e conteggio, righe allergeni, warning, legenda e reset. Questa suite precede il fix header; nessuna modifica successiva a dataset o logica menu.
+- **9 sequenze tastiera** dopo il fix header: skip link con Tab/Invio al main, desktop Tab/Invio verso Storia, mobile Esplora/Invio e link Menu, frecce nei radio, Tab/Space sui checkbox fino allo stato vuoto, reset principale e reset vuoto con Invio, salto ai risultati focalizzabili. Verificati focus di 3 px e stato reale dei risultati.
+- **7 controlli navigazione** dopo il fix header, cinque passaggi fra pagine più indietro/avanti; una sola voce desktop corrente e quattro inattive.
+- **4 FAQ** azionate con Tab/Invio, aperte/chiuse e riportate allo stato iniziale, focus 3 px. Cattura ulteriore con tutte aperte.
+- **8 stati responsive** del menu: filtrato (Primi + Latte, uno) e vuoto (aggiunta glutine, zero) a 1440/768/390/320 px. Nessun overflow, etichette non tagliate e almeno 44 px, warning e legenda presenti, ID e conteggio coerenti.
+- **6 viste mancanti** completate: galleria 1440/768/390 con tre immagini caricate dopo scorrimento e decode; contatti 1440/768/320. Un H1, nessun overflow o nodo ispezionato fuori viewport. Unite alle catture già superate coprono le cinque pagine nei quattro viewport richiesti; home/storia e menu iniziale non ripetuti inutilmente.
+- Axe-core 4.14.0 sul menu vuoto 390×844: **0 violazioni, 24 regole passate**. Conservati quattro incomplete color-contrast su simboli decorativi aria-hidden (menu mobile, freccia risultati e due reset). Nessuna soppressione né pass attribuito agli incomplete. Non ripetute le cinque scansioni iniziali già documentate.
+
+Console finale: **0 errori, 0 warning**. Registro Network limitato alla propria origine locale: 1176 richieste della sessione, 1089 HTTP 200 e 87 HTTP 304; zero errori HTTP e zero errori rete registrati. Sono richieste accumulate, non una misurazione della singola pagina o delle prestazioni. Registro completo locale ignorato da Git; versionato soltanto il riepilogo, senza URL di connessione del servizio.
+
+### Difetto applicativo riproducibile e regressione
+
+Su home SSR → clic Storia, desktop con `aria-current=page` sia su `/` sia su `/storia/`; passando al menu, sia `/` sia `/menu/`. Mobile con link HTML nativi corretto. Il valore inattivo `undefined` nei Link Qwik City non rimuoveva l'attributo precedente nella navigazione client osservata.
+
+Correzione limitata a `src/components/site-header/site-header.tsx`: valore esplicito `false` per il Link desktop inattivo. Adeguato in `src/global.css` il selettore dello stato corrente da presenza dell'attributo al solo `[aria-current="page"]`, preservando l'aspetto delle voci inattive. Nessun cambio a routing, SSR, struttura, filtri o design generale.
+
+Dopo nuova build e riavvio della sola preview, cinque navigazioni client hanno verificato **una voce corrente sottolineata e quattro inattive senza sottolineatura**, con puntatore allontanato per escludere lo stile hover. CSS servito `/assets/xO3SoV-d-style.css`. Le verifiche precedenti di cronologia e tastiera sul fix header restano valide; la nuova regola limita il valore selezionato senza cambiare focus o layout.
+
+Ricatturate ed esaminate **16 immagini originali** dopo il CSS finale: 8 stati menu, un'ulteriore combinazione vuota con uova a 390, 6 viste interne e tutte le FAQ aperte a 390. Cinque rappresentative versionate, altre undici in `artifacts/milestone-4a-final` ignorata. Una prima cattura a pagina scorsa mostrava lo skip link nel bitmap fuori dalla sua posizione; la lettura DOM del link non focalizzato confermava bottom −20,72 px, sopra il viewport. Catture finali eseguite con scroll zero, senza alterare screenshot o CSS dello skip link. Titoli, descrizioni, prezzi, allergeni, immagini, focus, ritorni a capo e spaziature esaminati; nessun altro difetto riproducibile rilevato.
+
+### Verifiche tecniche effettive
+
+La preview è stata fermata prima di ciascuna rebuild identificando CLI e figli per PID/percorso sotto questa repository. Dopo il fix header e dopo il selettore CSS finale eseguiti:
+
+```powershell
+npm run typecheck
+npm run lint
+npm run build
+npm run preview
+# Seconda shell, stessa radice:
+npm test
+```
+
+Ultima esecuzione: typecheck exit 0, lint exit 0, build exit 0; 81 moduli client, 41 SSR, CSS 26,95 kB / 6,45 kB gzip, artefatti Pages presenti e sola 404 ausiliaria statica. Warning noti di risoluzione runtime del font e NO_COLOR, nessun nuovo errore. Test **31/31 passati**, 21 unitari e 10 HTTP SSR, zero falliti/saltati. HTTP SSR di home e rotte interne con contenuto e metadati significativi senza JavaScript client; asset, catalogo completo e assenza di prerender statici verificati dai test. Non usato Vite dev per l'accettazione.
+
+Dopo la documentazione eseguiti `npm run fmt`, `npm run fmt.check` e `git diff --check`. Dipendenze invariate: restano le 12 segnalazioni upstream già esaminate nella prima 4A; nessun aggiornamento forzato e nessuna nuova attestazione di sicurezza.
+
+### Evidenze, limiti e chiusura
+
+Report versionati: `browser-functional-final.json` (23 casi), `browser-final.json` (tastiera, navigazione, FAQ, responsive, axe, diagnosi e pulizia), `captures-final.json` (viewport, URL, dimensioni, byte e SHA-256 delle 16 catture). Collegamenti nel manifest. Aggiornati README, QA_MANUAL, ARCHITECTURE, DEPLOYMENT, CASE_STUDY e CONTENT_AUDIT; raccomandazioni editoriali preservate, nessun nuovo contenuto pubblico.
+
+Controlli funzionali e responsive principali di M3/4A ora completati. **Non eseguiti** screen reader, zoom browser reale 200%, disabilitazione JS nelle impostazioni browser, Safari/dispositivi fisici o Lighthouse; i test HTTP SSR non sono presentati come queste prove browser. Nessuna dichiarazione WCAG completa; incomplete axe e audit upstream restano espliciti.
+
+Chiusa soltanto la scheda dedicata indice 1, senza altre chiamate browser successive. Terminati wrapper/CLI Wrangler 75124/18972 e figli identificati per parent PID e percorso sotto i node_modules del progetto; nessun listener residuo 8797. Browser condivisi e runtime degli altri progetti invariati; Playwright liberato per la sessione successiva. Nessun deploy, login, servizio Cloudflare, merge, rebase o altra milestone avviata.
+
+Commit atomico e push solo sul branch corrente, con `git -c commit.gpgsign=false commit`; hash nel resoconto finale e recuperabile con `git log --oneline 44bf7b8..HEAD`. Eventuali verifiche ulteriori o arricchimenti richiedono un nuovo task.
