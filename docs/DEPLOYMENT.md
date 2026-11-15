@@ -28,7 +28,28 @@ curl.exe -sS http://127.0.0.1:8797/storia/
 
 Gli otto test leggono l'HTML HTTP, rimuovono script/commenti prima di verificare titoli e contenuto, controllano collegamenti e asset e richiedono uno stato 404 reale. Nessuna esecuzione JavaScript del client necessaria. Il test degli artefatti controlla `_worker.js`, `_routes.json` e l'assenza di `index.html` statici per tutte le pagine. Un server non avviato causa un errore, non un successo simulato. Per cambiare porta: `npm run preview -- --port 8790`, poi `$env:SSR_BASE_URL = 'http://127.0.0.1:8790'` nella shell dei test. Chiudere il server con Ctrl+C. Fermare Wrangler prima di `npm ci`: Windows blocca la rimozione degli eseguibili in uso (`EPERM` su esbuild/Workerd). Da terminali automatizzati Ctrl+C può lasciare processi figli: verificare il loro percorso eseguibile e terminare soltanto quelli sotto `node_modules` di questa repository; non terminare globalmente tutti i processi Node o Wrangler.
 
-Per sviluppare con HMR: `npm run dev`. La verifica SSR di accettazione rimane quella sulla build di produzione.
+Se il terminale automatizzato lascia la porta occupata o un runtime che non risponde, fermare prima i processi Node di Wrangler associati al progetto e poi i figli: terminare soltanto Workerd può farlo ricreare dal processo Node rimasto attivo. Dalla radice di **questa repository**, dopo aver chiuso la preview, il seguente controllo mostra soltanto i processi pertinenti; verificare i percorsi prima di terminarli:
+
+```powershell
+$modules = Join-Path (Resolve-Path .).Path 'node_modules'
+$parents = Get-CimInstance Win32_Process | Where-Object {
+  $_.Name -eq 'node.exe' -and
+  $_.CommandLine -like "*$modules*wrangler*"
+}
+$parents | Select-Object ProcessId, CommandLine
+# Solo dopo aver verificato i percorsi del progetto mostrati:
+$parents | ForEach-Object { Stop-Process -Id $_.ProcessId -ErrorAction SilentlyContinue }
+$children = Get-CimInstance Win32_Process | Where-Object {
+  $_.ExecutablePath -like "$modules\*"
+}
+$children | Select-Object ProcessId, ExecutablePath
+# Anche qui verificare che appartengano soltanto alla preview del progetto:
+$children | ForEach-Object { Stop-Process -Id $_.ProcessId -ErrorAction SilentlyContinue }
+```
+
+Questa procedura interrompe i runtime locali del progetto e non va eseguita durante altri suoi comandi di build. Non riguarda servizi, container, account Cloudflare o altri progetti. Riavviare poi `npm run preview` e ripetere `npm test`.
+
+Per sviluppare con HMR: `npm run dev`. La verifica SSR di accettazione rimane quella sulla build di produzione. Fermare e riavviare la preview quando si esegue una nuova build: durante la pulizia di `dist` il watcher Wrangler può segnalare `_worker.js` mancante e mantenere temporaneamente il bundle precedente. Il riavvio a build conclusa e una nuova esecuzione di `npm test` eliminano questa ambiguità.
 
 ## Artefatti
 

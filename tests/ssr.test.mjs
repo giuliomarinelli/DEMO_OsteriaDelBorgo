@@ -83,7 +83,9 @@ test("Tutti i collegamenti interni e gli asset HTML rispondono", async () => {
 });
 
 test("Rotta inesistente: vero stato 404 e pagina utile", async () => {
-  const response = await fetch(new URL("/pagina-inesistente/", base));
+  const response = await fetch(new URL("/pagina-inesistente/", base), {
+    signal: AbortSignal.timeout(10000),
+  });
   assert.equal(response.status, 404);
   const html = visibleHtml(await response.text());
   assert.match(html, /Questa pagina non è a tavola/);
