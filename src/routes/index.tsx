@@ -1,116 +1,177 @@
-/* eslint-disable qwik/jsx-img -- This page uses only an original, cacheable SVG; raster variants are unnecessary. */
+/* eslint-disable qwik/jsx-img -- Local art-directed WebP sources have explicit responsive variants and dimensions. */
 import { component$ } from "@builder.io/qwik";
 import { Link, type DocumentHead } from "@builder.io/qwik-city";
+import { BorgoMark } from "~/components/borgo-mark/borgo-mark";
+import { MenuList } from "~/components/menu-list/menu-list";
+import { menuPreview } from "~/content/menu-preview";
 
 export default component$(() => (
   <>
-    <section class="shell hero">
-      <div class="hero-copy">
-        <p class="eyebrow">
-          <span class="tiny-star" aria-hidden="true">
-            ✳
-          </span>{" "}
-          A TAVOLA, COME UNA VOLTA
-        </p>
+    <section class="hero shell">
+      <p class="eyebrow hero-eyebrow">CUCINA ITALIANA. CHIACCHIERE COMPRESE.</p>
+      <div class="hero-heading">
+        <span class="hero-tomato">
+          <BorgoMark />
+        </span>
         <h1>
-          Il gusto di
+          Aggiungi un posto
           <br />
-          sentirsi <em>a casa.</em>
+          <span>a tavola.</span>
         </h1>
-        <p class="hero-description">
-          La pasta tirata a mano, il profumo del sugo,
-          <br class="hidden lg:block" /> le chiacchiere che allungano il pranzo.
-          <br class="hidden lg:block" /> Benvenuti nella nostra idea di osteria.
-        </p>
-        <Link href="/menu/" class="button">
-          Dai un’occhiata al menu <span aria-hidden="true">↗</span>
-        </Link>
-        <p class="hero-note">
-          Cucina italiana · Ingredienti di stagione · Storie da condividere
-        </p>
-      </div>
-      <figure class="hero-art">
-        <div class="art-label">
-          <span aria-hidden="true">✳</span> Fatto con cura.
+        <span class="stamp hero-stamp" aria-hidden="true">
+          IL BIS È<br />
+          SEMPRE UNA
           <br />
-          <i>Condiviso con piacere.</i>
-        </div>
+          <b>BUONA IDEA</b>
+          <span>✳</span>
+        </span>
+      </div>
+      <p class="hero-description">
+        La pasta è fresca, il sugo borbotta.
+        <br />
+        Manca solo qualcuno con cui dividere il pane.
+      </p>
+      <div class="hero-actions">
+        <Link class="button" href="/menu/">
+          Diamo un’occhiata al menu <span aria-hidden="true">↗</span>
+        </Link>
+        <Link class="text-link" href="/storia/">
+          Prima, due parole su di noi
+        </Link>
+      </div>
+      <figure class="hero-photo">
+        <span class="photo-label" aria-hidden="true">
+          LA FELICITÀ SI PASSA DI MANO.
+        </span>
         <img
-          src="/images/il-pranzo.svg"
-          width="720"
-          height="760"
+          src="/images/pranzo-condiviso-1440.webp"
+          srcset="/images/pranzo-condiviso-720.webp 720w, /images/pranzo-condiviso-1440.webp 1440w"
+          sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1400px) calc(100vw - 96px), 1280px"
+          width="1440"
+          height="960"
           fetchPriority="high"
-          alt="Illustrazione originale di un piatto di tagliatelle al pomodoro, basilico e una tovaglia a quadretti."
+          alt="Immagine generata: tagliatelle al pomodoro, pane e verdure su una tavola a quadretti, con mani che condividono il pranzo."
         />
         <figcaption>
-          Appunti di un pranzo italiano <span>№ 01 — La pasta</span>
+          Un pranzo come piace a noi.{" "}
+          <span>Immagine generata · Osteria immaginaria</span>
         </figcaption>
       </figure>
     </section>
-    <div class="manifesto-strip">
-      <span>Pasta fresca</span>
+    <div class="table-ribbon">
+      <span>PASTA FRESCA</span>
       <span aria-hidden="true">✳</span>
-      <span>Tempo per stare insieme</span>
+      <span>SCARPETTA D’OBBLIGO</span>
       <span aria-hidden="true">✳</span>
-      <span>Il ritmo delle stagioni</span>
+      <span>UN POSTO PER TUTTI</span>
     </div>
-    <section class="shell home-story">
+    <section class="shell section-space home-story">
       <div class="section-label">
         <span>01 /</span>
-        <p class="eyebrow">LO SPIRITO DEL BORGO</p>
-        <span class="section-line" />
+        <p class="eyebrow">LA NOSTRA IDEA DI OSTERIA</p>
       </div>
-      <div class="grid gap-8 md:grid-cols-2 md:gap-20">
+      <div class="grid gap-8 md:grid-cols-2 md:gap-16">
         <h2>
-          Un posto semplice.
+          Qui il sugo
           <br />
-          <em>Da ricordare.</em>
+          fa conversazione.
         </h2>
-        <div class="story-copy">
+        <div class="prose-copy">
           <p>
-            Ci siamo immaginati un’osteria tra i vicoli di un borgo italiano.
-            Pochi tavoli, una tovaglia apparecchiata bene e una cucina che segue
-            le stagioni, senza fretta.
+            Ci piacciono le tavole che si allungano, le ricette che non hanno
+            bisogno di presentazioni e chi dice «solo un assaggio» per poi
+            chiedere il bis.
           </p>
           <p>
-            Osteria del Borgo è una storia inventata per un progetto di design e
-            sviluppo web. La voglia di fare le cose con cura, invece, è reale.
+            Il Borgo è la trattoria che ci siamo inventati per mettere insieme
+            tutto questo. Nessuna stella da esibire: solo una gran voglia di
+            stare a tavola.
           </p>
           <Link class="text-link" href="/storia/">
-            Entra nella nostra storia <span aria-hidden="true">↗</span>
+            Com’è cominciata questa storia ↗
           </Link>
         </div>
       </div>
     </section>
-    <section class="shell home-paths" aria-label="Esplora l’osteria">
-      <Link class="path-card" href="/galleria/">
-        <span class="eyebrow">02 / L’AMBIENTE</span>
-        <h2>
-          Il piacere
-          <br />
-          di fermarsi.
-        </h2>
-        <span class="text-link">Scopri lo spazio immaginato ↗</span>
-      </Link>
-      <Link class="path-card path-card-light" href="/contatti/">
-        <span class="eyebrow">03 / LA DEMO</span>
-        <h2>
-          Prima di
-          <br />
-          accomodarti.
-        </h2>
-        <span class="text-link">Tutte le informazioni ↗</span>
-      </Link>
+    <section class="menu-home">
+      <div class="shell section-space">
+        <div class="section-label">
+          <span>02 /</span>
+          <p class="eyebrow">DUE FORCHETTATE PER CONOSCERCI</p>
+        </div>
+        <div class="section-heading">
+          <h2>
+            Poche parole.
+            <br />
+            Bei piatti.
+          </h2>
+          <p>
+            Un assaggio del nostro menu illustrativo.
+            <br />
+            Piatti e prezzi sono dimostrativi.
+          </p>
+        </div>
+        <MenuList dishes={[menuPreview[0], menuPreview[2], menuPreview[4]]} />
+        <div class="menu-home-end">
+          <p>
+            Gli allergeni indicati sono dati demo.
+            <br />
+            Non sono informazioni di sicurezza alimentare.
+          </p>
+          <Link class="button" href="/menu/">
+            Sfoglia il menu demo <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+      </div>
     </section>
+    <section class="shell section-space atmosphere-teaser">
+      <figure>
+        <img
+          src="/images/sala-del-borgo-960.webp"
+          width="960"
+          height="640"
+          loading="lazy"
+          alt="Immagine generata di una piccola sala immaginaria con sedie rosse e una tavola apparecchiata."
+        />
+        <figcaption>
+          Uno spazio inventato. L’atmosfera, quella giusta. · Immagine generata
+        </figcaption>
+      </figure>
+      <div>
+        <p class="eyebrow">03 / TIRATI SU UNA SEDIA</p>
+        <h2>
+          Il bello è<br />
+          fermarsi.
+        </h2>
+        <p>
+          Niente tovaglie da non toccare. Qui immaginiamo piatti al centro,
+          bicchieri spaiati e un’altra storia da raccontare.
+        </p>
+        <Link class="text-link" href="/galleria/">
+          Fai un giro in osteria ↗
+        </Link>
+      </div>
+    </section>
+    <aside class="demo-note shell">
+      <span class="eyebrow">UNA PICCOLA NOTA, SCRITTA CHIARA.</span>
+      <p>
+        Questa osteria esiste solo qui: è un progetto demo. Storia, piatti e
+        ambiente sono fittizi, le immagini fotografiche sono generate. Nessuna
+        prenotazione o acquisto reale.
+      </p>
+      <Link class="text-link" href="/contatti/">
+        Tutto sulla demo ↗
+      </Link>
+    </aside>
   </>
 ));
 export const head: DocumentHead = {
-  title: "Osteria del Borgo — Il gusto di sentirsi a casa",
+  title: "Osteria del Borgo — Aggiungi un posto a tavola",
   meta: [
     {
       name: "description",
       content:
-        "Un’osteria italiana immaginaria: cucina di casa, pasta fresca e convivialità. Esplora il sito dimostrativo Osteria del Borgo.",
+        "Pasta fresca, sugo e voglia di stare insieme. Entra nell’Osteria del Borgo: una trattoria italiana immaginaria, un sito demo tutto da sfogliare.",
     },
   ],
 };

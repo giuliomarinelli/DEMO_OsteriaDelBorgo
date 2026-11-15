@@ -16,7 +16,14 @@ export const RouterHead = component$(() => {
       {origin && (
         <link rel="canonical" href={new URL(loc.url.pathname, origin).href} />
       )}
-      <meta name="theme-color" content="#283e32" />
+      <meta name="theme-color" content="#A93427" />
+      <link
+        rel="preload"
+        href="/fonts/fraunces-latin-800.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 

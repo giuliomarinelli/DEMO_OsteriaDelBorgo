@@ -70,3 +70,53 @@ Il commit `2f7b7c5` include applicazione, configurazioni, lockfile, verifiche e 
 ### Prossimo task
 
 Completare i contenuti delle pagine nella milestone successiva dopo richiesta del proprietario. Non avviare automaticamente dataset del menu, filtri, deploy o promozione dei branch.
+
+## 2026-11-15 — Milestone 2: identità gastronomica e contenuti
+
+### Perimetro e verifiche preliminari
+
+Proseguito su `feature/mvp-foundation` esistente, come richiesto esplicitamente. Working tree inizialmente pulito, HEAD `35e1c1d`; dopo `git fetch origin`, `git rev-list --left-right --count HEAD...origin/feature/mvp-foundation` restituisce `0 0`. Letti specifiche e documentazione della foundation. Nessun subagente, worktree, merge, rebase o nuova inizializzazione. `AGENTS.md` e `docs/MVP.md` preservati.
+
+### Modifiche e motivazioni tecniche
+
+1. Palette richiesta pomodoro `#A93427`, panna `#FFF0D2`, basilico `#356348`, inchiostro `#29251F`. Titoli Fraunces 800, corpo di sistema. Un solo WOFF2 latino da 18.224 byte, locale, con OFL inclusa, preload e `font-display: swap`. Nessuna dipendenza applicativa aggiunta.
+2. Hero centrale espressiva, timbro, etichetta, pomodoro inciso originale, foto di pranzo condiviso, fascia statica e menu tipografico. Niente carousel o animazioni continue. Decisioni, ruoli, voce e contrasti in `BRAND_DIRECTION.md`.
+3. Due immagini create con Imagegen integrato, ispezionate e dichiarate generate: pranzo e sala immaginari. Quattro derivati WebP locali: pranzo 720/1440 px (88.354/281.682 byte), sala 960/1440 px (116.120/224.268 byte). Sharp già presente è stato usato solo per ricodifica/ridimensionamento. Prompt completi, provenienza e riproduzione in `ASSETS.md`; i derivati finali sono versionati e la build non usa AI.
+4. Creati manifesto `public/images/a-tavola.svg`, favicon e componente `BorgoMark`. Conservate senza modifiche le due illustrazioni della foundation, ora non usate dalla composizione.
+5. Completati testi e metadati delle cinque rotte: proposta conviviale, narrativa esplicitamente fittizia, principi, menu editoriale, ambiente e FAQ. Nessun indirizzo, orario operativo, premio o recensione inventato come reale; nessun modulo o invio.
+6. Sei assaggi statici in `src/content/menu-preview.ts`, condivisi fra home e menu tramite `MenuList`, con descrizioni, prezzi indicativi e allergeni demo. Tre ancore alle portate, nessun filtro o pulsante inattivo. Informazioni alimentari chiaramente non utilizzabili come garanzia. Questo campione prepara la grafica, non completa il catalogo di almeno dodici piatti della futura milestone interattiva.
+7. Preservati Qwik City, TypeScript strict, routing, entry SSR e adapter Pages. Aggiornati README, architettura, case study, deployment, crediti e formattazione. Nessun servizio o backend nuovo, nessun deploy o modifica di account/DNS/Access/pipeline.
+
+### Comandi e verifiche effettive
+
+- `npm install`: exit 0; risoluzioni versionate conservate, due pacchetti opzionali riallineati localmente. Nessun cambiamento del lockfile. Restano le 12 segnalazioni audit upstream della foundation (8 moderate, 4 high), senza upgrade forzati fuori scope.
+- Primo typecheck: proprietà JSX `srcSet` non ammessa; corretta in `srcset` secondo i tipi HTML Qwik.
+- `npm run typecheck` e `npm run lint` dopo la correzione: exit 0, nessun warning lint.
+- `npm run fmt` e `npm run fmt.check`: completati; specifiche originali escluse, nuovo documento di marca incluso.
+- `npm run build`: exit 0, client e server prodotti; controlli interni lint/types superati. CSS client 24,04 kB (5,88 kB gzip). Solo la 404 ausiliaria viene generata staticamente; le cinque pagine pubbliche restano SSR.
+- Avviso Vite della fase server: URL `/fonts/fraunces-latin-800.woff2` lasciato per risoluzione runtime, perché l'adapter server non usa `publicDir`. Non è un errore bloccante: il test HTTP verifica realmente il font pubblicato, magic `wOF2` e dimensione corretta.
+
+Per la verifica usata la porta 8798, lasciando intatto il listener preesistente sulla 8797. Sintassi controllata con l'help del Wrangler locale; skill Wrangler applicata al runtime esistente, senza modificare configurazioni.
+
+```powershell
+node node_modules/wrangler/bin/wrangler.js pages dev dist --ip 127.0.0.1 --port 8798 --inspector-port 0
+# Secondo terminale nella stessa radice:
+$env:SSR_BASE_URL = 'http://127.0.0.1:8798'
+npm test
+```
+
+Wrangler 4.162 compila il worker e avvia Workerd locale, senza login. **10/10 test superati**, 0 falliti/saltati: contenuto e metadati nell'HTML diretto di tutte le rotte dopo rimozione degli script, link/asset, 404 reale, ancore e allergeni demo, assenza di filtri/form, font locale e artefatti SSR senza pagine pubbliche prerenderizzate. Nessun test attribuito a filtri o prenotazioni non implementati.
+
+### Verifica browser e visiva
+
+Playwright MCP sulla build Pages: tutte le cinque pagine a 320, 390, 768 e 1440 px, **20 combinazioni senza overflow orizzontale**, un H1 e Fraunces caricato. Ispezionati screenshot di home desktop/mobile, menu desktop, contatti mobile e galleria desktop. Contenitori mobile verificati anche con bounding box: 16 px per lato del contenuto disponibile a 390 px.
+
+Verificati da tastiera: skip link al main; apertura del menu mobile con Invio; Tab su Benvenuti/Storia/Menu con focus di 3 px; navigazione al menu e voce attiva corretta; ancora `#dolci` con sezione raggiunta in alto; apertura della FAQ sulle prenotazioni con focus di 3 px. Console finale senza errori o warning. Il browser del computer inietta script dell'antivirus, non introdotti dall'app e non modificati.
+
+Contrasti sRGB principali: pomodoro/panna 5,81:1, basilico/panna 6,15:1, inchiostro/panna 13,52:1. Non eseguiti audit WCAG completo, screen reader, Safari, Lighthouse o misure in produzione. Canonical con origine pubblica configurata non esercitato in questa milestone; resta facoltativo come nella foundation.
+
+### Consegna e prossimo task
+
+Commit atomico della milestone, signing disattivato solo nel singolo comando `git -c commit.gpgsign=false commit`, push sul solo branch di lavoro. Hash e conferma nel resoconto finale e recuperabili con `git log -1 --oneline`. Artefatti e screenshot esclusi dai commit; preview avviata dalla sessione chiusa al termine senza toccare il listener preesistente. Nessuna modifica ai branch di integrazione, staging o produzione.
+
+Prossimo task, solo dopo nuova richiesta: catalogo completo, filtri combinabili, reset e stati del menu interattivo. Nessun avvio automatico o deployment.

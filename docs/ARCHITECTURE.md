@@ -1,8 +1,8 @@
-# Architettura — milestone 1
+# Architettura — milestone 2
 
 ## Perimetro
 
-Fondamenta Qwik City SSR, layout e struttura iniziale delle cinque pagine pubbliche. Menu interattivo, dataset dei piatti, filtri e prenotazione simulata sono esclusi da questa consegna. Nessun backend business, database, autenticazione, CMS o integrazione esterna.
+Fondamenta Qwik City SSR e cinque pagine pubbliche con identità e contenuti completati. Menu editoriale con sei esempi statici in `src/content/menu-preview.ts`, condivisi tra home e menu tramite `MenuList`; non è ancora il catalogo completo interattivo. Filtri e prenotazione simulata sono esclusi. Nessun backend business, database, autenticazione, CMS o integrazione esterna.
 
 ## Rendering
 
@@ -25,14 +25,17 @@ src/
     site-header/                         marchio e navigazione
     site-footer/                         footer e dichiarazione demo
     page-intro/                          introduzione comune alle pagine
+    borgo-mark/                          pomodoro illustrato originale
+    menu-list/                           nome, prezzo e allergeni degli assaggi
   content/site.ts                        destinazioni della navigazione
+  content/menu-preview.ts                sei assaggi editoriali statici
   routes/
     layout.tsx                           layout condiviso
     index.tsx                            homepage
-    storia/index.tsx                     prima narrativa fittizia
-    menu/index.tsx                       stato iniziale, nessun filtro
-    galleria/index.tsx                   studio illustrato iniziale
-    contatti/index.tsx                   informazioni demo, nessun invio
+    storia/index.tsx                     narrativa fittizia e principi
+    menu/index.tsx                       menu editoriale, nessun filtro
+    galleria/index.tsx                   ambiente, immagini e manifesto
+    contatti/index.tsx                   informazioni e FAQ, nessun invio
     404.tsx                              pagina non trovata
   entry.dev.tsx                          ingresso sviluppo
   entry.ssr.tsx                          rendering streaming
@@ -45,7 +48,7 @@ wrangler.jsonc                           runtime Pages locale
 
 ## UI, accessibilità e stato
 
-Palette crema/oliva/terracotta, tipografia serif di sistema, illustrazioni SVG originali. Tailwind CSS 4 è integrato attraverso `@tailwindcss/vite`; utilities per griglie, spaziature e breakpoint, layer `components` per marchio, composizione e tipografia. Nessuna libreria UI aggiuntiva. I componenti condivisi rispondono a riuso effettivo; il resto rimane nelle pagine.
+Palette pomodoro/panna/basilico/inchiostro, font Fraunces 800 locale con OFL, SVG originali e WebP generati dichiarati. [BRAND_DIRECTION.md](BRAND_DIRECTION.md) definisce ruoli, composizione e voce. `BorgoMark` e `MenuList` si aggiungono ai componenti condivisi della foundation. Tailwind CSS 4 è integrato attraverso `@tailwindcss/vite`; utilities per griglie, spaziature e breakpoint, layer `components` per marchio, composizione e tipografia. Nessuna libreria UI aggiuntiva. I componenti condivisi rispondono a riuso effettivo; il resto rimane nelle pagine.
 
 `component$`, `Slot`, `Link`, `useLocation` e `useDocumentHead` sono API Qwik. `useLocation` mantiene lo stato reattivo della rotta e `aria-current`; nessuno stato client artificiale per i futuri filtri. Il menu mobile usa `details/summary` nativi e collegamenti HTML per funzionare anche senza JS. Il menu desktop usa `Link` di Qwik City. Sono presenti skip link, landmarks, un H1 per pagina, alt delle illustrazioni e focus visibile. Non sono implementati form o pulsanti senza azione.
 
@@ -59,4 +62,4 @@ Qwik e Qwik City 1.20.4 stabili, TypeScript 5.9 strict, Tailwind 4.3, Vite 7.3, 
 
 ## Strategia di verifica
 
-Typecheck dell'app e adapter; lint con regole Qwik, TypeScript e JavaScript sui test; build client + server; otto test Node che richiedono le cinque pagine direttamente, controllano HTML senza script, metadati, navigazione, asset, 404 e assenza di pagine prerenderizzate. Il runtime di riferimento è `wrangler pages dev`, non solo il server Vite. Verifica browser responsive e tastiera descritta nel worklog; non equivale a un audit WCAG completo.
+Typecheck dell'app e adapter; lint con regole Qwik, TypeScript e JavaScript sui test; build client + server; dieci test Node che richiedono le cinque pagine direttamente, controllano HTML senza script, metadati, navigazione, asset, 404, contenuti demo/allergeni, font e assenza di pagine prerenderizzate. Il runtime di riferimento è `wrangler pages dev`, non solo il server Vite. Verifica browser responsive e tastiera descritta nel worklog; non equivale a un audit WCAG completo.

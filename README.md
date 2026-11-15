@@ -2,9 +2,9 @@
 
 Sito dimostrativo di una trattoria italiana **fittizia**, case study di portfolio. Nessuna attività reale, prenotazione operativa o raccolta dati.
 
-## Stato: milestone 1
+## Stato: milestone 2
 
-Qwik + Qwik City SSR, TypeScript strict, Tailwind CSS e adapter ufficiale Cloudflare Pages. Layout responsive, identità originale, homepage iniziale, navigazione e footer. Le rotte `/storia/`, `/menu/`, `/galleria/`, `/contatti/` sono pagine iniziali navigabili; il menu non contiene ancora piatti o filtri. Nessun backend business, database, autenticazione o integrazione esterna.
+Qwik + Qwik City SSR, TypeScript strict, Tailwind CSS e adapter ufficiale Cloudflare Pages. Identità pomodoro/panna/basilico/inchiostro, font Fraunces locale, illustrazioni originali e immagini generate dichiarate. Homepage conviviale, storia, galleria, contatti e menu editoriale con sei assaggi statici, prezzi indicativi e allergeni demo. I filtri interattivi non sono implementati. Nessun backend business, database, autenticazione o integrazione esterna.
 
 ## Avvio
 
@@ -30,7 +30,7 @@ In una seconda shell nella radice, con Wrangler in ascolto su `http://127.0.0.1:
 npm test
 ```
 
-Gli otto test verificano risposte HTML reali delle cinque rotte, metadati, navigazione, asset, stato 404 e artefatti Pages. La build produce client in `dist` e moduli SSR in `server`, collegati da `dist/_worker.js`; tutte le pagine pubbliche sono escluse dal prerendering. La preview non richiede login Cloudflare. Fermare il runtime prima di reinstallare le dipendenze.
+I dieci test verificano risposte HTML reali delle cinque rotte, metadati, navigazione, asset, stato 404, contenuti demo/allergeni, font e artefatti Pages. La build produce client in `dist` e moduli SSR in `server`, collegati da `dist/_worker.js`; tutte le pagine pubbliche sono escluse dal prerendering. La preview non richiede login Cloudflare. Fermare il runtime prima di reinstallare le dipendenze.
 
 `npm run fmt` e `npm run fmt.check` riguardano i file applicativi e la nuova documentazione; non modificano `AGENTS.md` o `docs/MVP.md`. Il lockfile è versionato. Nessuno script di deploy remoto incluso.
 
@@ -42,8 +42,9 @@ Nessuna credenziale richiesta. `VITE_SITE_ORIGIN` facoltativo, pubblico e letto 
 
 - [Specifica MVP](docs/MVP.md) e [regole repository](AGENTS.md).
 - [Architettura e struttura](docs/ARCHITECTURE.md).
+- [Direzione artistica e voce](docs/BRAND_DIRECTION.md).
 - [Build, runtime locale, futura pubblicazione e rollback](docs/DEPLOYMENT.md).
 - [Operazioni, verifiche e limiti](docs/WORKLOG.md).
 - [Case study](docs/CASE_STUDY.md) e [crediti asset](docs/ASSETS.md).
 
-Restano da completare contenuti, dataset e filtri nelle milestone successive. L'audit segnala vulnerabilità transitive upstream, documentate nel worklog. Nessun deploy, configurazione Access o promozione di branch eseguiti.
+Restano catalogo completo, filtri e stati della funzionalità verticale nelle milestone successive. L'audit segnala vulnerabilità transitive upstream, documentate nel worklog. Nessun deploy, configurazione Access o promozione di branch eseguiti.

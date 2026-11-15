@@ -8,11 +8,11 @@ assert.ok(
   "I test sono riservati al runtime locale",
 );
 const routes = [
-  ["/", "Il gusto di", "sentirsi", "a casa."],
-  ["/storia/", "Le cose buone, quelle semplici."],
-  ["/menu/", "La stagione detta la ricetta."],
-  ["/galleria/", "C’è tempo per un altro boccone."],
-  ["/contatti/", "Un posto a tavola. Per immaginare."],
+  ["/", "Aggiungi un posto", "a tavola."],
+  ["/storia/", "Una scusa per stare insieme."],
+  ["/menu/", "Prima si legge. Poi viene fame."],
+  ["/galleria/", "Tovaglia a quadretti. Idee chiare."],
+  ["/contatti/", "Per ora, tienici un posto nella fantasia."],
 ];
 const pages = new Map();
 const visibleHtml = (html) =>
@@ -90,6 +90,33 @@ test("Rotta inesistente: vero stato 404 e pagina utile", async () => {
   const html = visibleHtml(await response.text());
   assert.match(html, /Questa pagina non è a tavola/);
   assert.match(html, /name="robots" content="noindex"/);
+});
+
+test("Menu editoriale: allergeni, prezzi demo e ancore, nessun filtro o invio", () => {
+  const html = pages.get("/menu/");
+  assert.match(html, /Piatti e prezzi demo/);
+  assert.match(html, /I filtri interattivi non sono ancora disponibili/);
+  assert.match(html, /Non usarli per decidere cosa mangiare/);
+  assert.equal([...html.matchAll(/class="dish-allergens"/g)].length, 6);
+  for (const category of ["antipasti", "primi", "dolci"]) {
+    assert.ok(html.includes(`href="#${category}"`));
+    assert.ok(html.includes(`id="${category}"`));
+  }
+  assert.doesNotMatch(html, /<input\b|<select\b|<form\b/);
+});
+
+test("Immagini dichiarate generate e font locale servito come WOFF2", async () => {
+  for (const path of ["/", "/galleria/"])
+    assert.match(pages.get(path), /Immagine generata/);
+  assert.match(pages.get("/storia/"), /narrativa è fittizia/);
+  const response = await fetch(
+    new URL("/fonts/fraunces-latin-800.woff2", base),
+    { signal: AbortSignal.timeout(10000) },
+  );
+  assert.equal(response.status, 200);
+  const bytes = Buffer.from(await response.arrayBuffer());
+  assert.equal(bytes.toString("ascii", 0, 4), "wOF2");
+  assert.ok(bytes.length < 30000, "Un solo font di display sotto i 30 kB");
 });
 
 test("Artefatti Pages presenti, nessun documento pubblico prerenderizzato", async () => {

@@ -1,37 +1,35 @@
 import { component$ } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
+import { BorgoMark } from "~/components/borgo-mark/borgo-mark";
 
 export const SiteFooter = component$(() => (
   <footer class="site-footer">
-    <div class="shell grid gap-8 py-12 md:grid-cols-[1.3fr_1fr_1fr]">
-      <div>
-        <p class="footer-brand">
-          Osteria <i>del</i> Borgo
-        </p>
-        <p>Le cose buone hanno bisogno di tempo.</p>
-      </div>
-      <div>
-        <p class="eyebrow">Un piccolo giro</p>
-        <div class="footer-links">
-          <Link href="/storia/">La nostra storia ↗</Link>
-          <Link href="/menu/">Il menu ↗</Link>
-          <Link href="/galleria/">L’ambiente ↗</Link>
-        </div>
-      </div>
-      <div>
-        <p class="eyebrow">Prima di accomodarti</p>
-        <p>Un’osteria immaginaria, un progetto concreto.</p>
-        <Link class="text-link" href="/contatti/">
-          Informazioni sulla demo ↗
-        </Link>
-      </div>
+    <div class="shell footer-invitation">
+      <p class="eyebrow">L’ULTIMA PAROLA? IL DOLCE.</p>
+      <p class="footer-title">
+        Si sta bene,
+        <br />
+        in buona compagnia.
+      </p>
+      <Link class="button button-cream" href="/menu/">
+        Un altro giro nel menu <span aria-hidden="true">↗</span>
+      </Link>
+      <BorgoMark />
     </div>
     <div class="shell footer-bottom">
-      <span>
-        © {new Date().getUTCFullYear()} Osteria del Borgo · Case study di
-        portfolio
-      </span>
-      <span>Attività fittizia. Nessuna prenotazione reale.</span>
+      <Link class="footer-brand" href="/">
+        Osteria del Borgo
+      </Link>
+      <nav aria-label="Navigazione a piè di pagina">
+        <Link href="/storia/">La nostra storia</Link>
+        <Link href="/galleria/">L’ambiente</Link>
+        <Link href="/contatti/">Contatti e demo</Link>
+      </nav>
+      <p>
+        © {new Date().getUTCFullYear()} · Progetto demo di portfolio.
+        <br />
+        Attività fittizia. Nessuna prenotazione reale.
+      </p>
     </div>
   </footer>
 ));

@@ -8,7 +8,8 @@ export default component$(() => (
       Vai al contenuto
     </a>
     <div class="demo-strip">
-      UN’OSTERIA IMMAGINARIA, TUTTA DA ESPLORARE <span>· Progetto demo</span>
+      UNA TRATTORIA INVENTATA. LA FAME, QUELLA VERA.{" "}
+      <span>· Progetto demo</span>
     </div>
     <SiteHeader />
     <main id="contenuto" tabIndex={-1}>
