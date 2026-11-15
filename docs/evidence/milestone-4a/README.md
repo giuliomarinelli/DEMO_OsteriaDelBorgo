@@ -1,12 +1,29 @@
-# Evidenze milestone 4A — 15 novembre 2026
+# Evidenze milestone 4A e ripresa — 15 novembre 2026
 
-Applicazione: `00d76b3f1b2b6a0ad5d0090937e3833513e97c30`. Build Qwik City di produzione, servita da Wrangler 4.162.0/Workerd su `http://127.0.0.1:8798`. Le modifiche 4A riguardano test e documentazione, senza cambiare il codice applicativo.
+Primo tentativo sull'applicazione `00d76b3f1b2b6a0ad5d0090937e3833513e97c30`; ripresa da `cad3b09`, su richiesta esplicita del proprietario. Build Qwik City di produzione, servita da Wrangler 4.162.0/Workerd su `http://127.0.0.1:8798`. La ripresa introduce soltanto una correzione CSS: nascondere il pomodoro decorativo della hero fino a 360 px per evitare la sovrapposizione al titolo. Dati, componenti e routing invariati.
 
 | File                                             | Contenuto e limite                                                                                                                                                                                                                                                       |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [home-1440.png](home-1440.png)                   | Screenshot originale Playwright della vista iniziale della home, 1440×1000, 928.111 byte. Esaminato: header, hero, CTA e inizio immagine gastronomica. Non è una cattura dell'intera pagina. SHA-256 `DBCA5877C005B52399D6F62725766937A88F54D4363D6817073CEB7ADA8D68D0`. |
 | [dependency-review.json](dependency-review.json) | Versioni, conteggi e advisory npm, input del bundle SSR, import esterni e marker cercati nei moduli client/server. Analisi statica locale; non prova formale di non sfruttabilità.                                                                                       |
 
-Il browser si è bloccato al primo controllo successivo delle risorse; la matrice non ha restituito un report completo. Nessuno screenshot mobile o delle pagine interne prodotto in 4A, nessun report visuale parziale presentato come completo. Procedure mancanti e limiti in [QA_MANUAL.md](../../QA_MANUAL.md) e [WORKLOG.md](../../WORKLOG.md). Nessuna immagine ottenuta modificando screenshot storici o simulando un viewport non eseguito.
+## Ripresa autorizzata
+
+| File                                                                                 | Ambito                                                                                                                                   |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| [home-390-full.png](home-390-full.png)                                               | Home completa, viewport 390×844, prima della correzione applicabile solo fino a 360 px.                                                  |
+| [storia-768-full.png](storia-768-full.png)                                           | Storia completa, viewport 768×1000.                                                                                                      |
+| [menu-1440-full.png](menu-1440-full.png), [menu-320-full.png](menu-320-full.png)     | Menu completo iniziale, viewport 1440×1000 e 320×844; nessuna interazione simulata nella cattura.                                        |
+| [galleria-320-full.png](galleria-320-full.png)                                       | Galleria completa sulla nuova build, tre immagini caricate dopo scorrimento.                                                             |
+| [contatti-390-full.png](contatti-390-full.png)                                       | Contatti sulla nuova build, prima FAQ aperta di default. Nessun test di apertura/chiusura dichiarato.                                    |
+| [home-320-before.png](home-320-before.png), [home-320-after.png](home-320-after.png) | Vista 320×844 prima/dopo la correzione, verificata sulla nuova build Pages.                                                              |
+| [viewport-matrix-resume.json](viewport-matrix-resume.json)                           | 20 misure DOM delle cinque pagine ai quattro viewport, prima della correzione. Immagini lazy inizialmente incomplete annotate come tali. |
+| [hero-regression.json](hero-regression.json)                                         | Sovrapposizione misurata prima della correzione; display e overflow verificati dopo a 1440, 768, 390, 360 e 320 px.                      |
+| [axe-resume.json](axe-resume.json)                                                   | Cinque scansioni dello stato iniziale a 390×844, 0 violazioni rilevate; incomplete conservati.                                           |
+| [captures-resume.json](captures-resume.json)                                         | Dimensioni bitmap, byte e SHA-256 di tutti i PNG versionati; il nome del file indica il viewport richiesto.                              |
+
+Le catture full-page hanno larghezza del contenuto al netto della scrollbar di 15 px; la coppia before/after è invece una cattura viewport di 320 px. Non sono state ritagliate o modificate. Le 13 catture full-page iniziali sono conservate localmente in `artifacts/milestone-4a-resume` (ignorata da Git); quattro rappresentative sono versionate qui. Due ulteriori catture complete sono galleria 320 e contatti 390. La cattura desktop iniziale della galleria non mostrava ancora il manifesto lazy; quel file non è presentato come prova di caricamento completo.
+
+La ripresa ha incontrato un timeout sulla cattura galleria 768 e poi input non affidabili sul menu. La cattura fallita non è stata ripetuta e i tentativi input non sono conteggiati come pass. Le letture DOM e, dopo nuova build, le catture mirate e le scansioni axe hanno continuato a rispondere. Procedure ancora aperte e limiti in [QA_MANUAL.md](../../QA_MANUAL.md) e [WORKLOG.md](../../WORKLOG.md). Nessuna immagine ottenuta modificando screenshot storici o simulando un viewport non eseguito.
 
 Queste sono catture della UI originale del progetto e risultati di QA, non nuovi asset destinati al sito. Non includono credenziali o dati di clienti; la scena gastronomica è la stessa immagine generata già dichiarata in [ASSETS.md](../../ASSETS.md).

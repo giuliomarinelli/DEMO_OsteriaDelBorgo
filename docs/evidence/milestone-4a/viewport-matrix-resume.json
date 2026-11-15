@@ -1,0 +1,363 @@
+{
+  "date": "2026-11-15",
+  "revision": "cad3b09",
+  "note": "Misure DOM iniziali; immagini lazy non ancora complete non sono errori. Verifica dopo scorrimento registrata separatamente.",
+  "rows": [
+    {
+      "route": "/",
+      "width": 1440,
+      "client": 1425,
+      "scroll": 1425,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/pranzo-condiviso-1440.webp",
+          "complete": true,
+          "natural": 288,
+          "loading": "auto"
+        },
+        {
+          "src": "/images/sala-del-borgo-960.webp",
+          "complete": true,
+          "natural": 960,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "client": 753,
+      "scroll": 753,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/pranzo-condiviso-1440.webp",
+          "complete": true,
+          "natural": 288,
+          "loading": "auto"
+        },
+        {
+          "src": "/images/sala-del-borgo-960.webp",
+          "complete": true,
+          "natural": 960,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "client": 375,
+      "scroll": 375,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/pranzo-condiviso-1440.webp",
+          "complete": true,
+          "natural": 288,
+          "loading": "auto"
+        },
+        {
+          "src": "/images/sala-del-borgo-960.webp",
+          "complete": true,
+          "natural": 960,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/",
+      "width": 320,
+      "client": 305,
+      "scroll": 305,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/pranzo-condiviso-1440.webp",
+          "complete": true,
+          "natural": 288,
+          "loading": "auto"
+        },
+        {
+          "src": "/images/sala-del-borgo-960.webp",
+          "complete": true,
+          "natural": 960,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/storia/",
+      "width": 1440,
+      "client": 1425,
+      "scroll": 1425,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [],
+      "outside": []
+    },
+    {
+      "route": "/storia/",
+      "width": 768,
+      "client": 753,
+      "scroll": 753,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [],
+      "outside": []
+    },
+    {
+      "route": "/storia/",
+      "width": 390,
+      "client": 375,
+      "scroll": 375,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [],
+      "outside": []
+    },
+    {
+      "route": "/storia/",
+      "width": 320,
+      "client": 305,
+      "scroll": 305,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [],
+      "outside": []
+    },
+    {
+      "route": "/menu/",
+      "width": 1440,
+      "client": 1425,
+      "scroll": 1425,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "complete": true,
+          "natural": 720,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/menu/",
+      "width": 768,
+      "client": 753,
+      "scroll": 753,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "complete": true,
+          "natural": 720,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/menu/",
+      "width": 390,
+      "client": 375,
+      "scroll": 375,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "complete": true,
+          "natural": 720,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/menu/",
+      "width": 320,
+      "client": 305,
+      "scroll": 305,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "complete": true,
+          "natural": 720,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/galleria/",
+      "width": 1440,
+      "client": 1425,
+      "scroll": 1425,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/sala-del-borgo-1440.webp",
+          "complete": true,
+          "natural": 288,
+          "loading": "auto"
+        },
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "complete": true,
+          "natural": 720,
+          "loading": "lazy"
+        },
+        {
+          "src": "/images/a-tavola.svg",
+          "complete": false,
+          "natural": 0,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/galleria/",
+      "width": 768,
+      "client": 753,
+      "scroll": 753,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/sala-del-borgo-1440.webp",
+          "complete": true,
+          "natural": 288,
+          "loading": "auto"
+        },
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "complete": true,
+          "natural": 720,
+          "loading": "lazy"
+        },
+        {
+          "src": "/images/a-tavola.svg",
+          "complete": false,
+          "natural": 0,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/galleria/",
+      "width": 390,
+      "client": 375,
+      "scroll": 375,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/sala-del-borgo-1440.webp",
+          "complete": true,
+          "natural": 288,
+          "loading": "auto"
+        },
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "complete": true,
+          "natural": 720,
+          "loading": "lazy"
+        },
+        {
+          "src": "/images/a-tavola.svg",
+          "complete": false,
+          "natural": 0,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/galleria/",
+      "width": 320,
+      "client": 305,
+      "scroll": 305,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [
+        {
+          "src": "/images/sala-del-borgo-1440.webp",
+          "complete": true,
+          "natural": 288,
+          "loading": "auto"
+        },
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "complete": true,
+          "natural": 720,
+          "loading": "lazy"
+        },
+        {
+          "src": "/images/a-tavola.svg",
+          "complete": false,
+          "natural": 0,
+          "loading": "lazy"
+        }
+      ],
+      "outside": []
+    },
+    {
+      "route": "/contatti/",
+      "width": 1440,
+      "client": 1425,
+      "scroll": 1425,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [],
+      "outside": []
+    },
+    {
+      "route": "/contatti/",
+      "width": 768,
+      "client": 753,
+      "scroll": 753,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [],
+      "outside": []
+    },
+    {
+      "route": "/contatti/",
+      "width": 390,
+      "client": 375,
+      "scroll": 375,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [],
+      "outside": []
+    },
+    {
+      "route": "/contatti/",
+      "width": 320,
+      "client": 305,
+      "scroll": 305,
+      "h1": 1,
+      "fonts": "loaded",
+      "images": [],
+      "outside": []
+    }
+  ]
+}

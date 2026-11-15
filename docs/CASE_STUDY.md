@@ -30,6 +30,8 @@ Reinstallazione dal lockfile, typecheck, lint e build di produzione confermati. 
 
 Il browser ha prodotto la sola vista iniziale della home desktop, poi è rimasto bloccato durante l'attesa delle risorse. Il collaudo visuale delle altre pagine, i viewport mobile e le interazioni reali non sono dichiarati superati in questa esecuzione. Preparata una [procedura manuale](QA_MANUAL.md) con matrice, casi limite e risultati attesi, distinta dalle evidenze storiche della milestone 3. [CONTENT_AUDIT.md](CONTENT_AUDIT.md) indica opportunità concrete per storia e galleria, senza introdurre nuovi contenuti pubblici o restyling. Nessuna modifica al codice applicativo sulla base di difetti non riprodotti.
 
+Su successiva richiesta esplicita è ripreso il collaudo: 20 misure DOM sulle cinque pagine e screenshot completi di home, storia e menu a 1440/768/390/320 px. Il controllo visuale ha individuato il pomodoro decorativo sopra il titolo della hero a 320 px, pur senza overflow orizzontale. Una regola limitata a 360 px lo nasconde, preservando testi e marchio nell'header. È un esempio concreto del limite dei soli controlli geometrici di overflow. Ulteriori screenshot e input hanno incontrato timeout: la copertura attuale è nella checklist, senza attribuire nuovi pass ai filtri o alla tastiera.
+
 ## Scelte progettuali della foundation
 
 - Identità editoriale crema, oliva e terracotta; illustrazioni vettoriali originali al posto di fotografie attribuite a un locale inesistente.

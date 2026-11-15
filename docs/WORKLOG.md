@@ -301,3 +301,53 @@ Creato [CONTENT_AUDIT.md](CONTENT_AUDIT.md) con valutazione di home, storia, men
 README, ARCHITECTURE, DEPLOYMENT e CASE_STUDY aggiornati a 21 unitari + 10 SSR e al limite attuale, mantenendo i risultati storici. Screenshot e JSON sono evidenze di QA versionate, non nuovi asset del sito. Configurazioni, dipendenze risolte e codice applicativo preservati. Fermata soltanto la preview Wrangler avviata dalla sessione, verificando percorso e PID del CLI e dei figli.
 
 Commit e push sul solo `feature/mvp-foundation`, signing disattivato per ogni singolo comando di commit. Hash nel resoconto finale e recuperabile con `git log --oneline 00d76b3..HEAD`. Nessuna credenziale o artefatto di build nei commit. **Accettazione visuale/interattiva 4A ancora parziale**: completare la checklist manuale prima di dichiararla superata. Nessuna nuova funzionalità, promozione o milestone successiva avviata.
+
+## 2026-11-15 — Ripresa del collaudo 4A su nuova richiesta Playwright
+
+### Autorizzazione e base
+
+Il proprietario ha richiesto esplicitamente di riprendere il collaudo con una nuova chiamata Playwright MCP. Ripartito da `cad3b09` su `feature/mvp-foundation`, working tree pulito; fetch del solo branch e confronto con origin `0 0`. Letti specifiche, direzione artistica, checklist e worklog; nessuna modifica ad AGENTS o MVP. Riutilizzate le dipendenze installate con `npm ci` nella precedente esecuzione 4A, lockfile invariato; nessuna nuova installazione o risoluzione. Il nuovo tentativo non converte in successi i precedenti controlli interrotti.
+
+### Prove riuscite e copertura
+
+1. Nuova richiesta `browser_tabs`: browser rispondente. Riavviata soltanto la preview di questa repository su 8798, libera, usando la build Pages esistente. Navigazione HTTP diretta, non Vite dev.
+2. Cinque pagine × 1440/768/390/320 px: **20 misure DOM completate**, con un solo H1, font in stato loaded, `scrollWidth === clientWidth` e nessun elemento fra titoli, paragrafi, pulsanti e immagini selezionati fuori dal viewport. Report versionato in `viewport-matrix-resume.json`. Misure iniziali, non prova delle interazioni o caricamento di tutte le immagini lazy.
+3. Acquisite ed esaminate quattro catture complete per home, storia e menu; la galleria desktop è stata acquisita prima che comparisse il manifesto lazy. Sono 13 file full-page, di cui 12 utilizzabili per la lettura completa delle prime tre pagine. Foto, descrizioni, prezzi, allergeni, spaziature, ritorni a capo e gerarchie controllati nelle catture. Nessuna revisione generale del design.
+4. La cattura successiva della galleria a 768 px è scaduta dopo 5 secondi nella routine screenshot. Non è stata ripetuta. Una lettura DOM indipendente ha risposto e mostrato tutte e tre le immagini caricate a quel viewport, incluso `a-tavola.svg`; il manifesto inizialmente incompleto non è stato classificato come asset mancante.
+5. Tentativo Space sul checkbox Latte: nella lettura successiva risultavano ancora 18 piatti e nessuna esclusione. Un controllo con `locator.check`, portando la pagina in primo piano, è scaduto dopo 3 secondi nell'attesa di elemento visibile/abilitato/stabile. Interrotti i tentativi di input, senza click forzati, manipolazione di checkbox o eventi sintetici per ottenere un risultato. Non è stato isolato un difetto Qwik dei filtri: nessun nuovo pass di interazione, reset o tastiera dichiarato.
+6. Dopo la nuova build descritta sotto, letture DOM e screenshot mirato hanno verificato la correzione. Sono inoltre riuscite due catture indipendenti non tentate prima: galleria 320 (tre immagini caricate dopo scorrimento) e contatti 390 (stato iniziale con prima FAQ già aperta). File esaminati e versionati. Non è stata ritentata la cattura galleria 768 fallita.
+7. Axe-core 4.14.0 sulle cinque pagine iniziali a 390×844, tag WCAG 2 A/AA e 2.1 A/AA: **0 violazioni rilevate**, 20/17/27/18/17 regole passate rispettivamente home/storia/menu/galleria/contatti. Report `axe-resume.json`. `color-contrast` incomplete per simbolo decorativo del menu mobile e freccia dei risultati sul menu; conservati senza soppressione, non pass automatici. Console dell'ultima navigazione: 0 errori e 0 warning. Nessuna prova screen reader, Safari, zoom 200%, menu vuoto o conformità WCAG completa.
+
+La copertura visuale è ora più ampia del primo tentativo, ma restano aperti viewport della galleria/contatti non acquisiti, stati filtrati/vuoti, navigazione da tastiera, FAQ azionate e altre verifiche elencate in QA_MANUAL. Le misure DOM su 20 combinazioni non sono presentate come 20 collaudi visuali/interattivi completi.
+
+### Difetto riproducibile e correzione circoscritta
+
+Home a 320 px: il titolo va su tre righe e il pomodoro decorativo assoluto copre l'inizio di «a tavola». Confermato con screenshot e rettangoli DOM: pomodoro x 13,95–69,05 / y 302,18–354,79; testo x 35,82–269,18 / y 280,48–354,98. Non causa overflow, ma sovrappone contenuto essenziale: il solo controllo `scrollWidth` non lo rileva.
+
+In `src/global.css` aggiunta una sola media query `max-width: 360px` che nasconde `.hero-tomato`. Marchio nell'header, testi, dimensioni tipografiche e decorazione ai viewport maggiori preservati. Nessuna funzionalità aggiunta. Nessun test che confronti semplicemente la stringa CSS: verifica effettiva del foglio servito e del risultato nel browser.
+
+Dopo build e riavvio Wrangler: foglio `/assets/CAgcGe9--style.css` caricato; decorazione `display: none` a 320 e 360 px, `block` a 390, 768 e 1440; nessun overflow in questi cinque controlli. Screenshot viewport prima/dopo 320×844 salvati e letti: il titolo dopo la correzione non è coperto. Dati in `hero-regression.json`.
+
+### Verifiche tecniche della correzione
+
+Preview precedente fermata identificando CLI e figli per percorso/PID del progetto, prima della rebuild. Comandi effettivi dalla radice:
+
+```powershell
+npm run typecheck
+npm run lint
+npm run build
+node node_modules/wrangler/bin/wrangler.js pages dev dist --ip 127.0.0.1 --port 8798 --inspector-port 0
+# Seconda shell:
+$env:SSR_BASE_URL = 'http://127.0.0.1:8798'
+npm test
+npm run fmt
+npm run fmt.check
+```
+
+Typecheck e lint exit 0; build exit 0, controlli interni superati: 81 moduli client, 41 SSR, CSS 26,94 kB / 6,45 kB gzip. Artefatti Pages e sola 404 ausiliaria statica, come prima. Avvisi font runtime e NO_COLOR già documentati, nessun nuovo errore. Preview ricompilata con successo dopo la build. **31/31 test passati**: 21 unitari Node e 10 HTTP SSR sulla nuova build, nessuno fallito/saltato. Formattazione verificata. L'audit non è stato ripetuto dopo questa sola correzione CSS; dipendenze e superficie applicativa invariate, restano le 12 segnalazioni approfondite nella prima esecuzione 4A.
+
+### Evidenze e chiusura
+
+Il [manifest](evidence/milestone-4a/README.md) collega screenshot rappresentativi delle cinque pagine, coppia prima/dopo e report. `captures-resume.json` registra dimensioni, byte e SHA-256 dei PNG versionati; le catture full-page sono larghe quanto il contenuto senza scrollbar (15 px meno del viewport in questa sessione), quelle viewport prima/dopo sono 320×844. I bordi del solo bitmap non sono usati come prova di overflow. Gli altri screenshot completi restano in `artifacts/milestone-4a-resume`, ignorata da Git. Nessun asset del sito rigenerato o screenshot alterato.
+
+Aggiornati QA_MANUAL, CONTENT_AUDIT, README, ARCHITECTURE, DEPLOYMENT e CASE_STUDY con la nuova copertura, mantenendo il precedente blocco come fatto storico. Preview della sessione fermata identificando i soli processi pertinenti. Commit e push sul solo branch corrente, signing disattivato nel singolo comando; hash nel resoconto finale e in `git log --oneline cad3b09..HEAD`. Nessun merge, rebase, deploy o modifica ai servizi Cloudflare. Collaudo ancora parziale per gli input e le voci aperte della checklist; nessun avvio di nuove funzionalità o milestone.

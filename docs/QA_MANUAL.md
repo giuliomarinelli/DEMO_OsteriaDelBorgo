@@ -1,6 +1,6 @@
-# Collaudo manuale da completare — milestone 4A
+# Collaudo e verifiche aperte — milestone 4A
 
-Questa è una procedura riproducibile, **non un elenco di prove superate**. Il 15 novembre 2026 l'automazione ha acquisito la sola vista iniziale della home a 1440×1000, poi si è bloccata nell'attesa delle risorse durante la prima matrice di controllo. Non sono stati ripetuti tentativi browser dopo l'interruzione. I risultati della milestone 3 restano evidenze storiche; non sono attribuiti a questa esecuzione.
+Questa è una procedura riproducibile con stato delle prove, **non un elenco di prove tutte superate**. Il primo tentativo del 15 novembre 2026 si è fermato dopo la vista iniziale della home. Su nuova richiesta esplicita del proprietario è ripreso il collaudo Playwright: completate 20 misure DOM e 13 catture full-page, esaminate, prima di un timeout nella cattura galleria a 768 px. Le letture DOM hanno continuato a rispondere, mentre gli input non sono risultati affidabili. La cattura fallita a 768 px non è stata ripetuta, né sono stati avviati cicli di click. Dopo la correzione circoscritta e nuova build sono riuscite la cattura di regressione home 320, altre due catture indipendenti (galleria 320 e contatti 390) e le scansioni axe delle cinque pagine. I risultati della milestone 3 restano storici; le prove sotto indicano solo la copertura della ripresa.
 
 ## Preparazione
 
@@ -27,17 +27,19 @@ Aprire `http://127.0.0.1:8798/` in un browser ordinario; confermare il titolo Os
 
 Per **ogni cella**: scorrere dall'inizio al footer, aspettare il caricamento naturale delle immagini anche lazy, controllare titoli non tagliati, testo non sovrapposto, prezzi e allergeni leggibili, margini laterali, pulsanti, menu di navigazione e assenza di scorrimento orizzontale. Provare i collegamenti della pagina e tornare indietro. Verificare anche a zoom 200% il ritorno a capo e il raggiungimento dei controlli, senza presumere che un test a 320 px sostituisca questa prova.
 
-| Pagina                | 1440 px                                     | 768 px      | 390 px      | 320 px      |
-| --------------------- | ------------------------------------------- | ----------- | ----------- | ----------- |
-| Home `/`              | Solo vista iniziale acquisita; resto aperto | Da eseguire | Da eseguire | Da eseguire |
-| Storia `/storia/`     | Da eseguire                                 | Da eseguire | Da eseguire | Da eseguire |
-| Menu `/menu/`         | Da eseguire                                 | Da eseguire | Da eseguire | Da eseguire |
-| Galleria `/galleria/` | Da eseguire                                 | Da eseguire | Da eseguire | Da eseguire |
-| Contatti `/contatti/` | Da eseguire                                 | Da eseguire | Da eseguire | Da eseguire |
+| Pagina                | 1440 px                                                    | 768 px                                            | 390 px                                                 | 320 px                                                                                                         |
+| --------------------- | ---------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| Home `/`              | DOM + screenshot completo                                  | DOM + screenshot completo                         | DOM + screenshot completo                              | DOM + screenshot completo iniziale; sovrapposizione corretta e ricontrollata in DOM e nuova cattura della hero |
+| Storia `/storia/`     | DOM + screenshot completo                                  | DOM + screenshot completo                         | DOM + screenshot completo                              | DOM + screenshot completo                                                                                      |
+| Menu `/menu/`         | DOM + screenshot completo, stato iniziale                  | DOM + screenshot completo, stato iniziale         | DOM + screenshot completo, stato iniziale              | DOM + screenshot completo, stato iniziale                                                                      |
+| Galleria `/galleria/` | DOM + cattura parziale: manifesto lazy non ancora visibile | DOM; immagini poi caricate, screenshot in timeout | Solo DOM iniziale                                      | DOM + screenshot completo, tre immagini caricate                                                               |
+| Contatti `/contatti/` | Solo DOM iniziale                                          | Solo DOM iniziale                                 | DOM + screenshot completo, prima FAQ aperta di default | Solo DOM iniziale                                                                                              |
+
+Le 20 misure iniziali mostrano `scrollWidth === clientWidth`, un H1 per pagina e nessun elemento selezionato fuori dal viewport. Sono nel [report JSON](evidence/milestone-4a/viewport-matrix-resume.json). Non sostituiscono la prova delle interazioni, la lettura a zoom 200% o l'ispezione dei contenuti caricati dopo lo scorrimento. Il manifesto della galleria, inizialmente non caricato, è risultato `complete: true` e largo 720 px nella lettura successiva a 768 px: non è stato classificato come immagine mancante.
 
 Nel menu ripetere ogni viewport in stato completo, filtrato e vuoto. Leggere anche la didascalia delle tagliatelle e la legenda in fondo. A 768 px controllare il passaggio fra navigazione desktop e mobile attorno al breakpoint di 760 px. A 390/320 px verificare etichette lunghe e righe nome/prezzo; le etichette dei filtri hanno `min-height: 44px` nel CSS, ma il risultato visivo va ancora confermato.
 
-Screenshot rappresentativi ancora da acquisire: home 390, storia 768, filtri menu 1440, menu vuoto 390, galleria 320, contatti 390 con FAQ aperta. L'unico file prodotto in 4A è [home-1440.png](evidence/milestone-4a/home-1440.png); non estende la copertura alle sezioni fuori dalla vista.
+Screenshot rappresentativi versionati della ripresa: [home 390](evidence/milestone-4a/home-390-full.png), [storia 768](evidence/milestone-4a/storia-768-full.png), [menu 1440](evidence/milestone-4a/menu-1440-full.png), [menu 320](evidence/milestone-4a/menu-320-full.png), [galleria 320](evidence/milestone-4a/galleria-320-full.png), [contatti 390](evidence/milestone-4a/contatti-390-full.png), oltre alla coppia prima/dopo della correzione elencata nel manifest. Restano gli stati filtrati/vuoti e le FAQ aperte con interazione. Le catture full-page hanno larghezza del contenuto al netto della scrollbar (15 px in questa sessione); il parametro di viewport è nel nome, le dimensioni effettive nel manifest. Non usare i soli bordi del bitmap per dedurre overflow della pagina.
 
 ## Menu: casi e valori limite
 
@@ -79,7 +81,9 @@ Il dataset vuoto, l'allergene assente e gli input non mutati sono coperti dai te
 6. Disabilitare JavaScript nelle impostazioni DevTools e ricaricare direttamente home e menu. Contenuti e metadati devono restare disponibili; sul menu i 18 piatti e il testo `noscript` devono essere leggibili. Nei browser che supportano `scripting: none`, i controlli non utilizzabili sono nascosti. Riattivare JS al termine.
 7. Console/Network: annotare errori durante navigazione, caricamento immagini e prima interazione Qwik; nessun caricamento di chunk deve fallire. Non attribuire automaticamente all'app script iniettati da estensioni locali.
 
-Per axe-core usare il file locale e la procedura nel worklog della milestone 3. Eseguire la scansione sulle cinque pagine e sul menu vuoto; registrare anche `incomplete`, senza contarli come pass. La segnalazione storica sulle frecce decorative richiede controllo manuale nell'interfaccia effettiva. Nessuna nuova scansione axe è riuscita in 4A prima del blocco.
+Scansione axe-core 4.14.0 riuscita sulle cinque pagine iniziali a 390×844: **0 violazioni rilevate**, rispettivamente 20/17/27/18/17 regole passate per home/storia/menu/galleria/contatti. Report e tag in [axe-resume.json](evidence/milestone-4a/axe-resume.json). `color-contrast` resta incomplete per il simbolo decorativo del menu mobile e, sulla pagina menu, la freccia dei risultati; non sono conteggiati come pass. La scansione sul menu vuoto e la verifica screen reader restano aperte; non si dichiara conformità WCAG completa.
+
+La ripresa ha tentato Space sul checkbox Latte: il DOM è rimasto a 18 righe senza selezione; il successivo controllo con `locator.check` è scaduto nell'attesa di stabilità. Nessuna prova positiva di tastiera o dei filtri attribuita a questi tentativi; restano aperti i casi della tabella. Non sono stati sostituiti gli input nativi con mutazioni DOM/eventi sintetici per simulare un successo.
 
 ## Registrazione e chiusura
 

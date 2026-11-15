@@ -1267,6 +1267,12 @@
     font-size: 22px;
   }
 }
+/* With the title on three lines, the decorative tomato overlaps the last line. */
+@media (max-width: 360px) {
+  .hero-tomato {
+    display: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

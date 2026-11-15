@@ -4,7 +4,7 @@ Data: 15 novembre 2026. Applicazione di riferimento: `00d76b3`, Qwik City SSR se
 
 ## Metodo e limiti
 
-Letti testi, struttura, CTA, metadati e asset delle cinque pagine nel sorgente; verificati contenuti e collegamenti nell'HTML HTTP della build. Esaminato visivamente lo [screenshot iniziale della homepage a 1440 px](evidence/milestone-4a/home-1440.png). Il browser si è poi bloccato durante il controllo delle risorse: non sono disponibili nuove verifiche visuali complete delle pagine interne o mobile. Le valutazioni editoriali qui sotto derivano dai contenuti effettivi, non da test di conversione, interviste o misure di leggibilità sul mobile. Il collaudo da completare è in [QA_MANUAL.md](QA_MANUAL.md).
+Letti testi, struttura, CTA, metadati e asset delle cinque pagine nel sorgente; verificati contenuti e collegamenti nell'HTML HTTP della build. Dopo il primo blocco, il proprietario ha richiesto una nuova chiamata Playwright: esaminati screenshot completi di home, storia e menu ai quattro viewport, più galleria 320, contatti 390 e una cattura parziale della galleria desktop; misurati i layout di tutte le cinque pagine. Rilevata una sovrapposizione decorativa nella home a 320 px, corretta e ricontrollata senza revisione editoriale. Restano coperture visuali e interazioni da completare per limiti del browser. Le valutazioni qui sotto non derivano da test di conversione o interviste. Copertura e limiti sono in [QA_MANUAL.md](QA_MANUAL.md).
 
 ## Valutazione per pagina
 
