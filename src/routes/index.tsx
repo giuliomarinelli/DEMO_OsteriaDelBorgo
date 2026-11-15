@@ -3,7 +3,7 @@ import { component$ } from "@builder.io/qwik";
 import { Link, type DocumentHead } from "@builder.io/qwik-city";
 import { BorgoMark } from "~/components/borgo-mark/borgo-mark";
 import { MenuList } from "~/components/menu-list/menu-list";
-import { menuPreview } from "~/content/menu-preview";
+import { featuredDishes } from "~/content/menu";
 
 export default component$(() => (
   <>
@@ -111,7 +111,7 @@ export default component$(() => (
             Piatti e prezzi sono dimostrativi.
           </p>
         </div>
-        <MenuList dishes={[menuPreview[0], menuPreview[2], menuPreview[4]]} />
+        <MenuList dishes={featuredDishes} />
         <div class="menu-home-end">
           <p>
             Gli allergeni indicati sono dati demo.

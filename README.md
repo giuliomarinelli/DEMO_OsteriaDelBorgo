@@ -2,9 +2,9 @@
 
 Sito dimostrativo di una trattoria italiana **fittizia**, case study di portfolio. Nessuna attività reale, prenotazione operativa o raccolta dati.
 
-## Stato: milestone 2
+## Stato: milestone 3
 
-Qwik + Qwik City SSR, TypeScript strict, Tailwind CSS e adapter ufficiale Cloudflare Pages. Identità pomodoro/panna/basilico/inchiostro, font Fraunces locale, illustrazioni originali e immagini generate dichiarate. Homepage conviviale, storia, galleria, contatti e menu editoriale con sei assaggi statici, prezzi indicativi e allergeni demo. I filtri interattivi non sono implementati. Nessun backend business, database, autenticazione o integrazione esterna.
+Qwik + Qwik City SSR, TypeScript strict, Tailwind CSS e adapter ufficiale Cloudflare Pages. Identità pomodoro/panna/basilico/inchiostro, font Fraunces locale, illustrazioni originali e immagini generate dichiarate. Homepage conviviale, storia, galleria, contatti e menu interattivo con **18 piatti fittizi in cinque portate**. Categoria ed esclusioni multiple degli allergeni si combinano; conteggio, stato vuoto e reset si aggiornano nel browser con primitive Qwik. Prezzi e allergeni sono demo: i risultati non danno garanzie alimentari. Nessun backend business, database, autenticazione o integrazione esterna.
 
 ## Avvio
 
@@ -30,7 +30,9 @@ In una seconda shell nella radice, con Wrangler in ascolto su `http://127.0.0.1:
 npm test
 ```
 
-I dieci test verificano risposte HTML reali delle cinque rotte, metadati, navigazione, asset, stato 404, contenuti demo/allergeni, font e artefatti Pages. La build produce client in `dist` e moduli SSR in `server`, collegati da `dist/_worker.js`; tutte le pagine pubbliche sono escluse dal prerendering. La preview non richiede login Cloudflare. Fermare il runtime prima di reinstallare le dipendenze.
+`npm test` esegue 19 test unitari della logica/dataset e 10 test HTTP SSR. I primi si possono eseguire anche da soli con `npm run test:unit`, senza server; importano il TypeScript effettivo con `--experimental-strip-types` di Node (avviso sperimentale atteso su Node 22.16). `npm run test:ssr` richiede la preview attiva e verifica HTML delle cinque rotte, metadati, navigazione, asset, 404, catalogo completo, controlli, allergeni, font e artefatti Pages. Il contatore iniziale e tutti i 18 piatti sono nell'HTML senza esecuzione JS client.
+
+La build produce client in `dist` e moduli SSR in `server`, collegati da `dist/_worker.js`; tutte le pagine pubbliche sono escluse dal prerendering. La preview non richiede login Cloudflare. Fermare il runtime prima di reinstallare le dipendenze o ricostruire la build. Controlli browser/tastiera e procedura axe-core (solo sviluppo) in [WORKLOG.md](docs/WORKLOG.md).
 
 `npm run fmt` e `npm run fmt.check` riguardano i file applicativi e la nuova documentazione; non modificano `AGENTS.md` o `docs/MVP.md`. Il lockfile è versionato. Nessuno script di deploy remoto incluso.
 
@@ -47,4 +49,4 @@ Nessuna credenziale richiesta. `VITE_SITE_ORIGIN` facoltativo, pubblico e letto 
 - [Operazioni, verifiche e limiti](docs/WORKLOG.md).
 - [Case study](docs/CASE_STUDY.md) e [crediti asset](docs/ASSETS.md).
 
-Restano catalogo completo, filtri e stati della funzionalità verticale nelle milestone successive. L'audit segnala vulnerabilità transitive upstream, documentate nel worklog. Nessun deploy, configurazione Access o promozione di branch eseguiti.
+La milestone 3 si ferma al menu interattivo. Eventuali rifiniture della milestone 4 e prenotazioni simulate richiedono un nuovo task; nessun invio è implementato. L'audit segnala vulnerabilità transitive upstream, documentate nel worklog. Nessun deploy, configurazione Access o promozione di branch eseguiti.

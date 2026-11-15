@@ -92,17 +92,34 @@ test("Rotta inesistente: vero stato 404 e pagina utile", async () => {
   assert.match(html, /name="robots" content="noindex"/);
 });
 
-test("Menu editoriale: allergeni, prezzi demo e ancore, nessun filtro o invio", () => {
+test("Menu interattivo: catalogo e controlli presenti nell’HTML iniziale", () => {
   const html = pages.get("/menu/");
-  assert.match(html, /Piatti e prezzi demo/);
-  assert.match(html, /I filtri interattivi non sono ancora disponibili/);
+  assert.match(html, /Piatti, prezzi e allergeni sono demo/);
+  assert.match(html, /I filtri non sono una garanzia alimentare/);
   assert.match(html, /Non usarli per decidere cosa mangiare/);
-  assert.equal([...html.matchAll(/class="dish-allergens"/g)].length, 6);
-  for (const category of ["antipasti", "primi", "dolci"]) {
-    assert.ok(html.includes(`href="#${category}"`));
+  assert.equal([...html.matchAll(/class="dish-allergens"/g)].length, 18);
+  assert.match(html, /18 piatti mostrati/);
+  assert.match(html, /role="status"/);
+  assert.equal([...html.matchAll(/type="radio"/g)].length, 6);
+  assert.equal([...html.matchAll(/type="checkbox"/g)].length, 12);
+  assert.match(html, /<noscript/);
+  const noScript = html.match(/<noscript\b[^>]*>([\s\S]*?)<\/noscript>/)?.[1];
+  assert.ok(noScript);
+  assert.doesNotMatch(
+    noScript,
+    /<style\b/,
+    "Il fallback non deve attivare CSS quando Qwik riprende i controlli",
+  );
+  for (const category of [
+    "antipasti",
+    "primi",
+    "secondi",
+    "contorni",
+    "dolci",
+  ]) {
     assert.ok(html.includes(`id="${category}"`));
   }
-  assert.doesNotMatch(html, /<input\b|<select\b|<form\b/);
+  assert.doesNotMatch(html, /<form\b|type="submit"/);
 });
 
 test("Immagini dichiarate generate e font locale servito come WOFF2", async () => {

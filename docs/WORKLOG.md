@@ -120,3 +120,97 @@ Contrasti sRGB principali: pomodoro/panna 5,81:1, basilico/panna 6,15:1, inchios
 Commit atomico della milestone, signing disattivato solo nel singolo comando `git -c commit.gpgsign=false commit`, push sul solo branch di lavoro. Hash e conferma nel resoconto finale e recuperabili con `git log -1 --oneline`. Artefatti e screenshot esclusi dai commit; preview avviata dalla sessione chiusa al termine senza toccare il listener preesistente. Nessuna modifica ai branch di integrazione, staging o produzione.
 
 Prossimo task, solo dopo nuova richiesta: catalogo completo, filtri combinabili, reset e stati del menu interattivo. Nessun avvio automatico o deployment.
+
+## 2026-11-15 — Milestone 3: menu digitale interattivo
+
+### Perimetro e stato iniziale
+
+Letti `AGENTS.md`, `docs/MVP.md` e documentazione esistente. Working tree pulito su `feature/mvp-foundation`, HEAD `dedb43e`; `git fetch origin` e confronto con `origin/feature/mvp-foundation`: `0 0`. Proseguito sul branch esistente, senza creare branch, worktree o subagenti. Specifiche conservate, nessun merge/rebase/deploy o modifica a account, DNS, Access, pipeline o fatturazione.
+
+### Modifiche e ragioni delle scelte
+
+1. Sostituito il campione `src/content/menu-preview.ts` con `src/content/menu.ts`: 18 piatti fittizi (4 antipasti, 4 primi, 4 secondi, 3 contorni, 3 dolci), ID, descrizioni, prezzi e array di allergeni tipizzati. Mappa di 12 etichette condivisa fra controlli, righe e legenda. Home alimentata dagli stessi tre ID della milestone 2, senza duplicazione dei contenuti.
+2. `src/lib/menu-filters.ts`: funzione pura, categoria AND esclusioni, corrispondenza OR fra allergeni esclusi. Nessuna mutazione degli input, ordine invariato. Stato iniziale creato per istanza/richiesta, senza oggetti globali mutabili o persistenza.
+3. Rotta menu con `useStore`, `useComputed$` e handler QRL: radio nativi per una portata o tutte, checkbox per esclusioni multiple, conteggio live, sezioni con risultati, stato vuoto e reset. Nessun backend, fetch, servizio, database, autenticazione o invio. Ogni modifica sostituisce l'array delle esclusioni per rendere esplicito l'aggiornamento reattivo.
+4. Campi raggruppati con `fieldset/legend`, istruzioni associate, etichette cliccabili almeno 44 px, selezione nativa e cromatica, focus di 3 px. Il conteggio usa `role="status"`, `aria-live="polite"` e `aria-atomic`; un'ancora raggiunge la regione nominata dei risultati. Nessuno spostamento automatico del focus durante la selezione.
+5. Allergeni sempre espliciti sotto ogni piatto mostrato, avvertenza sopra i filtri e legenda anche nello stato vuoto. «Nessuno indicato» non prova assenza reale o sicurezza. Dati e prezzi fittizi, esclusioni senza garanzie alimentari né verifica di contaminazioni; nessun uso decisionale per un pasto reale.
+6. Conservati palette, Fraunces, bordi e menu tipografico. Unica immagine aggiunta alla presentazione dei piatti: riuso del WebP 720×480 già documentato per le tagliatelle, con didascalia/alt dichiarati generati e lazy loading. Nessun nuovo asset, download o generazione. Gli altri piatti non ricevono immagini generiche non pertinenti.
+7. Test Node sulla logica TypeScript effettiva tramite type stripping nativo; `npm test` combina 19 unitari e 10 HTTP SSR. Aggiunto soltanto `axe-core` 4.14.0 come devDependency, con lockfile: caricato dalla sessione di QA, mai importato nell'applicazione. La configurazione Prettier ignorava qualsiasi directory `lib`: ancorata la sola esclusione `/lib` alla radice per includere anche il nuovo `src/lib` nella formattazione.
+8. Aggiornati README, ARCHITECTURE, CASE_STUDY, DEPLOYMENT, BRAND_DIRECTION e ASSETS, oltre a questo worklog. Rendering SSR, routing e adapter Pages preservati; nessuna modifica alle loro configurazioni.
+
+### Difetti rilevati e corretti
+
+- Primo lint: direttiva Qwik `jsx-img` non necessaria nel componente con sorgente dinamica. Rimossa; versione finale senza warning lint.
+- Fallback iniziale con `style` dentro `noscript`: dopo la ripresa Qwik e un aggiornamento DOM il CSS nascondeva anche i controlli con JS attivo. Spostata la regola nel CSS globale con `@media (scripting: none)`; `noscript` contiene soltanto la spiegazione. Verificato `display: block` dei filtri dopo selezioni/reset e aggiunta guardia SSR contro lo style nel fallback. Nei browser senza supporto alla media query i controlli possono restare visibili senza JS; il catalogo completo e la spiegazione rimangono disponibili.
+- Primo raggruppamento in un secondo computed: contatore 9 ma 15 righe ancora renderizzate dopo l'esclusione del latte. Eliminati gli oggetti intermedi, ricavate le sezioni direttamente da `results.value` nel render; `MenuList` legge le props reattive. Controllo successivo su ID reali, non soltanto sul testo del contatore: 9 righe corrette, una con categoria primi, zero aggiungendo grano, 18 al reset.
+- Axe ha richiesto un ruolo alla regione dei risultati con `aria-label`: aggiunto `role="region"`. Ha inoltre rilevato «Osteriadel Borgo» come testo del marchio rispetto al nome accessibile: aggiunto lo spazio fra i due elementi tipografici, senza cambiare la composizione. Scansione finale senza violazioni rilevate.
+
+### Installazione e verifiche tecniche effettive
+
+Ambiente Windows, Node 22.16.0, npm 10.9.2. Dalla radice:
+
+```powershell
+npm install
+npm install --save-dev --save-exact axe-core@4.14.0
+npm run typecheck
+npm run lint
+npm run fmt
+npm run fmt.check
+npm run build
+# Avviare soltanto dopo la conclusione della build:
+node node_modules/wrangler/bin/wrangler.js pages dev dist --ip 127.0.0.1 --port 8798 --inspector-port 0
+# Secondo terminale nella medesima radice:
+$env:SSR_BASE_URL = 'http://127.0.0.1:8798'
+npm test
+```
+
+- Installazioni: exit 0; aggiunta devDependency axe-core, nessun upgrade del framework. Avviso di pulizia `EPERM` su directory opzionali Sharp/WASM, senza bloccare installazione o verifiche. `npm audit --json` finale conferma 12 segnalazioni preesistenti (8 moderate, 4 high), nessuna critical. Nessun `audit fix --force`: rimane il limite upstream della foundation.
+- `npm run typecheck`: exit 0, TypeScript strict. `npm run lint`: exit 0, nessun errore/warning finale. `npm run fmt.check`: superato, include il modulo dei filtri dopo la correzione dell'esclusione.
+- `npm run build` finale: exit 0; 81 moduli client e 41 SSR trasformati, CSS 26,87 kB / 6,43 kB gzip. Prodotti bundle client, moduli `server`, `_worker.js` e `_routes.json`. Solo `404.html` ausiliaria generata staticamente; nessun `index.html` pubblico prerenderizzato.
+- Avvisi non bloccanti: `NO_COLOR`/`FORCE_COLOR` dell'ambiente e URL WOFF2 lasciato da Vite per risoluzione runtime nella fase server, già presente in milestone 2. Il test HTTP conferma che il font viene effettivamente servito come WOFF2.
+- Preview fermata prima di ogni rebuild e riavviata a build conclusa. Terminati soltanto wrapper/CLI Wrangler della porta 8798 identificati tramite PID e percorso della repository, poi i loro figli sotto il relativo `node_modules`, per evitare la ricreazione di Workerd. Nessun processo di altri progetti toccato. La URL Pages stampata è una variabile locale simulata, non un deployment.
+- `npm test` finale sul runtime fresco: **29/29 superati, 0 falliti o saltati**. 19 unitari: cinque categorie, nessun filtro, esclusione singola/multipla, combinazioni, vuoto, allergene assente, catalogo vuoto, duplicati, input congelati non mutati, reset indipendente, integrità e selezione home. 10 SSR: cinque richieste HTTP dirette, metadati/layout/contenuto dopo rimozione script, link/asset, 404, catalogo completo con 18 informazioni allergeni e controlli, font e artefatti. L'avviso sperimentale di type stripping su Node 22.16 è atteso; non è un test saltato.
+- Homepage e `/menu/`, oltre alle altre tre pagine, contengono contenuto significativo e metadati nell'HTML della build Pages senza dipendere dal JS client. Canonical con origine configurata non esercitato; senza origine il test conferma l'assenza di un dominio inventato.
+
+### Browser, tastiera e accessibilità
+
+Playwright MCP sul runtime Pages/Workerd, non Vite dev. Controllati numero e ID delle righe realmente renderizzate dopo interazioni native, insieme a selezioni e messaggi:
+
+| Selezione                            | Righe e conteggio osservati                                                                  |
+| ------------------------------------ | -------------------------------------------------------------------------------------------- |
+| Tutte, nessuna esclusione            | 18                                                                                           |
+| Tutte, esclusione latte              | 9: caponata, crostino ceci, spaghetti, pollo, baccalà, polpettone, patate, cicoria, finocchi |
+| Primi, nessuna esclusione            | 4                                                                                            |
+| Primi, esclusione latte              | 1: spaghetti alle vongole                                                                    |
+| Primi, esclusioni latte e grano      | 0, «Qui il piatto è vuoto», avvertenza e legenda presenti                                    |
+| Reset principale o dallo stato vuoto | 18, radio Tutte selezionato, nessun checkbox selezionato, reset principale disabilitato      |
+
+Usati Space sui controlli, frecce nel gruppo radio, Tab fra checkbox e Invio sui reset. Outline verificato di 3 px; controlli ancora visibili dopo aggiornamenti. Non verificata una lettura screen reader: l'annuncio live è controllato a livello di semantica DOM.
+
+Menu a 320, 390, 768 e 1440 px: nessun overflow orizzontale, etichette almeno 44 px e testo interno senza overflow; nessuna immagine completata con errore. Ispezionati screenshot del pannello desktop e mobile: titoli, griglie, controlli e bordi mantengono l'identità. Il browser di automazione ha avuto timeout intermittenti su screenshot, actionability e `waitForFunction`, e un viewport azzerato dal backend: quei tentativi non sono conteggiati come successi. Le verifiche riportate sono quelle riuscite con azioni native e letture DOM in chiamate separate; viewport e screenshot ricontrollati dopo ripristino. Nessuna installazione di browser o uso di input nativo del sistema in sostituzione di Playwright.
+
+Axe-core 4.14.0, tag `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`: **0 violazioni rilevate** sul menu completo finale (26 regole passate) e stato vuoto (23). Resta `color-contrast` da rivedere manualmente per frecce decorative: la freccia del collegamento ai risultati è `aria-hidden`, pomodoro su panna (5,81:1); i reset usano gli stessi token ad alto contrasto. La segnalazione incomplete non è soppressa né dichiarata un pass automatico. I rapporti principali restano quelli documentati in BRAND_DIRECTION. Nessuna certificazione WCAG, audit completo, screen reader, Safari, Lighthouse o misurazione in produzione dichiarata.
+
+Per riprodurre manualmente senza strumenti agente:
+
+1. Avviare la preview e aprire `/menu/`; verificare i 18 piatti anche con `curl.exe -sS http://127.0.0.1:8798/menu/`. La risposta deve contenere nomi, descrizioni, allergeni, title e description.
+2. Da tastiera raggiungere i radio e usare frecce/Space; raggiungere Latte e poi Grano con Tab/Space. Ripetere le combinazioni della tabella e contare anche le righe, non solo il riepilogo. Provare entrambi i reset, focus visibile e collegamento ai risultati. Ridimensionare la finestra alle quattro larghezze indicate.
+3. Per axe aprire `node_modules/axe-core/axe.min.js` in un editor, copiarne il contenuto nella console DevTools della sola preview locale ed eseguirlo. Il file installato e versionato nel lockfile evita CDN o nuovi servizi. Eseguire poi:
+
+```javascript
+const report = await axe.run(document, {
+  runOnly: {
+    type: "tag",
+    values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
+  },
+});
+console.log(report.violations, report.incomplete, report.passes.length);
+```
+
+Ripetere prima e dopo una combinazione senza risultati. L'iniezione è solo QA e scompare ricaricando la pagina; non va aggiunta al codice applicativo. Per una verifica alimentare reale questa demo non è utilizzabile.
+
+### Consegna e limiti
+
+Commit della funzionalità con dati, test e documentazione coerenti; signing disattivato solo con `git -c commit.gpgsign=false commit`. Push limitato a `feature/mvp-foundation`. Hash e conferma nel resoconto finale, ricostruibili con `git log --oneline dedb43e..HEAD`. Nessun artefatto, screenshot, dipendenza installata, stato Wrangler o secret nei commit. Preview della sessione fermata al termine.
+
+Residui: audit upstream, limiti delle verifiche di accessibilità/browser sopra descritti e dati alimentari esclusivamente dimostrativi. Nessun blocco della funzionalità richiesta. Prossimo task soltanto su nuova richiesta: eventuali rifiniture della milestone 4; non avviate automaticamente prenotazioni, promozioni fra branch o pubblicazioni.

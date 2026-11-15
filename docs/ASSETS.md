@@ -12,6 +12,8 @@
 
 Le immagini fotografiche sono generate, non documentarie. Non ritraggono un esercizio reale, suoi clienti, ricette o servizio. Sono dichiarate nelle didascalie, negli alt e nella pagina contatti. Nessuna recensione o attestazione inventata. Gli SVG originali non richiedono attribuzioni a terzi; nessuna licenza dell'immagine di un locale reale è coinvolta. La distribuzione del font mantiene copyright e OFL; i font di corpo sono di sistema e non vengono distribuiti.
 
+Milestone 3: riusato `pranzo-condiviso-720.webp` nella voce Tagliatelle del Borgo del menu, con alt/didascalia che dichiarano la generazione. File invariato, 720×480 px, lazy loading; nessun nuovo download, generazione o asset aggiunto. È una scena illustrativa con pasta al pomodoro, non una documentazione della ricetta. Gli altri piatti restano senza fotografia per evitare associazioni improprie.
+
 Font: [progetto Fraunces](https://github.com/undercasetype/Fraunces), [famiglia su Google Fonts](https://fonts.google.com/specimen/Fraunces), [licenza upstream](https://raw.githubusercontent.com/google/fonts/main/ofl/fraunces/OFL.txt), [WOFF2 Fontsource 5.3.0](https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5.3.0/files/fraunces-latin-800-normal.woff2). Download una tantum in sviluppo; nessuna chiamata a questi provider a runtime.
 
 ## Generazione e preparazione

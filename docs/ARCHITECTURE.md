@@ -1,8 +1,8 @@
-# Architettura — milestone 2
+# Architettura — milestone 3
 
 ## Perimetro
 
-Fondamenta Qwik City SSR e cinque pagine pubbliche con identità e contenuti completati. Menu editoriale con sei esempi statici in `src/content/menu-preview.ts`, condivisi tra home e menu tramite `MenuList`; non è ancora il catalogo completo interattivo. Filtri e prenotazione simulata sono esclusi. Nessun backend business, database, autenticazione, CMS o integrazione esterna.
+Qwik City SSR e cinque pagine pubbliche con identità e contenuti. Menu interattivo di 18 piatti fittizi in antipasti (4), primi (4), secondi (4), contorni (3) e dolci (3). Categoria ed esclusioni multiple degli allergeni combinabili, conteggio, reset e stato vuoto. Prenotazione simulata esclusa da questa milestone. Nessun backend business, database, autenticazione, CMS o integrazione esterna.
 
 ## Rendering
 
@@ -26,14 +26,15 @@ src/
     site-footer/                         footer e dichiarazione demo
     page-intro/                          introduzione comune alle pagine
     borgo-mark/                          pomodoro illustrato originale
-    menu-list/                           nome, prezzo e allergeni degli assaggi
+    menu-list/                           nome, prezzo, descrizione, allergeni e immagine opzionale
   content/site.ts                        destinazioni della navigazione
-  content/menu-preview.ts                sei assaggi editoriali statici
+  content/menu.ts                        catalogo tipizzato, portate, allergeni e tre assaggi home
+  lib/menu-filters.ts                    selezione pura e stato iniziale dei filtri
   routes/
     layout.tsx                           layout condiviso
     index.tsx                            homepage
     storia/index.tsx                     narrativa fittizia e principi
-    menu/index.tsx                       menu editoriale, nessun filtro
+    menu/index.tsx                       filtri locali reattivi, risultati e avvertenze
     galleria/index.tsx                   ambiente, immagini e manifesto
     contatti/index.tsx                   informazioni e FAQ, nessun invio
     404.tsx                              pagina non trovata
@@ -42,6 +43,7 @@ src/
   entry.cloudflare-pages.tsx             ingresso produzione Pages
   global.css                             tema Tailwind e stile editoriale
   root.tsx                               documento Qwik City
+tests/menu.test.mjs                       test della logica TypeScript e integrità dati
 tests/ssr.test.mjs                        test HTTP sulla build reale
 wrangler.jsonc                           runtime Pages locale
 ```
@@ -50,11 +52,25 @@ wrangler.jsonc                           runtime Pages locale
 
 Palette pomodoro/panna/basilico/inchiostro, font Fraunces 800 locale con OFL, SVG originali e WebP generati dichiarati. [BRAND_DIRECTION.md](BRAND_DIRECTION.md) definisce ruoli, composizione e voce. `BorgoMark` e `MenuList` si aggiungono ai componenti condivisi della foundation. Tailwind CSS 4 è integrato attraverso `@tailwindcss/vite`; utilities per griglie, spaziature e breakpoint, layer `components` per marchio, composizione e tipografia. Nessuna libreria UI aggiuntiva. I componenti condivisi rispondono a riuso effettivo; il resto rimane nelle pagine.
 
-`component$`, `Slot`, `Link`, `useLocation` e `useDocumentHead` sono API Qwik. `useLocation` mantiene lo stato reattivo della rotta e `aria-current`; nessuno stato client artificiale per i futuri filtri. Il menu mobile usa `details/summary` nativi e collegamenti HTML per funzionare anche senza JS. Il menu desktop usa `Link` di Qwik City. Sono presenti skip link, landmarks, un H1 per pagina, alt delle illustrazioni e focus visibile. Non sono implementati form o pulsanti senza azione.
+`component$`, `Slot`, `Link`, `useLocation` e `useDocumentHead` sono API Qwik. `useLocation` mantiene lo stato reattivo della rotta e `aria-current`. Il menu mobile usa `details/summary` nativi e collegamenti HTML per funzionare anche senza JS. Il menu desktop usa `Link` di Qwik City. Sono presenti skip link, landmarks, un H1 per pagina, alt delle illustrazioni e focus visibile. Nessun form o invio dati.
+
+## Dati e interazione del menu
+
+`src/content/menu.ts` è l'unica sorgente del catalogo: ID stabili, descrizioni, prezzo indicativo come stringa, categoria tipizzata e array di ID degli allergeni. Le etichette leggibili provengono da una mappa comune ai checkbox, ai piatti e alla legenda. Le 12 voci rappresentano soltanto quelle associate alle ricette inventate, non una certificazione o un elenco normativo completo. Un array vuoto significa «nessuno indicato nei dati», senza deduzioni su assenza reale o contaminazioni. I tre assaggi home sono selezionati per ID, senza duplicare il dataset.
+
+`filterDishes` è una funzione pura: una categoria singola (o `all`) si combina in AND con le esclusioni. Fra allergeni esclusi vale OR: basta una corrispondenza per rimuovere un piatto. L'ordine del catalogo resta invariato e gli input non vengono mutati. `createDefaultFilters` restituisce un nuovo oggetto e un nuovo array, evitando stato condiviso fra istanze/richieste SSR.
+
+La rotta crea `useStore(createDefaultFilters())`; `useComputed$` deriva risultati e presenza di filtri, mentre handler QRL aggiornano categoria o sostituiscono l'array di esclusioni. Reset azzera entrambe le selezioni. Le sezioni vengono ricavate direttamente dai risultati durante il render e `MenuList` legge le props reattive; nessuna copia dello stato derivato in uno store, fetch, persistenza o parametro URL. Si evita un secondo raggruppamento computed di oggetti intermedi: nella verifica browser quella versione lasciava righe precedenti visibili, anche con contatore aggiornato.
+
+Radio e checkbox nativi sono raggruppati da `fieldset/legend`, con istruzioni associate, etichette cliccabili di almeno 44 px e focus di 3 px. Lo stato selezionato usa sia il controllo nativo sia il colore; `role="status"` con `aria-live="polite"` annuncia il conteggio. I cambiamenti non spostano automaticamente il focus. Il collegamento «Vai ai risultati» raggiunge una regione nominata e focalizzabile; lo stato vuoto offre un reset aggiuntivo. Avvertenza iniziale e legenda restano renderizzate anche con zero risultati, gli allergeni sono testo visibile sotto ogni piatto mostrato.
+
+SSR restituisce sempre il catalogo completo e i metadati. Senza JS il contenuto resta leggibile e `noscript` spiega il limite dei filtri; `@media (scripting: none)` nasconde i controlli non utilizzabili nei browser che supportano questa media query. La regola è nel CSS globale, non in uno `style` dentro `noscript`, per non attivarsi dopo aggiornamenti DOM Qwik. Il menu riusa solo il WebP gastronomico già documentato per le tagliatelle, con alt/didascalia generata, dimensioni e lazy loading. Gli altri piatti rimangono tipografici, senza immagini non pertinenti.
 
 ## Dipendenze e configurazione
 
 Qwik e Qwik City 1.20.4 stabili, TypeScript 5.9 strict, Tailwind 4.3, Vite 7.3, Wrangler 4.162. Le risoluzioni esatte sono in `package-lock.json`; usare npm e `npm ci`. Node verificato: 22.16.0, npm 10.9.2. Le dipendenze Qwik sono `devDependencies` secondo lo starter: l'output SSR le include nel bundle, non richiede `node_modules` in hosting.
+
+`axe-core` 4.14.0 è solo uno strumento di verifica di sviluppo, caricato nella sessione browser di QA; non è importato da `src` né incluso nell'app. Nessuna nuova dipendenza runtime. I test unitari usano il runner Node e il type stripping nativo per eseguire la funzione TypeScript reale, senza mantenere una seconda implementazione JavaScript.
 
 `VITE_SITE_ORIGIN` è facoltativo e pubblico, letto alla build. Deve essere un'origine HTTP(S) senza percorso, query o slash finale. Se omesso, non viene emesso un canonical inventato; se impostato, il canonical usa il pathname della rotta senza query. Non è una credenziale. Non servono token, binding o account Cloudflare per il runtime locale.
 
@@ -62,4 +78,4 @@ Qwik e Qwik City 1.20.4 stabili, TypeScript 5.9 strict, Tailwind 4.3, Vite 7.3, 
 
 ## Strategia di verifica
 
-Typecheck dell'app e adapter; lint con regole Qwik, TypeScript e JavaScript sui test; build client + server; dieci test Node che richiedono le cinque pagine direttamente, controllano HTML senza script, metadati, navigazione, asset, 404, contenuti demo/allergeni, font e assenza di pagine prerenderizzate. Il runtime di riferimento è `wrangler pages dev`, non solo il server Vite. Verifica browser responsive e tastiera descritta nel worklog; non equivale a un audit WCAG completo.
+Typecheck dell'app e adapter; lint con regole Qwik, TypeScript e JavaScript sui test; build client + server. Diciannove test unitari coprono categorie, esclusioni singole/multiple, combinazioni, stato vuoto, reset, input immutabili e integrità del dataset. Dieci test HTTP richiedono direttamente le cinque pagine e controllano HTML senza script, metadati, navigazione, asset, 404, catalogo iniziale, controlli, allergeni, font e assenza di pagine prerenderizzate. Il runtime di riferimento è `wrangler pages dev`, non solo Vite. La verifica browser confronta anche gli ID delle righe con il contatore dopo le interazioni; responsive, tastiera e axe-core sono descritti nel worklog, senza equipararli a un audit WCAG completo.

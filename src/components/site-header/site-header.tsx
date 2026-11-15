@@ -11,7 +11,7 @@ export const SiteHeader = component$(() => {
         <Link href="/" class="brand" aria-label="Osteria del Borgo — homepage">
           <BorgoMark />
           <span>
-            Osteria<small>del Borgo</small>
+            Osteria <small>del Borgo</small>
           </span>
         </Link>
         <nav class="desktop-nav" aria-label="Navigazione principale">

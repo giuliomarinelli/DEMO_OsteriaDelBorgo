@@ -22,7 +22,7 @@ Fraunces 800 per i titoli: un WOFF2 latino locale da 18.224 byte, licenza OFL 1.
 - Hero centrale su due righe, pomodoro inciso, timbro laterale, CTA e foto ampia con etichetta inclinata. Il testo essenziale rimane HTML.
 - Fascia rossa statica: niente marquee, carousel o movimento continuo.
 - Sezioni panna, carta calda e basilico: invito, carattere, assaggi, ambiente e chiarezza sulla demo.
-- Menu con cornice doppia, numeri, leader puntinati, nome/prezzo insieme, descrizione e allergeni sotto. Ancore vere alle portate, nessun finto filtro.
+- Menu con cornice doppia, numeri, leader puntinati, nome/prezzo insieme, descrizione e allergeni sotto. Filtri nativi incorniciati, selezione pomodoro/panna e collegamento ai risultati.
 - Mobile in colonna, decorazioni ridotte, menu HTML nativo; nessuna informazione essenziale nascosta.
 
 ## Segni e immagini
@@ -35,4 +35,4 @@ Calorosa, concreta e un po' ironica. Dare del tu, parlare di sfoglia, pane, sugo
 
 ## Perimetro
 
-Contenuti di home, storia, menu editoriale, ambiente e contatti. Sei assaggi statici in tre portate, con prezzi indicativi e allergeni demo, preparano la grafica. Non sono ancora il catalogo di almeno dodici piatti dell'MVP completo. Filtri, reset, stati vuoti e prenotazioni simulate restano alle fasi successive. Nessun nuovo servizio o backend; Qwik City SSR e adapter Pages preservati.
+La milestone 2 ha definito contenuti e identità delle cinque pagine e sei assaggi editoriali. La milestone 3 estende quel linguaggio a 18 piatti in cinque portate, filtri combinabili, reset, conteggio e stato vuoto «Qui il piatto è vuoto». Radio e checkbox restano riconoscibili; bordi e colore accompagnano lo stato nativo, con focus visibile e etichette ampie. Avvertenze alimentari in linguaggio diretto, senza ironia o colori che suggeriscano sicurezza. Una sola immagine pertinente riusa il pranzo generato già documentato; nessuna foto generica attribuita agli altri piatti. Prenotazioni simulate escluse da questa fase. Nessun nuovo servizio o backend; Qwik City SSR e adapter Pages preservati.

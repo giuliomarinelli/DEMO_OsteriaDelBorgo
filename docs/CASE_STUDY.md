@@ -2,7 +2,7 @@
 
 ## Problema e obiettivo
 
-Costruire un sito credibile per una trattoria italiana fittizia e dimostrare qualità di implementazione, velocità percepita e accessibilità. La futura funzionalità distintiva sarà un menu locale con categorie ed esclusione degli allergeni, combinabili e azzerabili. La milestone 2 completa identità visiva e contenuti; la funzionalità interattiva resta alla fase successiva.
+Costruire un sito credibile per una trattoria italiana fittizia e dimostrare qualità di implementazione, velocità percepita e accessibilità. La funzionalità distintiva è un menu locale con categorie ed esclusione degli allergeni, combinabili e azzerabili. Dopo foundation e identità visiva, la milestone 3 completa questa esperienza senza introdurre backend o servizi.
 
 ## Milestone 1
 
@@ -13,6 +13,16 @@ Il contenuto non pretende di rappresentare un ristorante operativo: storia, marc
 ## Milestone 2
 
 Palette pomodoro/panna/basilico/inchiostro, titoli Fraunces 800 locale, pomodoro inciso originale e hero centrale con pranzo condiviso. Immagini generate dichiarate, WebP responsive e manifesto vettoriale originale. Le cinque pagine hanno contenuti completi: storia fittizia, sei assaggi statici con prezzi e allergeni demo, ambiente e FAQ. Nessun filtro o invio reale. La direzione è documentata in [BRAND_DIRECTION.md](BRAND_DIRECTION.md).
+
+## Milestone 3
+
+Il catalogo passa a 18 piatti, distribuiti fra cinque portate, con descrizioni, prezzi indicativi e allergeni strutturati. Radio per la portata e checkbox per escludere più allergeni: la categoria si combina con tutte le esclusioni e basta un allergene indicato per nascondere un piatto. Conteggio annunciato, stato vuoto esplicativo e due punti di reset rendono visibile l'effetto delle scelte. La grafica riprende bordi, titoli e palette del menu editoriale; una sola immagine gastronomica pertinente, già disponibile e dichiarata generata, accompagna le tagliatelle.
+
+Lo stato è locale con `useStore`, i risultati derivano con `useComputed$` e la selezione è una funzione pura testabile. Il primo HTML SSR contiene tutti i 18 piatti, allergeni e metadati: leggere il menu non richiede JavaScript. Nessuna ricerca remota, persistenza o raccolta dati. La home continua a mostrare tre assaggi scelti per ID dal catalogo comune.
+
+L'interazione non trasforma i dati inventati in informazioni alimentari affidabili. Avvertenza e legenda rimangono presenti anche nello stato vuoto; nessuna etichetta «sicuro», garanzia o deduzione da un elenco di allergeni vuoto. Controlli nativi, istruzioni, focus visibile e un conteggio live conservano una navigazione da tastiera comprensibile.
+
+La verifica sul browser ha rilevato due difetti sfuggiti ai soli test di logica: CSS contenuto in `noscript` che diventava attivo durante l'aggiornamento DOM e un raggruppamento derivato che lasciava righe obsolete mentre aggiornava il contatore. La versione consegnata usa la media query CSS globale per il fallback e ricava le sezioni direttamente dai risultati con props reattive. Le verifiche successive confrontano gli ID realmente renderizzati: 18 iniziali, 9 escludendo latte, uno selezionando anche primi, zero aggiungendo grano, 18 dopo reset.
 
 ## Scelte progettuali della foundation
 
@@ -27,6 +37,6 @@ Palette pomodoro/panna/basilico/inchiostro, titoli Fraunces 800 locale, pomodoro
 
 La verifica tecnica usa typecheck, lint, build e test HTTP riproducibili sulle cinque pagine; le risposte devono contenere testo e metadati dopo la rimozione degli script. Il worklog registra risultati effettivi e verifiche browser. Non vengono dichiarati risultati Lighthouse, audit WCAG completo, compatibilità Safari o prestazioni in produzione senza misurazioni.
 
-Rimangono il catalogo completo di almeno dodici piatti, i filtri e gli stati vuoti della funzionalità verticale. I sei assaggi attuali sono esempi editoriali, non il completamento della milestone interattiva. Audit delle dipendenze: residui upstream documentati nel worklog; nessuna pretesa di assenza di vulnerabilità. Nessun deployment remoto eseguito e nessuna promozione fra branch autorizzata da questa milestone.
+Milestone 3 verificata con 19 test unitari e 10 test SSR, typecheck, lint e build di produzione. Controlli tastiera, responsive e axe-core nel worklog, con limiti espliciti. Eventuali ulteriori rifiniture della milestone 4 e prenotazioni simulate restano a un task successivo: contatti continua a non inviare dati. Audit delle dipendenze: residui upstream documentati nel worklog; nessuna pretesa di assenza di vulnerabilità. Nessun deployment remoto eseguito e nessuna promozione fra branch autorizzata da questa milestone.
 
 Crediti degli asset: [ASSETS.md](ASSETS.md). Architettura e riproduzione: [ARCHITECTURE.md](ARCHITECTURE.md), [DEPLOYMENT.md](DEPLOYMENT.md).
