@@ -8,41 +8,41 @@ export default component$(() => (
     <PageIntro
       number="01 /"
       eyebrow="LA NOSTRA STORIA"
-      title="Una scusa per stare insieme."
+      title="Il pranzo comincia sul tagliere."
     >
       <p>
-        Abbiamo immaginato un’osteria dove «resti a pranzo?» è una domanda
-        seria. E «porto qualcosa?» ha sempre la stessa risposta: porta appetito.
+        Nel Borgo che ci siamo inventati, il primo rumore è quello del
+        mattarello sul legno. I piatti possono aspettare ancora un momento.
       </p>
     </PageIntro>
     <section class="shell section-space story-chapter">
       <div class="story-poster">
         <BorgoMark />
         <p>
-          Il sugo unisce.
+          Dal tagliere
           <br />
-          Il pane aiuta.
+          alla forchetta.
         </p>
-        <span class="eyebrow">PICCOLE VERITÀ DA TAVOLA</span>
+        <span class="eyebrow">UNA MATTINA NELLA NOSTRA CUCINA IMMAGINARIA</span>
       </div>
       <div class="prose-copy">
-        <p class="eyebrow">È COMINCIATA COSÌ. PER FINTA.</p>
+        <p class="eyebrow">UN EPISODIO INVENTATO, LE MANI IN PASTA</p>
         <h2>
-          Una cucina aperta.
+          Un quarto di giro.
           <br />
-          Una sedia in più.
+          Un’altra passata.
         </h2>
         <p>
-          Nella nostra storia il Borgo nasce da un’abitudine: cucinare più del
-          necessario. Una pentola capiente, qualcuno che bussa e il pranzo per
-          due diventa un pranzo per sei. Le sedie si recuperano, il pane si
-          spezza.
+          È quasi ora di pranzo, nella nostra cucina immaginaria. Sul tagliere,
+          la sfoglia fa un quarto di giro a ogni passata di mattarello. Chi la
+          tira ne solleva un lembo verso la finestra per guardare quanto è
+          sottile.
         </p>
         <p>
-          Da quell’idea abbiamo costruito una trattoria di fantasia. Il menu
-          segue i gesti semplici della cucina italiana: tirare la sfoglia,
-          assaggiare il sugo, accorgersi che manca un pizzico di sale. Nessuna
-          ricetta segreta. Al massimo, le dosi «a occhio».
+          Poi la lascia asciugare un poco, la arrotola e taglia le strisce.
+          Qualcuna viene più larga: nessuno prende il righello. Le tagliatelle
+          si aprono fra le dita e finiscono in piccoli nidi infarinati, pronti
+          per la pentola. Sul grembiule rimane un’impronta di farina.
         </p>
         <p class="editorial-note">
           Questa narrativa è fittizia. Non ci sono una famiglia fondatrice, una
@@ -69,18 +69,19 @@ export default component$(() => (
           </article>
           <article>
             <span class="chapter-number">02</span>
-            <h3>Il piatto si passa.</h3>
+            <h3>Si assaggia in cucina.</h3>
             <p>
-              Un antipasto al centro è già una conversazione. Le porzioni si
-              dividono, l’ultimo boccone si contratta.
+              Il cucchiaino entra nel sugo prima del mestolo. Si assaggia e si
+              aggiusta il sale: il piatto si decide anche in quel momento.
             </p>
           </article>
           <article>
             <span class="chapter-number">03</span>
-            <h3>Il pane resta.</h3>
+            <h3>L’ultimo giro è nel tegame.</h3>
             <p>
-              Il sugo nel piatto è un invito. Noi la scarpetta la consideriamo
-              un complimento alla cucina.
+              Le tagliatelle incontrano il sugo prima di arrivare in sala. Il
+              pomodoro deve restare sulla pasta: la tovaglia ha già il suo
+              disegno.
             </p>
           </article>
         </div>
@@ -101,7 +102,7 @@ export const head: DocumentHead = {
     {
       name: "description",
       content:
-        "Una pentola grande e una sedia in più: la storia inventata di Osteria del Borgo, tra pasta fresca, piatti da condividere e buone abitudini a tavola.",
+        "Un mattarello, un quarto di giro e le tagliatelle sul tagliere: un breve racconto della cucina immaginaria di Osteria del Borgo. Storia dichiaratamente fittizia.",
     },
   ],
 };

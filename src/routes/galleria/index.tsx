@@ -11,8 +11,9 @@ export default component$(() => (
       title="Tovaglia a quadretti. Idee chiare."
     >
       <p>
-        Sedie rosse, piatti al centro e nessuno che ti chieda di abbassare la
-        voce ogni due minuti. Benvenuti nella sala che ci siamo immaginati.
+        Dalla sfoglia sul tagliere alle tagliatelle nel vassoio. Tre immagini
+        per guardare come cucina e sala si incontrano nel nostro Borgo
+        immaginario.
       </p>
     </PageIntro>
     <section class="shell gallery-section">
@@ -27,7 +28,10 @@ export default component$(() => (
           alt="Immagine generata della sala immaginaria: tavolo per quattro, sedie rosse, basilico e luce dalla finestra."
         />
         <figcaption>
-          <span>01 / La sala. C’è sempre una sedia da avvicinare.</span>
+          <span>
+            01 / La sala. Luce dalla finestra, ceramiche chiare e quadretti
+            rossi: una tavola pensata per far risaltare il pranzo.
+          </span>
           <span>Immagine generata · Locale fittizio</span>
         </figcaption>
       </figure>
@@ -41,7 +45,9 @@ export default component$(() => (
             alt="Immagine generata di pasta, pane e verdure condivisi su una tavola a quadretti."
           />
           <figcaption>
-            02 / Il pranzo. Il centro della tavola è di tutti.
+            02 / Il pranzo. Tagliatelle al pomodoro nel vassoio, verdure nei
+            piatti piccoli. Apparecchiamo attorno alle portate, così si
+            raggiunge tutto.
             <br />
             Immagine generata · Piatti dimostrativi
           </figcaption>
@@ -55,26 +61,27 @@ export default component$(() => (
             alt="Manifesto illustrato originale con un piatto, forchetta, pomodoro e la scritta A tavola si sta insieme."
           />
           <figcaption>
-            03 / Il nostro promemoria. Illustrazione originale.
+            03 / Il promemoria. Un piatto, due posate e il pomodoro: la cucina
+            diventa un’insegna da appendere in sala. Illustrazione originale.
           </figcaption>
         </figure>
       </div>
     </section>
     <section class="shell section-space grid gap-8 md:grid-cols-2 md:gap-16">
       <div>
-        <p class="eyebrow">IL POSTO CHE AVEVAMO IN TESTA</p>
+        <p class="eyebrow">DAL BANCO DI CUCINA ALLA SALA</p>
         <h2>
-          Apparecchiato bene.
+          La sfoglia cambia posto.
           <br />
-          Senza cerimonie.
+          Diventa pranzo.
         </h2>
       </div>
       <div class="prose-copy">
         <p>
-          Abbiamo scelto materiali quotidiani: legno che porta i segni del
-          tempo, ceramiche semplici, una tovaglia che non si spaventa per una
-          goccia di sugo. Il verde arriva da un vaso di basilico. Il resto lo
-          fanno le persone.
+          In cucina la pasta si raccoglie in nidi; in sala arriva distesa nel
+          vassoio. Nella tavola che immaginiamo, i piatti piccoli lasciano
+          spazio alle portate. Il vaso di basilico è l’unico centrotavola: se
+          serve spazio, si sposta.
         </p>
         <p>
           Le immagini fotografiche di questa galleria sono generate con AI per
@@ -82,7 +89,7 @@ export default component$(() => (
           suo servizio. L’illustrazione è un originale della demo.
         </p>
         <Link class="text-link" href="/storia/">
-          La storia che tiene insieme tutto ↗
+          Prima del vassoio: la sfoglia sul tagliere ↗
         </Link>
       </div>
     </section>
@@ -94,7 +101,7 @@ export const head: DocumentHead = {
     {
       name: "description",
       content:
-        "Sedie rosse, tovaglie a quadretti e piatti da passare: esplora l’ambiente immaginario del Borgo, con immagini generate dichiarate e illustrazioni originali.",
+        "Dal tagliere al vassoio: luce, ceramiche e tagliatelle raccontano la sala immaginaria del Borgo. Immagini generate dichiarate e manifesto originale.",
     },
   ],
 };

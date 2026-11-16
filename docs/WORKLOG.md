@@ -465,3 +465,60 @@ Controlli funzionali e responsive principali di M3/4A ora completati. **Non eseg
 Chiusa soltanto la scheda dedicata indice 1, senza altre chiamate browser successive. Terminati wrapper/CLI Wrangler 75124/18972 e figli identificati per parent PID e percorso sotto i node_modules del progetto; nessun listener residuo 8797. Browser condivisi e runtime degli altri progetti invariati; Playwright liberato per la sessione successiva. Nessun deploy, login, servizio Cloudflare, merge, rebase o altra milestone avviata.
 
 Commit atomico e push solo sul branch corrente, con `git -c commit.gpgsign=false commit`; hash nel resoconto finale e recuperabile con `git log --oneline 44bf7b8..HEAD`. Eventuali verifiche ulteriori o arricchimenti richiedono un nuovo task.
+
+## 2026-11-16 — Milestone 4B: approfondimento editoriale
+
+### Perimetro e base
+
+Richiesta esplicita di arricchire Storia e Galleria senza nuove funzionalità o revisione dell'identità approvata. Letti integralmente AGENTS, MVP, BRAND_DIRECTION e CONTENT_AUDIT, più la chiusura 4A del worklog, CASE_STUDY e procedura locale. Base `0ec3d3f`, branch esistente `feature/mvp-foundation`, working tree inizialmente pulito; fetch del solo branch e confronto con origin `0 0`. Una sola sessione, nessun subagente o worktree.
+
+### Scelte editoriali e modifiche
+
+- **Storia:** l'episodio del mattarello, del quarto di giro, del lembo di sfoglia sollevato alla finestra e dei nidi di tagliatelle sostituisce i due paragrafi generici su pentola e sedie. Titolo e manifesto tipografico anticipano il tagliere. Due schede ripetitive su condivisione e scarpetta diventano dettagli di cucina: assaggio del sugo e ultimo giro nel tegame. Conservata la dichiarazione di narrativa fittizia, senza biografie, date, fornitori o tradizioni attribuite a un'attività reale.
+- **Galleria:** le tre didascalie descrivono luce dalla finestra e ceramiche chiare, disposizione di tagliatelle e verdure attorno al vassoio, segni gastronomici del manifesto. Il paragrafo finale collega la sfoglia in cucina alla tavola; il link a Storia indica il racconto che si troverà. Indicazioni di immagini generate, piatti demo e locale fittizio preservate.
+- **Composizione:** riutilizzate cornice pomodoro su panna, manifesto con marchio e fascia basilico già approvati. Nessuna sezione aggiunta, CSS modificato o nuovo asset. Valutata una piccola decorazione originale, ma il manifesto esistente svolge già quella funzione e un altro segno non aggiungerebbe informazione.
+- Aggiornate le descrizioni SEO delle due pagine e soltanto il titolo atteso di Storia nella fixture del test HTTP SSR esistente. Nessun nuovo test E2E. Menu, filtri, prezzi, allergeni, relative avvertenze, homepage e navigazione invariati: verificato anche il diff dei file protetti dal perimetro.
+
+Aggiornati CASE_STUDY e questo worklog; breve nota in README e seguito datato in CONTENT_AUDIT per distinguere le proposte ora attuate dalla valutazione storica 4A. ARCHITECTURE e DEPLOYMENT restano validi perché rendering, struttura, dipendenze e comandi non cambiano. AGENTS e MVP non modificati.
+
+### Verifiche riproducibili
+
+Node 22.16.0, npm 10.9.2. Comandi dalla radice; prima della build verificata libera la porta 8797 e assenza della preview da fermare:
+
+```powershell
+npm ci
+npx --no-install prettier --write src/routes/storia/index.tsx src/routes/galleria/index.tsx tests/ssr.test.mjs
+npm run typecheck
+npm run lint
+npm run test:unit
+npm run build
+npm run preview
+# Seconda shell, stessa radice:
+npm run test:ssr
+```
+
+`npm ci` exit 0, lockfile invariato: 447 pacchetti aggiunti, 454 esaminati, 12 segnalazioni (8 moderate, 4 high), come già documentato in 4A. Avvisi di pacchetti deprecati e cleanup EPERM su una directory opzionale sharp-wasm32 sotto node_modules; l'installazione non è fallita. Nessun aggiornamento forzato, fix audit o rimozione manuale di directory. Typecheck e lint exit 0; **21/21 test unitari passati**, nessuno fallito o saltato. I comandi dopo l'installazione hanno richiesto più tempo rispetto alla precedente esecuzione, senza errori del sorgente.
+
+**Build di produzione exit 0**: 81 moduli client, 41 SSR, CSS 27,01 kB / 6,47 kB gzip. Artefatti Pages generati, nessuna pagina pubblica prerenderizzata; sola 404 ausiliaria statica. Avvisi noti del font risolto al runtime e NO_COLOR, nessun errore. Typecheck e lint interni alla build superati.
+
+Avviata la sola preview di questa sessione con `npm run preview`, Wrangler 4.162.0 su `http://127.0.0.1:8797`, senza login o binding remoti. **10/10 test HTTP SSR passati**, zero falliti o saltati: complessivamente 31/31 nei due runner esistenti. Verificati contenuti e metadati, collegamenti e asset, 404 reale, catalogo e avvertenze del menu, font e artefatti SSR.
+
+Controllo HTTP mirato aggiuntivo, senza browser: richieste dirette a `/storia/` e `/galleria/`, rimozione di script e commenti e confronto del testo del main con quattro marker della nuova narrativa e sei delle didascalie/dichiarazioni della galleria. Entrambe HTTP 200, metadato description presente; zero img nel main di Storia e tre nella Galleria. Confronto statico prima/dopo: tre sezioni Storia e due Galleria, numeri invariati. Nessun nuovo test salvato o dipendenza introdotta per queste letture. Riproduzione rapida dalla seconda shell, con preview attiva:
+
+```powershell
+foreach ($route in @('/storia/', '/galleria/')) {
+  $response = Invoke-WebRequest ('http://127.0.0.1:8797' + $route)
+  $html = $response.Content -replace '(?is)<script\b[^>]*>.*?</script>', ''
+  $html = $html -replace '(?s)<!--.*?-->', ''
+  $response.StatusCode
+  $html | Select-String 'tagliere|nidi infarinati|Luce dalla finestra|Locale fittizio|name="description"'
+}
+```
+
+Eseguite formattazione dei file modificati, `npm run fmt.check` e `git diff --check`. Nessun cambiamento a lockfile, CSS, asset, dati/logica/UI menu, specifiche o configurazione Wrangler.
+
+### Limiti e consegna
+
+Per istruzione esplicita del proprietario non usati Playwright MCP, CUA, altri browser agentici o nuovi E2E. Nessun nuovo screenshot o collaudo visuale/responsive dei testi 4B dichiarato: le evidenze 4A rimangono riferite ai contenuti precedenti. I controlli sul sorgente e le risposte HTTP non sostituiscono una verifica visuale. Nessuna nuova dipendenza, API, prenotazione, integrazione, deploy, merge, rebase o modifica Cloudflare. Arresto al completamento della sola milestone 4B.
+
+Al termine fermata soltanto la preview propria, identificando parent PID e percorsi dei figli sotto i node_modules della repository, verificata libera la porta 8797. Commit atomico e push al solo branch `feature/mvp-foundation`, signing disattivato con il singolo `git -c commit.gpgsign=false commit`; hash nel resoconto finale e in `git log --oneline 0ec3d3f..HEAD`. I residui npm sono quelli indicati sopra; nessun altro blocco tecnico. Eventuale revisione visuale manuale dei nuovi testi resta una verifica distinta, senza avviare automaticamente un'altra milestone.

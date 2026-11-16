@@ -6,6 +6,8 @@ Sito dimostrativo di una trattoria italiana **fittizia**, case study di portfoli
 
 Qwik + Qwik City SSR, TypeScript strict, Tailwind CSS e adapter ufficiale Cloudflare Pages. Identità pomodoro/panna/basilico/inchiostro, font Fraunces locale, illustrazioni originali e immagini generate dichiarate. Homepage conviviale, storia, galleria, contatti e menu interattivo con **18 piatti fittizi in cinque portate**. Categoria ed esclusioni multiple degli allergeni si combinano; conteggio, stato vuoto e reset si aggiornano nel browser con primitive Qwik. Prezzi e allergeni sono demo: i risultati non danno garanzie alimentari. Nessun backend business, database, autenticazione o integrazione esterna.
 
+La milestone 4B approfondisce Storia con un breve episodio inventato della sfoglia e Galleria con didascalie legate a cucina e ambiente, riutilizzando composizioni e asset approvati. Nessuna modifica al menu interattivo. Verifiche locali nel worklog; nessun browser agentico usato per questa revisione editoriale.
+
 ## Avvio
 
 Node 22 LTS >=22.12 (verificato 22.16.0), npm 10.9.2. Dalla radice:

@@ -9,7 +9,7 @@ assert.ok(
 );
 const routes = [
   ["/", "Aggiungi un posto", "a tavola."],
-  ["/storia/", "Una scusa per stare insieme."],
+  ["/storia/", "Il pranzo comincia sul tagliere."],
   ["/menu/", "Prima si legge. Poi viene fame."],
   ["/galleria/", "Tovaglia a quadretti. Idee chiare."],
   ["/contatti/", "Per ora, tienici un posto nella fantasia."],

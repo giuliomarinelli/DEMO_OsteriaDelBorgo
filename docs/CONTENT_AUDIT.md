@@ -27,3 +27,7 @@ Letti testi, struttura, CTA, metadati e asset delle cinque pagine nel sorgente; 
 ## Esito e prossima decisione
 
 Nessuna pagina è un placeholder. Galleria e storia offrono le opportunità più concrete di arricchimento editoriale; la home ha già una struttura ampia e il menu un catalogo completo per la demo. Nessun nuovo testo pubblico, asset, sezione o funzionalità introdotto in 4A. Controllo visuale mobile e delle pagine interne completato; eventuali arricchimenti richiedono un nuovo task.
+
+## Seguito autorizzato — milestone 4B, 16 novembre 2026
+
+Attuate le due proposte editoriali su Storia e Galleria: episodio della sfoglia al posto del racconto generico, didascalie più concrete e collegamento fra preparazione e tavola. Ridotte due ripetizioni nella pagina Storia, senza ampliare la struttura o aggiungere immagini. Le altre proposte dell'audit non sono implementate. Questo documento conserva la valutazione 4A come riferimento storico; modifiche e verifiche 4B sono in [CASE_STUDY.md](CASE_STUDY.md) e [WORKLOG.md](WORKLOG.md). Nessuna nuova validazione visuale browser in 4B, come richiesto.

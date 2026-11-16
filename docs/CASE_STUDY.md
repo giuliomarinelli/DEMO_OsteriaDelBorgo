@@ -38,6 +38,14 @@ La successiva esecuzione esclusiva parte da `44bf7b8`. La diagnosi rileva una sc
 
 Il browser rileva un ulteriore difetto reale: dopo home→storia restano due link desktop con `aria-current=page`. Il valore esplicito `false` per i Link inattivi e il selettore CSS limitato al valore `page` correggono stato accessibile e sottolineatura, senza cambiare routing o SSR. Verificati navigazione client, indietro/avanti e stile effettivo. Nuova build e 31 test passati. Axe sul menu vuoto: zero violazioni, controlli incompleti conservati. Screen reader, zoom reale 200%, Safari e prestazioni pubbliche restano non verificati; nessuna dichiarazione di conformità completa.
 
+## Milestone 4B: approfondimento editoriale
+
+Storia passa dal racconto generico di pentole e sedie a una breve scena dichiaratamente inventata: il quarto di giro della sfoglia, il lembo sollevato verso la finestra, il taglio delle strisce e i nidi sul tagliere. L'episodio sostituisce i due paragrafi precedenti; non aggiunge una sezione. Il manifesto tipografico riprende il passaggio «Dal tagliere alla forchetta», mentre due schede sulle abitudini sostituiscono i temi già ripetuti della condivisione e della scarpetta con assaggio e ultimo giro nel tegame. Nessuna biografia, data storica o attività reale rivendicata.
+
+Galleria conserva le tre immagini e ne rende specifiche le didascalie: luce laterale e ceramiche chiare nella sala, tagliatelle e verdure disposte attorno al vassoio, segni della cucina nel manifesto. Il testo conclusivo collega i nidi di pasta al pranzo in sala e il link a Storia anticipa la scena del tagliere. Le dichiarazioni di immagini generate e ambiente fittizio restano visibili. Il manifesto originale già presente svolge la funzione grafica: nessuna nuova decorazione o immagine necessaria.
+
+Composizioni, palette, font e CSS approvati riutilizzati. Aggiornate le descrizioni SEO delle due pagine e il titolo atteso nel test HTTP SSR esistente di Storia; nessun nuovo test E2E. Menu, filtri, prezzi, allergeni e avvertenze non modificati. Installazione da lockfile, typecheck, lint e build riusciti; 21 test unitari e 10 HTTP SSR superati, nuovi testi verificati nelle risposte dirette senza script. Avvisi npm e limiti della consegna nel worklog: in questa milestone non sono usati browser agentici, quindi le evidenze visuali 4A restano riferite ai contenuti precedenti.
+
 ## Scelte progettuali della foundation
 
 - Identità editoriale crema, oliva e terracotta; illustrazioni vettoriali originali al posto di fotografie attribuite a un locale inesistente.
