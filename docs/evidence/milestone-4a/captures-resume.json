@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-15",
+  "baseRevision": "cad3b09",
+  "note": "Il nome indica il viewport richiesto; dimensioni bitmap sotto. home-1440.png proviene dal primo tentativo. La coppia before/after mostra la correzione CSS; home-390, storia e menu provengono dalla build precedente, con le medesime regole applicabili.",
+  "captures": [
+    {
+      "file": "contatti-390-full.png",
+      "width": 375,
+      "height": 2257,
+      "bytes": 102427,
+      "sha256": "ec93759ee80b3fa3d51780ab5dc66241af88153e35350616231dde541fea187f"
+    },
+    {
+      "file": "galleria-320-full.png",
+      "width": 305,
+      "height": 2693,
+      "bytes": 446891,
+      "sha256": "20ba204c64b18204b030dc23f30db878fc75044dc4181677244e32937da32085"
+    },
+    {
+      "file": "home-1440.png",
+      "width": 1440,
+      "height": 1000,
+      "bytes": 928111,
+      "sha256": "dbca5877c005b52399d6f62725766937a88f54d4363d6817073ceb7ada8d68d0"
+    },
+    {
+      "file": "home-320-after.png",
+      "width": 320,
+      "height": 844,
+      "bytes": 170816,
+      "sha256": "7597df1818cb146609b98b3731d9c5f5a1a11eba68453e06ccfa6528d78f47fc"
+    },
+    {
+      "file": "home-320-before.png",
+      "width": 320,
+      "height": 844,
+      "bytes": 166970,
+      "sha256": "ed9979481af3e73f85a58d3bc87cfb1ec4d19938e5e8ad7f5bdb8b0d51f56d03"
+    },
+    {
+      "file": "home-390-full.png",
+      "width": 375,
+      "height": 3745,
+      "bytes": 548048,
+      "sha256": "d6ceeb1db74cbe67beecaa831ad51250f80695758b54268370b657a02041a002"
+    },
+    {
+      "file": "menu-1440-full.png",
+      "width": 1425,
+      "height": 5912,
+      "bytes": 568149,
+      "sha256": "5299c23ccf7bc414fd53d953f301116490921635800279b1afcfb1d8ec6c43cf"
+    },
+    {
+      "file": "menu-320-full.png",
+      "width": 305,
+      "height": 7991,
+      "bytes": 448098,
+      "sha256": "1d597b1f17d6e818a0d8c92da64d2ec00e4f07652dd3ae6ecaea7fe17103fee3"
+    },
+    {
+      "file": "storia-768-full.png",
+      "width": 753,
+      "height": 2373,
+      "bytes": 177613,
+      "sha256": "5035f7f6852aa51acbeea4936b9c3e9932d5cc76065a86d5f1e9dcfec75b15da"
+    }
+  ]
+}

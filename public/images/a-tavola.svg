@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720" viewBox="0 0 720 720">
+  <rect width="720" height="720" fill="#fff0d2"/><path d="M24 24h672v672H24zM32 32h656v656H32z" fill="none" stroke="#a93427" stroke-width="2"/>
+  <g fill="#a93427" font-family="Georgia,serif" font-weight="bold" text-anchor="middle"><text x="360" y="124" font-size="72" letter-spacing="-4">A TAVOLA</text><text x="360" y="633" font-size="48" letter-spacing="-2">si sta insieme.</text></g>
+  <circle cx="360" cy="356" r="185" fill="none" stroke="#356348" stroke-width="4"/><circle cx="360" cy="356" r="174" fill="none" stroke="#356348" stroke-width="1.5"/><circle cx="360" cy="356" r="134" fill="none" stroke="#356348" stroke-width="2"/>
+  <g fill="none" stroke="#a93427" stroke-width="13" stroke-linecap="round"><path d="M285 315c31-60 141-48 147 15s-111 126-145 62 70-131 122-74-22 133-86 101"/><path d="M290 410c-76-38-36-146 36-147s142 98 77 151-130-21-96-64 118-44 109 16"/><path d="M276 345c25-87 169-59 172 10s-100 105-135 46 56-105 83-65"/></g>
+  <path d="M355 324c-43-39-40-69-10-87 34 15 42 46 10 87m3 0c10-46 39-63 67-48-7 31-30 47-67 48" fill="#356348" stroke="#fff0d2" stroke-width="3"/>
+  <g stroke="#a93427" stroke-linecap="round" fill="none" stroke-width="5"><path d="M112 225v93q0 22 15 29v153m-15-275v68m15-68v68m15-68v93q0 22-15 29M587 500V225q26 26 26 74v62h-26"/></g>
+  <g fill="#a93427"><path d="m86 142 5 11 12 2-9 9 2 12-10-6-11 6 2-12-9-9 13-2zm548 393 5 11 12 2-9 9 2 12-10-6-11 6 2-12-9-9 13-2z"/></g>
+  <text x="360" y="666" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing="3" fill="#a93427">OSTERIA DEL BORGO · UNA BELLA IDEA DI PRANZO</text>
+</svg>

@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-15",
+  "baseRevision": "cad3b09",
+  "change": "src/global.css: decorazione nascosta fino a 360px",
+  "before": {
+    "viewport": 320,
+    "mark": {
+      "left": 13.95,
+      "top": 302.18,
+      "right": 69.05,
+      "bottom": 354.79
+    },
+    "text": {
+      "left": 35.82,
+      "top": 280.48,
+      "right": 269.18,
+      "bottom": 354.98
+    },
+    "overlap": true
+  },
+  "after": [
+    {
+      "width": 1440,
+      "markDisplay": "block",
+      "scroll": 1425,
+      "client": 1425,
+      "style": ["/assets/CAgcGe9--style.css"]
+    },
+    {
+      "width": 768,
+      "markDisplay": "block",
+      "scroll": 753,
+      "client": 753,
+      "style": ["/assets/CAgcGe9--style.css"]
+    },
+    {
+      "width": 390,
+      "markDisplay": "block",
+      "scroll": 375,
+      "client": 375,
+      "style": ["/assets/CAgcGe9--style.css"]
+    },
+    {
+      "width": 360,
+      "markDisplay": "none",
+      "scroll": 345,
+      "client": 345,
+      "style": ["/assets/CAgcGe9--style.css"]
+    },
+    {
+      "width": 320,
+      "markDisplay": "none",
+      "scroll": 305,
+      "client": 305,
+      "style": ["/assets/CAgcGe9--style.css"]
+    }
+  ]
+}

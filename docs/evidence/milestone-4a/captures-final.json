@@ -1,0 +1,236 @@
+{
+  "date": "2026-11-15",
+  "baseRevision": "44bf7b8",
+  "css": "xO3SoV-d-style.css",
+  "notes": [
+    "Screenshot originali, non ritagliati o modificati; ricattura dopo build finale a scroll zero.",
+    "Sedici catture esaminate; cinque rappresentative versionate, altre undici locali ignorate da Git.",
+    "Larghezza bitmap full-page al netto della scrollbar, viewport esplicito in ogni record."
+  ],
+  "captures": [
+    {
+      "path": "docs/evidence/milestone-4a/menu-filtered-1440-final.png",
+      "url": "http://127.0.0.1:8797/menu/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "top": 0,
+      "width": 1425,
+      "height": 2868,
+      "bytes": 232917,
+      "sha256": "656a7492c5ed4d672feeda91aad89b62c1f5f8e5d6c5922ff1239f1311ce64f9",
+      "versioned": true
+    },
+    {
+      "path": "artifacts/milestone-4a-final/menu-empty-1440.png",
+      "url": "http://127.0.0.1:8797/menu/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "top": 0,
+      "width": 1425,
+      "height": 2976,
+      "bytes": 233814,
+      "sha256": "16ade47bc02d3ea77fcb753be306094a42c64c10b0643f9862362d09e146475c",
+      "versioned": false
+    },
+    {
+      "path": "artifacts/milestone-4a-final/menu-filtered-768.png",
+      "url": "http://127.0.0.1:8797/menu/",
+      "viewport": {
+        "width": 768,
+        "height": 1000
+      },
+      "top": 0,
+      "width": 753,
+      "height": 2771,
+      "bytes": 172458,
+      "sha256": "a94bba39722761725b8fa0ee4d67ed93fd0d4186f996687260129182fb683932",
+      "versioned": false
+    },
+    {
+      "path": "artifacts/milestone-4a-final/menu-empty-768.png",
+      "url": "http://127.0.0.1:8797/menu/",
+      "viewport": {
+        "width": 768,
+        "height": 1000
+      },
+      "top": 0,
+      "width": 753,
+      "height": 2854,
+      "bytes": 170418,
+      "sha256": "ac54fc18117ebd892ed6d88f298caa4aef843b5aff6949d8a0555b303b5ef70f",
+      "versioned": false
+    },
+    {
+      "path": "artifacts/milestone-4a-final/menu-filtered-390.png",
+      "url": "http://127.0.0.1:8797/menu/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "top": 0,
+      "width": 375,
+      "height": 3385,
+      "bytes": 156386,
+      "sha256": "9f24bff1485ce64760aceeb81cd96f5b0f93e736db83cac1f3dd9bcc8a0ec7d6",
+      "versioned": false
+    },
+    {
+      "path": "artifacts/milestone-4a-final/menu-empty-390.png",
+      "url": "http://127.0.0.1:8797/menu/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "top": 0,
+      "width": 375,
+      "height": 3534,
+      "bytes": 155553,
+      "sha256": "2c14f87068d3d9da19a562658bbeb803a599beedc900468fe1072d90e1f28cf3",
+      "versioned": false
+    },
+    {
+      "path": "docs/evidence/milestone-4a/menu-empty-390-final.png",
+      "url": "http://127.0.0.1:8797/menu/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "top": 0,
+      "width": 375,
+      "height": 3534,
+      "bytes": 155438,
+      "sha256": "af0b9dda1c056fc9a7f85c1466e4b460cc7109805de1878e692577fa0d1eb85b",
+      "versioned": true
+    },
+    {
+      "path": "artifacts/milestone-4a-final/menu-filtered-320.png",
+      "url": "http://127.0.0.1:8797/menu/",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "top": 0,
+      "width": 305,
+      "height": 3766,
+      "bytes": 157480,
+      "sha256": "172a7b94945c41490c1460ccc8fce9b07caaa871f865c2bd0343275441641dc7",
+      "versioned": false
+    },
+    {
+      "path": "artifacts/milestone-4a-final/menu-empty-320.png",
+      "url": "http://127.0.0.1:8797/menu/",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "top": 0,
+      "width": 305,
+      "height": 3943,
+      "bytes": 157065,
+      "sha256": "2d02d2475d73e3c2ad32a29dd79c9cdff62d928f6443e0495111d608086c6277",
+      "versioned": false
+    },
+    {
+      "path": "artifacts/milestone-4a-final/galleria-1440-final.png",
+      "url": "http://127.0.0.1:8797/galleria/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "top": 0,
+      "width": 1425,
+      "height": 2869,
+      "bytes": 2093810,
+      "sha256": "c42f16014e4fe5415fe4d225a57f98530a4105d5caa4b34f26b04521a485bdfd",
+      "versioned": false
+    },
+    {
+      "path": "docs/evidence/milestone-4a/galleria-768-final.png",
+      "url": "http://127.0.0.1:8797/galleria/",
+      "viewport": {
+        "width": 768,
+        "height": 1000
+      },
+      "top": 0,
+      "width": 753,
+      "height": 2241,
+      "bytes": 843373,
+      "sha256": "884dfec59088393892ed356c054f15e25849f32d9c3bba3560436f71427c3d35",
+      "versioned": true
+    },
+    {
+      "path": "artifacts/milestone-4a-final/galleria-390-final.png",
+      "url": "http://127.0.0.1:8797/galleria/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "top": 0,
+      "width": 375,
+      "height": 2703,
+      "bytes": 610041,
+      "sha256": "b4ae9b5093f468e1be909c635774b9c6294fe2cd29d5838bc4021a4a91f1c893",
+      "versioned": false
+    },
+    {
+      "path": "artifacts/milestone-4a-final/contatti-1440-final.png",
+      "url": "http://127.0.0.1:8797/contatti/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "top": 0,
+      "width": 1425,
+      "height": 1950,
+      "bytes": 174838,
+      "sha256": "0d40e73edf7a61f6212c3eeef96c9fae5647f33042ed62410680b731accf6785",
+      "versioned": false
+    },
+    {
+      "path": "artifacts/milestone-4a-final/contatti-768-final.png",
+      "url": "http://127.0.0.1:8797/contatti/",
+      "viewport": {
+        "width": 768,
+        "height": 1000
+      },
+      "top": 0,
+      "width": 753,
+      "height": 1865,
+      "bytes": 130068,
+      "sha256": "22ce5f5488183ac8ecf69d55385e23ad7c0c352205a45e6de847b0b6faf551e2",
+      "versioned": false
+    },
+    {
+      "path": "docs/evidence/milestone-4a/contatti-320-final.png",
+      "url": "http://127.0.0.1:8797/contatti/",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "top": 0,
+      "width": 305,
+      "height": 2535,
+      "bytes": 104668,
+      "sha256": "115716ba18420e65d60a7f51de4a09ce8932db5a0e491f467aa1e1d892c164f8",
+      "versioned": true
+    },
+    {
+      "path": "docs/evidence/milestone-4a/contatti-faq-390-final.png",
+      "url": "http://127.0.0.1:8797/contatti/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "top": 0,
+      "width": 375,
+      "height": 2582,
+      "bytes": 118289,
+      "sha256": "d561ccf451720efe7775094e064ccb68ca48a5f5159758abc02fd9cb8831f2e7",
+      "versioned": true
+    }
+  ]
+}

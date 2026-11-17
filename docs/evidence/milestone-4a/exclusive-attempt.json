@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-15",
+  "revision": "7480a4c",
+  "scope": "Solo controlli browser mancanti; esecuzione sequenziale su scheda dedicata.",
+  "runtime": {
+    "command": "npm run preview",
+    "url": "http://127.0.0.1:8797",
+    "build": "Qwik City SSR di produzione già verificata, senza rebuild o modifiche applicative"
+  },
+  "httpBeforeBrowser": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Osteria del Borgo — Aggiungi un posto a tavola",
+      "dishRows": 3
+    },
+    {
+      "route": "/menu/",
+      "status": 200,
+      "title": "Il menu interattivo demo — Osteria del Borgo",
+      "dishRows": 18
+    }
+  ],
+  "browser": {
+    "dedicatedTabIndex": 1,
+    "url": "http://127.0.0.1:8797/menu/",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "completed": [
+      "Apertura scheda dedicata",
+      "Impostazione viewport",
+      "Snapshot accessibilità",
+      "Precondizioni URL/viewport/stato iniziale 18 righe"
+    ]
+  },
+  "blocked": {
+    "operation": "page.locator('input[value=\"latte\"]').check({timeout:5000})",
+    "error": "TimeoutError: locator.check: Timeout 5000ms exceeded.",
+    "lastStep": "waiting for element to be visible, enabled and stable",
+    "locatorResolved": true,
+    "postInputAssertionReached": false,
+    "classification": "Timeout dell'azione Playwright prima del click; risposta MCP ricevuta. Non un timeout HTTP o un difetto dei filtri confermato.",
+    "cause": "Non isolata",
+    "retries": 0
+  },
+  "cleanup": {
+    "dedicatedTabClosed": true,
+    "onlyOwnedRuntimeStopped": true,
+    "sharedBrowserProcessesUntouched": true
+  },
+  "remaining": "Interazioni/keyboard, stati filtrati/vuoti e viewport ancora aperti in QA_MANUAL; nessun nuovo pass attribuito.",
+  "technicalTests": "Nessuna modifica applicativa; test tecnici già superati sulla stessa applicazione non ripetuti."
+}
