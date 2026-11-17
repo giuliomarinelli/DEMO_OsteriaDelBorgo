@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-15",
+  "sourceRevision": "00d76b3f1b2b6a0ad5d0090937e3833513e97c30",
+  "note": "Analisi statica dell'output locale; assenza di marker e import non equivale a prova formale di assenza di codice vulnerabile.",
+  "auditCounts": {
+    "info": 0,
+    "low": 0,
+    "moderate": 8,
+    "high": 4,
+    "critical": 0,
+    "total": 12
+  },
+  "versions": {
+    "@typescript-eslint/typescript-estree/node_modules/minimatch": "10.2.6",
+    "sharp": "0.34.5",
+    "miniflare/node_modules/sharp": "0.35.5",
+    "vite-imagetools": "9.0.3",
+    "zod": "3.25.48"
+  },
+  "auditPackages": [
+    "@builder.io/qwik-city",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "@typescript-eslint/type-utils",
+    "@typescript-eslint/typescript-estree",
+    "@typescript-eslint/utils",
+    "eslint-plugin-qwik",
+    "minimatch",
+    "sharp",
+    "typescript-eslint",
+    "vite-imagetools",
+    "zod"
+  ],
+  "advisories": [
+    {
+      "title": "minimatch has potential denial of service via globparts amplification",
+      "url": "https://github.com/advisories/GHSA-g3hv-75wg-m249",
+      "severity": "moderate",
+      "range": ">=7.0.0 <11.0.1"
+    },
+    {
+      "title": "sharp inherited vulnerabilities in libvips: CVE-2026-33327, CVE-2026-33328, CVE-2026-35590, CVE-2026-35591",
+      "url": "https://github.com/advisories/GHSA-f88m-g3jw-g9cj",
+      "severity": "high",
+      "range": "<0.35.0"
+    },
+    {
+      "title": "sharp: Vulnerabilities in libheif: GHSA-g89c-p67h-r497 and GHSA-2jg2-4ch7-h545",
+      "url": "https://github.com/advisories/GHSA-rgj7-g3m4-5g8c",
+      "severity": "high",
+      "range": "<0.35.4"
+    },
+    {
+      "title": "sharp : Vulnerability in librsvg dependency CVE-2026-96889",
+      "url": "https://github.com/advisories/GHSA-wq5f-xc86-pv6w",
+      "severity": "high",
+      "range": "<0.35.5"
+    },
+    {
+      "title": "Zod can exhaust memory while validating oversized constrained collections",
+      "url": "https://github.com/advisories/GHSA-mrhx-c7xc-m3w5",
+      "severity": "high",
+      "range": "<4.6.6"
+    }
+  ],
+  "ssrEntry": "dist/_worker.js",
+  "ssrBundleInputs": [
+    "server/@qwik-city-not-found-paths.js",
+    "server/@qwik-city-static-paths.js",
+    "server/q-BGx4IPwG.js",
+    "server/q-CUA-zjRl.js",
+    "server/@qwik-city-plan.js",
+    "server/entry.cloudflare-pages.js",
+    "dist/_worker.js"
+  ],
+  "ssrExternalImports": ["node:async_hooks"],
+  "clientModulesScanned": 47,
+  "markers": [
+    {
+      "marker": "minimatch",
+      "server": false,
+      "client": false
+    },
+    {
+      "marker": "firstPhasePreProcess",
+      "server": false,
+      "client": false
+    },
+    {
+      "marker": "globParts",
+      "server": false,
+      "client": false
+    },
+    {
+      "marker": "sharp",
+      "server": false,
+      "client": false
+    },
+    {
+      "marker": "vite-imagetools",
+      "server": false,
+      "client": false
+    },
+    {
+      "marker": "ZodError",
+      "server": false,
+      "client": false
+    },
+    {
+      "marker": "ZodArray",
+      "server": false,
+      "client": false
+    },
+    {
+      "marker": "safeParseAsync",
+      "server": false,
+      "client": false
+    },
+    {
+      "marker": "zod",
+      "server": false,
+      "client": false
+    }
+  ]
+}

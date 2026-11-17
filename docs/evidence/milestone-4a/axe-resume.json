@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-15",
+  "axeVersion": "4.14.0",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "tags": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
+  "state": "Pagine iniziali senza interazioni; menu completo, details nello stato iniziale.",
+  "note": "Non equivale ad audit WCAG completo; incomplete non contati come pass.",
+  "reports": [
+    {
+      "route": "/",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [["summary > span[aria-hidden=\"true\"]"]]
+        }
+      ],
+      "passes": 20
+    },
+    {
+      "route": "/storia/",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [["summary > span[aria-hidden=\"true\"]"]]
+        }
+      ],
+      "passes": 17
+    },
+    {
+      "route": "/menu/",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            ["summary > span[aria-hidden=\"true\"]"],
+            ["a[href$=\"#risultati-menu\"] > span[aria-hidden=\"true\"]"]
+          ]
+        }
+      ],
+      "passes": 27
+    },
+    {
+      "route": "/galleria/",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [["summary > span[aria-hidden=\"true\"]"]]
+        }
+      ],
+      "passes": 18
+    },
+    {
+      "route": "/contatti/",
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [["summary > span[aria-hidden=\"true\"]"]]
+        }
+      ],
+      "passes": 17
+    }
+  ]
+}

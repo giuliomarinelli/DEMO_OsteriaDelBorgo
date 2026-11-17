@@ -1,0 +1,792 @@
+{
+  "date": "2026-11-15",
+  "baseRevision": "44bf7b8",
+  "runtime": "Build Qwik City SSR di produzione, Wrangler 4.162.0/Workerd, http://127.0.0.1:8797",
+  "browser": {
+    "url": "http://127.0.0.1:8797/contatti/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "visibility": "visible",
+    "openFaq": 4
+  },
+  "preconditions": "Scheda dedicata, URL e viewport controllati, Chrome visibile. Input normali senza force o eventi sintetici nei casi accettati.",
+  "diagnosis": {
+    "hiddenVisibility": "hidden",
+    "hiddenRafCallbacksDuring250ms": 0,
+    "bringToFront": "Focus true ma visibility hidden e frame ancora sospesi.",
+    "cdp": "Creazione sessione CDP negata da Target.attachToBrowserTarget: Not allowed. Nessuna emulazione applicata.",
+    "diagnosticOnly": "Un check force sul Latte ha prodotto eventi trusted e 9 righe; escluso dai pass. I successivi 23 casi usano check/uncheck/click normali dopo che il proprietario ha reso Chrome visibile.",
+    "harnessErrors": "Durante la ricattura un locator value=grano inesistente ha causato timeout: corretto nel test a value=glutine; non è un bug applicativo. Prima asserzione CSS sul bordo errata: lo stato usa text-decoration, verificato poi sul valore corretto."
+  },
+  "applicationBug": {
+    "steps": ["Home SSR → click La nostra storia", "Da Storia → click Il menu"],
+    "before": [
+      ["/", "/storia/"],
+      ["/", "/menu/"]
+    ],
+    "expected": "Un solo link desktop aria-current=page, relativo alla rotta corrente.",
+    "fix": "Link desktop inattivo con aria-current=false; selettore CSS limitato a aria-current=page.",
+    "files": ["src/components/site-header/site-header.tsx", "src/global.css"]
+  },
+  "keyboard": {
+    "reports": [
+      {
+        "case": "skip-link",
+        "text": "Vai al contenuto",
+        "top": 10,
+        "outline": "3px",
+        "focusedMain": true
+      },
+      {
+        "case": "navigazione-desktop",
+        "title": "La nostra storia — Osteria del Borgo",
+        "active": "/storia/"
+      },
+      {
+        "case": "navigazione-mobile",
+        "outline": "3px",
+        "title": "Il menu interattivo demo — Osteria del Borgo",
+        "active": "/menu/"
+      },
+      {
+        "case": "radio-frecce-primi",
+        "count": "4 piatti mostrati su 18",
+        "ids": [
+          "tagliatelle-borgo",
+          "ravioli-salvia",
+          "risotto-funghi",
+          "spaghetti-vongole"
+        ],
+        "selected": ["primi"],
+        "focusOutline": "3px"
+      },
+      {
+        "case": "tastiera-primi-grano",
+        "count": "1 piatto mostrato su 18",
+        "ids": ["risotto-funghi"],
+        "selected": ["primi", "glutine"],
+        "focusOutline": "3px"
+      },
+      {
+        "case": "tastiera-primi-grano-uova-latte",
+        "count": "Nessun piatto mostrato su 18",
+        "ids": [],
+        "selected": ["primi", "glutine", "uova", "latte"],
+        "focusOutline": "3px"
+      },
+      {
+        "case": "reset-principale-tastiera",
+        "count": "18 piatti mostrati su 18",
+        "ids": [
+          "crostoni-orto",
+          "polpette-sugo",
+          "caponata",
+          "crostino-ceci",
+          "tagliatelle-borgo",
+          "ravioli-salvia",
+          "risotto-funghi",
+          "spaghetti-vongole",
+          "pollo-limone",
+          "baccala-umido",
+          "polpettone-lenticchie",
+          "gamberi-padella",
+          "patate-rosmarino",
+          "cicoria-ripassata",
+          "finocchi-arance",
+          "tiramisu",
+          "crostata-casa",
+          "torta-cioccolato"
+        ],
+        "selected": ["all"],
+        "focusOutline": "3px"
+      },
+      {
+        "case": "reset-vuoto-tastiera",
+        "count": "18 piatti mostrati su 18",
+        "ids": [
+          "crostoni-orto",
+          "polpette-sugo",
+          "caponata",
+          "crostino-ceci",
+          "tagliatelle-borgo",
+          "ravioli-salvia",
+          "risotto-funghi",
+          "spaghetti-vongole",
+          "pollo-limone",
+          "baccala-umido",
+          "polpettone-lenticchie",
+          "gamberi-padella",
+          "patate-rosmarino",
+          "cicoria-ripassata",
+          "finocchi-arance",
+          "tiramisu",
+          "crostata-casa",
+          "torta-cioccolato"
+        ],
+        "selected": ["all"],
+        "focusOutline": "3px"
+      },
+      {
+        "case": "ancora-risultati-tastiera",
+        "focusedRegion": true
+      }
+    ],
+    "passed": true
+  },
+  "navigation": [
+    {
+      "path": "/storia/",
+      "active": ["/storia/"],
+      "inactive": 4
+    },
+    {
+      "path": "/menu/",
+      "active": ["/menu/"],
+      "inactive": 4
+    },
+    {
+      "path": "/galleria/",
+      "active": ["/galleria/"],
+      "inactive": 4
+    },
+    {
+      "path": "/contatti/",
+      "active": ["/contatti/"],
+      "inactive": 4
+    },
+    {
+      "path": "/",
+      "active": ["/"],
+      "inactive": 4
+    },
+    {
+      "case": "history-back",
+      "path": "/contatti/",
+      "active": "/contatti/"
+    },
+    {
+      "case": "history-forward",
+      "path": "/",
+      "active": "/"
+    }
+  ],
+  "faq": {
+    "context": {
+      "url": "http://127.0.0.1:8797/contatti/",
+      "width": 390,
+      "height": 844
+    },
+    "reports": [
+      {
+        "case": "faq-1",
+        "text": "L’Osteria del Borgo esiste davvero?",
+        "outline": "3px",
+        "initial": true,
+        "toggled": false,
+        "restored": true
+      },
+      {
+        "case": "faq-2",
+        "text": "Posso prenotare o ordinare?",
+        "outline": "3px",
+        "initial": false,
+        "toggled": true,
+        "restored": false
+      },
+      {
+        "case": "faq-3",
+        "text": "Le fotografie sono di un locale reale?",
+        "outline": "3px",
+        "initial": false,
+        "toggled": true,
+        "restored": false
+      },
+      {
+        "case": "faq-4",
+        "text": "E i prezzi e gli allergeni del menu?",
+        "outline": "3px",
+        "initial": false,
+        "toggled": true,
+        "restored": false
+      }
+    ],
+    "allOpen": 4
+  },
+  "responsive": {
+    "reports": [
+      {
+        "state": "filtered",
+        "url": "http://127.0.0.1:8797/menu/",
+        "width": 1440,
+        "height": 1000,
+        "client": 1425,
+        "scroll": 1425,
+        "count": "1 piatto mostrato su 18",
+        "ids": ["spaghetti-vongole"],
+        "minLabelHeight": 44,
+        "clippedLabels": 0,
+        "warning": true,
+        "legend": true,
+        "screenshot": "docs/evidence/milestone-4a/menu-filtered-1440-final.png"
+      },
+      {
+        "state": "empty",
+        "url": "http://127.0.0.1:8797/menu/",
+        "width": 1440,
+        "height": 1000,
+        "client": 1425,
+        "scroll": 1425,
+        "count": "Nessun piatto mostrato su 18",
+        "ids": [],
+        "minLabelHeight": 44,
+        "clippedLabels": 0,
+        "warning": true,
+        "legend": true,
+        "screenshot": "artifacts/milestone-4a-final/menu-empty-1440.png"
+      },
+      {
+        "state": "filtered",
+        "url": "http://127.0.0.1:8797/menu/",
+        "width": 768,
+        "height": 1000,
+        "client": 753,
+        "scroll": 753,
+        "count": "1 piatto mostrato su 18",
+        "ids": ["spaghetti-vongole"],
+        "minLabelHeight": 44,
+        "clippedLabels": 0,
+        "warning": true,
+        "legend": true,
+        "screenshot": "artifacts/milestone-4a-final/menu-filtered-768.png"
+      },
+      {
+        "state": "empty",
+        "url": "http://127.0.0.1:8797/menu/",
+        "width": 768,
+        "height": 1000,
+        "client": 753,
+        "scroll": 753,
+        "count": "Nessun piatto mostrato su 18",
+        "ids": [],
+        "minLabelHeight": 44,
+        "clippedLabels": 0,
+        "warning": true,
+        "legend": true,
+        "screenshot": "artifacts/milestone-4a-final/menu-empty-768.png"
+      },
+      {
+        "state": "filtered",
+        "url": "http://127.0.0.1:8797/menu/",
+        "width": 390,
+        "height": 844,
+        "client": 375,
+        "scroll": 375,
+        "count": "1 piatto mostrato su 18",
+        "ids": ["spaghetti-vongole"],
+        "minLabelHeight": 44,
+        "clippedLabels": 0,
+        "warning": true,
+        "legend": true,
+        "screenshot": "artifacts/milestone-4a-final/menu-filtered-390.png"
+      },
+      {
+        "state": "empty",
+        "url": "http://127.0.0.1:8797/menu/",
+        "width": 390,
+        "height": 844,
+        "client": 375,
+        "scroll": 375,
+        "count": "Nessun piatto mostrato su 18",
+        "ids": [],
+        "minLabelHeight": 44,
+        "clippedLabels": 0,
+        "warning": true,
+        "legend": true,
+        "screenshot": "artifacts/milestone-4a-final/menu-empty-390.png"
+      },
+      {
+        "state": "filtered",
+        "url": "http://127.0.0.1:8797/menu/",
+        "width": 320,
+        "height": 844,
+        "client": 305,
+        "scroll": 305,
+        "count": "1 piatto mostrato su 18",
+        "ids": ["spaghetti-vongole"],
+        "minLabelHeight": 44,
+        "clippedLabels": 0,
+        "warning": true,
+        "legend": true,
+        "screenshot": "artifacts/milestone-4a-final/menu-filtered-320.png"
+      },
+      {
+        "state": "empty",
+        "url": "http://127.0.0.1:8797/menu/",
+        "width": 320,
+        "height": 844,
+        "client": 305,
+        "scroll": 305,
+        "count": "Nessun piatto mostrato su 18",
+        "ids": [],
+        "minLabelHeight": 44,
+        "clippedLabels": 0,
+        "warning": true,
+        "legend": true,
+        "screenshot": "artifacts/milestone-4a-final/menu-empty-320.png"
+      }
+    ],
+    "emptyAxe": {
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            ["summary > span[aria-hidden=\"true\"]"],
+            ["a[href$=\"#risultati-menu\"] > span[aria-hidden=\"true\"]"],
+            [".menu-reset > span[aria-hidden=\"true\"]"],
+            [".menu-empty > button > span[aria-hidden=\"true\"]"]
+          ]
+        }
+      ],
+      "passes": 24
+    }
+  },
+  "visual": [
+    {
+      "url": "http://127.0.0.1:8797/galleria/",
+      "width": 1440,
+      "height": 1000,
+      "client": 1425,
+      "scroll": 1425,
+      "h1": 1,
+      "images": [
+        {
+          "src": "/images/sala-del-borgo-1440.webp",
+          "loaded": true,
+          "alt": true
+        },
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "loaded": true,
+          "alt": true
+        },
+        {
+          "src": "/images/a-tavola.svg",
+          "loaded": true,
+          "alt": true
+        }
+      ],
+      "outside": [],
+      "screenshot": "artifacts/milestone-4a-final/galleria-1440-final.png"
+    },
+    {
+      "url": "http://127.0.0.1:8797/galleria/",
+      "width": 768,
+      "height": 1000,
+      "client": 753,
+      "scroll": 753,
+      "h1": 1,
+      "images": [
+        {
+          "src": "/images/sala-del-borgo-1440.webp",
+          "loaded": true,
+          "alt": true
+        },
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "loaded": true,
+          "alt": true
+        },
+        {
+          "src": "/images/a-tavola.svg",
+          "loaded": true,
+          "alt": true
+        }
+      ],
+      "outside": [],
+      "screenshot": "docs/evidence/milestone-4a/galleria-768-final.png"
+    },
+    {
+      "url": "http://127.0.0.1:8797/galleria/",
+      "width": 390,
+      "height": 844,
+      "client": 375,
+      "scroll": 375,
+      "h1": 1,
+      "images": [
+        {
+          "src": "/images/sala-del-borgo-1440.webp",
+          "loaded": true,
+          "alt": true
+        },
+        {
+          "src": "/images/pranzo-condiviso-720.webp",
+          "loaded": true,
+          "alt": true
+        },
+        {
+          "src": "/images/a-tavola.svg",
+          "loaded": true,
+          "alt": true
+        }
+      ],
+      "outside": [],
+      "screenshot": "artifacts/milestone-4a-final/galleria-390-final.png"
+    },
+    {
+      "url": "http://127.0.0.1:8797/contatti/",
+      "width": 1440,
+      "height": 1000,
+      "client": 1425,
+      "scroll": 1425,
+      "h1": 1,
+      "images": [],
+      "outside": [],
+      "screenshot": "artifacts/milestone-4a-final/contatti-1440-final.png"
+    },
+    {
+      "url": "http://127.0.0.1:8797/contatti/",
+      "width": 768,
+      "height": 1000,
+      "client": 753,
+      "scroll": 753,
+      "h1": 1,
+      "images": [],
+      "outside": [],
+      "screenshot": "artifacts/milestone-4a-final/contatti-768-final.png"
+    },
+    {
+      "url": "http://127.0.0.1:8797/contatti/",
+      "width": 320,
+      "height": 844,
+      "client": 305,
+      "scroll": 305,
+      "h1": 1,
+      "images": [],
+      "outside": [],
+      "screenshot": "docs/evidence/milestone-4a/contatti-320-final.png"
+    }
+  ],
+  "finalCssNavigation": {
+    "reports": [
+      {
+        "url": "http://127.0.0.1:8797/storia/",
+        "width": 1440,
+        "active": [
+          {
+            "href": "/storia/",
+            "decoration": "underline"
+          }
+        ],
+        "inactive": [
+          {
+            "href": "/",
+            "decoration": "none"
+          },
+          {
+            "href": "/menu/",
+            "decoration": "none"
+          },
+          {
+            "href": "/galleria/",
+            "decoration": "none"
+          },
+          {
+            "href": "/contatti/",
+            "decoration": "none"
+          }
+        ]
+      },
+      {
+        "url": "http://127.0.0.1:8797/menu/",
+        "width": 1440,
+        "active": [
+          {
+            "href": "/menu/",
+            "decoration": "underline"
+          }
+        ],
+        "inactive": [
+          {
+            "href": "/",
+            "decoration": "none"
+          },
+          {
+            "href": "/storia/",
+            "decoration": "none"
+          },
+          {
+            "href": "/galleria/",
+            "decoration": "none"
+          },
+          {
+            "href": "/contatti/",
+            "decoration": "none"
+          }
+        ]
+      },
+      {
+        "url": "http://127.0.0.1:8797/galleria/",
+        "width": 1440,
+        "active": [
+          {
+            "href": "/galleria/",
+            "decoration": "underline"
+          }
+        ],
+        "inactive": [
+          {
+            "href": "/",
+            "decoration": "none"
+          },
+          {
+            "href": "/storia/",
+            "decoration": "none"
+          },
+          {
+            "href": "/menu/",
+            "decoration": "none"
+          },
+          {
+            "href": "/contatti/",
+            "decoration": "none"
+          }
+        ]
+      },
+      {
+        "url": "http://127.0.0.1:8797/contatti/",
+        "width": 1440,
+        "active": [
+          {
+            "href": "/contatti/",
+            "decoration": "underline"
+          }
+        ],
+        "inactive": [
+          {
+            "href": "/",
+            "decoration": "none"
+          },
+          {
+            "href": "/storia/",
+            "decoration": "none"
+          },
+          {
+            "href": "/menu/",
+            "decoration": "none"
+          },
+          {
+            "href": "/galleria/",
+            "decoration": "none"
+          }
+        ]
+      },
+      {
+        "url": "http://127.0.0.1:8797/",
+        "width": 1440,
+        "active": [
+          {
+            "href": "/",
+            "decoration": "underline"
+          }
+        ],
+        "inactive": [
+          {
+            "href": "/storia/",
+            "decoration": "none"
+          },
+          {
+            "href": "/menu/",
+            "decoration": "none"
+          },
+          {
+            "href": "/galleria/",
+            "decoration": "none"
+          },
+          {
+            "href": "/contatti/",
+            "decoration": "none"
+          }
+        ]
+      }
+    ],
+    "passed": true,
+    "css": "/assets/xO3SoV-d-style.css"
+  },
+  "captures": {
+    "css": "xO3SoV-d-style.css",
+    "reports": [
+      {
+        "path": "docs/evidence/milestone-4a/menu-filtered-1440-final.png",
+        "url": "http://127.0.0.1:8797/menu/",
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/menu-empty-1440.png",
+        "url": "http://127.0.0.1:8797/menu/",
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/menu-filtered-768.png",
+        "url": "http://127.0.0.1:8797/menu/",
+        "viewport": {
+          "width": 768,
+          "height": 1000
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/menu-empty-768.png",
+        "url": "http://127.0.0.1:8797/menu/",
+        "viewport": {
+          "width": 768,
+          "height": 1000
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/menu-filtered-390.png",
+        "url": "http://127.0.0.1:8797/menu/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/menu-empty-390.png",
+        "url": "http://127.0.0.1:8797/menu/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "top": 0
+      },
+      {
+        "path": "docs/evidence/milestone-4a/menu-empty-390-final.png",
+        "url": "http://127.0.0.1:8797/menu/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/menu-filtered-320.png",
+        "url": "http://127.0.0.1:8797/menu/",
+        "viewport": {
+          "width": 320,
+          "height": 844
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/menu-empty-320.png",
+        "url": "http://127.0.0.1:8797/menu/",
+        "viewport": {
+          "width": 320,
+          "height": 844
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/galleria-1440-final.png",
+        "url": "http://127.0.0.1:8797/galleria/",
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "top": 0
+      },
+      {
+        "path": "docs/evidence/milestone-4a/galleria-768-final.png",
+        "url": "http://127.0.0.1:8797/galleria/",
+        "viewport": {
+          "width": 768,
+          "height": 1000
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/galleria-390-final.png",
+        "url": "http://127.0.0.1:8797/galleria/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/contatti-1440-final.png",
+        "url": "http://127.0.0.1:8797/contatti/",
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "top": 0
+      },
+      {
+        "path": "artifacts/milestone-4a-final/contatti-768-final.png",
+        "url": "http://127.0.0.1:8797/contatti/",
+        "viewport": {
+          "width": 768,
+          "height": 1000
+        },
+        "top": 0
+      },
+      {
+        "path": "docs/evidence/milestone-4a/contatti-320-final.png",
+        "url": "http://127.0.0.1:8797/contatti/",
+        "viewport": {
+          "width": 320,
+          "height": 844
+        },
+        "top": 0
+      },
+      {
+        "path": "docs/evidence/milestone-4a/contatti-faq-390-final.png",
+        "url": "http://127.0.0.1:8797/contatti/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "top": 0
+      }
+    ]
+  },
+  "console": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "limits": [
+    "I 23 casi filtri precedono la correzione header/CSS, senza modifiche a dati o logica menu; tastiera e responsive sono successivi alla correzione header; catture e controllo CSS dopo la build finale.",
+    "Non eseguiti screen reader, Safari/dispositivi fisici, zoom browser 200% e disabilitazione JS nelle impostazioni del browser. SSR verificato separatamente da 10 test HTTP.",
+    "axe incomplete conservati; nessuna dichiarazione di conformità WCAG completa.",
+    "Nessuna ripetizione delle prove storiche iniziali già superate sulle altre celle della matrice."
+  ],
+  "network": {
+    "scope": "Solo origine http://127.0.0.1:8797, registro della sessione, non misura di caricamento singolo",
+    "requests": 1176,
+    "http200": 1089,
+    "http304": 87,
+    "httpErrors": 0,
+    "failed": 0
+  },
+  "cleanup": {
+    "dedicatedTabClosed": true,
+    "sharedBrowsersUnchanged": true,
+    "ownedWranglerStopped": true,
+    "listeners8797": 0
+  }
+}

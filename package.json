@@ -1,0 +1,48 @@
+{
+  "name": "osteria-del-borgo-demo",
+  "version": "0.1.0",
+  "description": "Case study di una trattoria italiana fittizia: Qwik City SSR su Cloudflare Pages",
+  "engines": {
+    "node": ">=22.12.0 <23 || >=24.0.0"
+  },
+  "packageManager": "npm@10.9.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "qwik build",
+    "build.client": "vite build",
+    "build.server": "qwik check-client src dist && vite build -c adapters/cloudflare-pages/vite.config.ts",
+    "build.types": "tsc --incremental --noEmit",
+    "typecheck": "tsc --noEmit",
+    "dev": "vite --mode ssr",
+    "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
+    "fmt": "prettier --write src adapters tests vite.config.ts eslint.config.js package.json tsconfig.json wrangler.jsonc README.md docs/ARCHITECTURE.md docs/DEPLOYMENT.md docs/CASE_STUDY.md docs/WORKLOG.md docs/ASSETS.md docs/BRAND_DIRECTION.md docs/CONTENT_AUDIT.md docs/QA_MANUAL.md docs/evidence/milestone-4a",
+    "fmt.check": "prettier --check src adapters tests vite.config.ts eslint.config.js package.json tsconfig.json wrangler.jsonc README.md docs/ARCHITECTURE.md docs/DEPLOYMENT.md docs/CASE_STUDY.md docs/WORKLOG.md docs/ASSETS.md docs/BRAND_DIRECTION.md docs/CONTENT_AUDIT.md docs/QA_MANUAL.md docs/evidence/milestone-4a",
+    "lint": "eslint src adapters tests vite.config.ts",
+    "test": "npm run test:unit && npm run test:ssr",
+    "test:unit": "node --experimental-strip-types --test tests/menu.test.mjs",
+    "test:ssr": "node --test tests/ssr.test.mjs",
+    "preview": "wrangler pages dev ./dist --ip 127.0.0.1 --port 8797",
+    "serve": "npm run preview",
+    "start": "vite --open --mode ssr",
+    "qwik": "qwik"
+  },
+  "devDependencies": {
+    "@builder.io/qwik": "^1.20.4",
+    "@builder.io/qwik-city": "^1.20.4",
+    "@eslint/js": "^9",
+    "@tailwindcss/vite": "^4.3.5",
+    "@types/node": "^22.20.5",
+    "axe-core": "4.14.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-qwik": "^1.20.4",
+    "globals": "16.4.0",
+    "prettier": "3.6.2",
+    "tailwindcss": "^4.3.5",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.72.2",
+    "vite": "7.3.7",
+    "vite-tsconfig-paths": "^4.2.1",
+    "wrangler": "^4.162.0"
+  }
+}

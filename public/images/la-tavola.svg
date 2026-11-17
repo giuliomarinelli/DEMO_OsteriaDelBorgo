@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs><pattern id="lines" width="35" height="35" patternUnits="userSpaceOnUse"><rect width="35" height="35" fill="#eddfca"/><path d="M0 17h35M17 0v35" stroke="#a4422e" stroke-opacity=".17" stroke-width="12"/></pattern></defs>
+  <rect width="800" height="600" fill="#d9decb"/><path d="M0 0h800v90H0z" fill="#c5ceb7"/>
+  <ellipse cx="400" cy="354" rx="362" ry="214" fill="#a9ac92"/><ellipse cx="400" cy="325" rx="362" ry="214" fill="url(#lines)"/>
+  <g fill="#f9f4e6" stroke="#526449" stroke-width="3"><circle cx="239" cy="320" r="101"/><circle cx="564" cy="320" r="101"/><circle cx="239" cy="320" r="86" stroke-width="1"/><circle cx="564" cy="320" r="86" stroke-width="1"/></g>
+  <g fill="#e1c19c"><path d="M182 299l103-17 19 69-103 16z"/><path d="M512 292l103 17-19 68-103-16z"/></g>
+  <g stroke="#777f6a" stroke-width="7" stroke-linecap="round"><path d="M104 270v100m270-100v100m55-100v100m271-100v100"/></g>
+  <g fill="#f7f1de" fill-opacity=".5" stroke="#7b816b" stroke-width="2"><ellipse cx="300" cy="165" rx="30" ry="36"/><path d="M300 201v39m-20 0h40"/><ellipse cx="500" cy="165" rx="30" ry="36"/><path d="M500 201v39m-20 0h40"/></g>
+  <path d="M377 271h47l14 119q-38 15-76 0z" fill="#a4422e"/><path d="M399 275l8-163m-7 111l-39-62m42 34l43-58" fill="none" stroke="#526449" stroke-width="4"/>
+  <g fill="#526449"><ellipse cx="401" cy="117" rx="9" ry="25" transform="rotate(-15 401 117)"/><ellipse cx="386" cy="155" rx="8" ry="23" transform="rotate(-43 386 155)"/><ellipse cx="421" cy="147" rx="8" ry="23" transform="rotate(37 421 147)"/><ellipse cx="364" cy="161" rx="8" ry="23" transform="rotate(-50 364 161)"/><ellipse cx="444" cy="139" rx="8" ry="23" transform="rotate(44 444 139)"/></g>
+  <text x="400" y="560" text-anchor="middle" fill="#283e32" font-family="Georgia,serif" font-style="italic" font-size="25">Il posto più bello è quello condiviso.</text>
+</svg>
